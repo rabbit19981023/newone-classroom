@@ -22,25 +22,25 @@ function getAllRooms (callback) {
   })
 }
 
-async function addNewRoom (newRoom, callback) {
+function addNewRoom (newRoom, callback) {
   RoomModel.findOne({ room_id: newRoom.room_id }, (error, room) => {
     if (error) {
-      return callback(error, null)
+      return callback(error, null)      
     }
 
     if (room) {
       return callback(null, room)
     }
+    
+    const roomDoc = new RoomModel({
+      room_id: newRoom.room_id,
+      data: {}
+    })
+  
+    roomDoc.save().then((roomDoc) => {
+      return callback(null, null) // no error, no room exists
+    })    
   })
-
-  const roomDoc = new RoomModel({
-    room_id: newRoom.room_id,
-    data: {}
-  })
-
-  await roomDoc.save()
-
-  return callback(null, null) // no error, no room exists
 }
 
 function deleteRoom (roomId, callback) {
@@ -49,7 +49,6 @@ function deleteRoom (roomId, callback) {
       return callback(error, null)
     }
 
-    console.log(room)
     return callback(null, room)
   })
 }
