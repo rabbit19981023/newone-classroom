@@ -1,0 +1,37 @@
+<form action="/admin/room" method="POST">
+	<label for="room_id">教室：</label>
+	<input id="room_id" type="text" name="room_id">
+
+	<button type="submit">新增教室</button>
+</form>
+
+<form action="/admin/room/delete" method="POST">
+	<label for="room_id">教室：</label>
+	<select id="room_id" name="room_id">
+		<option value="null">請選擇教室</option>
+		{{#each rooms}}
+			<option value="{{ this.room_id }}">{{ this.room_id }}</option>
+		{{/each}}
+	</select>
+
+	<button onclick="doubleCheck(event)">刪除教室</button>
+
+	<div id="double-check" style="display: none">
+		<span>警告：此動作將刪除所有該教室歷史資料，工程師也救不了你！</span>
+		<button type="submit">確認刪除</button>
+	</div>
+</form>
+
+<span>{{ message }}</span>
+
+{{#extend 'title'}}
+<title>教室借用系統 - 教室管理</title>
+{{/extend}}
+
+{{#extend 'css'}}
+
+{{/extend}}
+
+{{#extend 'scripts'}}
+<script src="/js/rooms-manage.js"></script>
+{{/extend}}

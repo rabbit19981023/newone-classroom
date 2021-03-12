@@ -1,71 +1,72 @@
+// import mongoose
 import mongoose from 'mongoose'
 const { Schema, model } = mongoose
 
+// design a schema for our Classroom collection
 const roomSchema = new Schema({
-	room_id: String,
-	data: Object
+  room_id: String,
+  data: Object
 })
 
+// compiling our classroom schema into Classroom Model (Classroom collection)
 const RoomModel = model('Classrooms', roomSchema)
 
+/** Classroom Model APIs **/
 function getAllRooms (callback) {
-  RoomModel.find((error, rooms) => {
+  RoomModel.find().sort('room_id').exec((error, rooms) => {
     if (error) {
-      callback(error, [])
-      return
+      return callback(error, null)      
     }
 
-    callback(null, rooms)    
+    return callback(null, rooms)
   })
 }
 
-function addNewRoom (newRoom, callback) {
-  RoomModel.findByOne({ room_id: newRoom.room_id }, (error, room) => {
+async function addNewRoom (newRoom, callback) {
+  RoomModel.findOne({ room_id: newRoom.room_id }, (error, room) => {
     if (error) {
-      console.error(`Database connecting ERROR:\n${error}`)
+      return callback(error, null)
     }
 
     if (room) {
-      console.log(`The classroom already exits: ${room}`)
+      return callback(null, room)
     }
-
-    const roomDoc = new RoomModel({
-      room_id: newRoom.room_id,
-      data: {}
-    })
-
-    roomDoc.save(callback)    
   })
+
+  const roomDoc = new RoomModel({
+    room_id: newRoom.room_id,
+    data: {}
+  })
+
+  await roomDoc.save()
+
+  return callback(null, null) // no error, no room exists
 }
 
-function deleteRoom (room, callback) {
-  RoomModel.deleteOne({ room_id: room.room_id }, (error) => {
+function deleteRoom (roomId, callback) {
+  RoomModel.deleteOne({ room_id: roomId }, (error, room) => {
     if (error) {
-      console.error(`Database connecting ERROR:\n${error}`)
+      return callback(error, null)
     }
 
-    console.log(`Deleted successfully!`)
+    console.log(room)
+    return callback(null, room)
   })
 }
 
 function addNewTime (room, callback) {
-  RoomModel.findByOne({ room_id: room.room_id }, (error, room) => {
-    if (error) {
-      console.error(`Database connecting ERROR:\n${error}`)
-    }
 
-    // 可能有複寫的問題，造成每間教室只能有一個星期、一個時段
-    if (room) {
-      RoomModel.updateOne({ room_id: room.room_id }, {
-        "data[room.week]": {
-          time: room.time
-        }
-      })
-    }
-
-  })
 }
 
 function addNewUser (newUser, callback) {
 
+}
+
+// export all the Classroom Model APIs
+export default {
+  getAllRooms: getAllRooms,
+  addNewRoom: addNewRoom,
+  deleteRoom: deleteRoom,
+  addNewTime: addNewTime,
+  addNewUser: addNewUser
 }
