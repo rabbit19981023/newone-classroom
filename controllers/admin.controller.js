@@ -26,7 +26,7 @@ export default {
 
     add: function (req, res) {
       const newRoom = {}
-      newRoom.room_id = req.body.room_id
+      newRoom.room_name = req.body.room_name
 
       RoomApi.addNewRoom(newRoom, (error, existRoom) => {
         if (error) {
@@ -38,21 +38,21 @@ export default {
 
         if (existRoom) {
           return allRoomsDisplay((data) => {
-            res.render('roomsManage', { rooms: data, message: `${existRoom.room_id}教室已經被登錄過囉！` })
+            res.render('roomsManage', { rooms: data, message: `${existRoom.room_name}教室已經被登錄過囉！` })
           })          
         }
         
         return allRoomsDisplay((data) => {
-          res.render('roomsManage', { rooms: data, message: `${newRoom.room_id}教室已成功登錄！` })
+          res.render('roomsManage', { rooms: data, message: `${newRoom.room_name}教室已成功登錄！` })
         })
       })
       return      
     },
 
     delete: function (req, res) {    
-      const roomId = req.body.room_id
+      const roomName = req.body.room_name
 
-      RoomApi.deleteRoom(roomId, (error, room) => {
+      RoomApi.deleteRoom(roomName, (error, room) => {
         if (error) {
           return allRoomsDisplay((data) => {
             return res.render('roomsManage', { rooms: data, message: '目前無法連線到資料庫，請等候5分鐘再試，或直接聯繫工程師' })
@@ -60,7 +60,7 @@ export default {
         }
         
         return allRoomsDisplay((data) => {
-          return res.redirect('/admin/room?message=' + encodeURIComponent(`${roomId}教室已成功刪除`))
+          return res.redirect('/admin/room?message=' + encodeURIComponent(`${roomName}教室已成功刪除`))
         })        
       })      
       return

@@ -9,7 +9,6 @@ export default {
       }
 
       res.json(rooms)
-      // res.render('index', { rooms: rooms })
     })
   }
 }

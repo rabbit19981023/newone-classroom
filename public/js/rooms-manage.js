@@ -3,7 +3,7 @@ function getErrorMessage () {
 
 	const errorMessage = urlParams.get('message')
 
-	if (errorMessage.includes('null')) {
+	if (errorMessage.includes('null') | errorMessage.includes('undefined')) {
     return
   } else {
     window.alert(errorMessage)

@@ -1,16 +1,16 @@
 <form action="/admin/room" method="POST">
-	<label for="room_id">教室：</label>
-	<input id="room_id" type="text" name="room_id">
+	<label for="room_name">教室：</label>
+	<input id="room_name" type="text" name="room_name">
 
 	<button type="submit">新增教室</button>
 </form>
 
 <form action="/admin/room/delete" method="POST">
-	<label for="room_id">教室：</label>
-	<select id="room_id" name="room_id">
+	<label for="room_name">教室：</label>
+	<select id="room_name" name="room_name">
 		<option value="null">請選擇教室</option>
 		{{#each rooms}}
-			<option value="{{ this.room_id }}">{{ this.room_id }}</option>
+			<option value="{{ this.room_name }}">{{ this.room_name }}</option>
 		{{/each}}
 	</select>
 
