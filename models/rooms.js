@@ -25,21 +25,21 @@ function getAllRooms (callback) {
 function addNewRoom (newRoom, callback) {
   RoomModel.findOne({ room_name: newRoom.room_name }, (error, room) => {
     if (error) {
-      return callback(error, null)      
+      return callback(error, null)
     }
 
     if (room) {
       return callback(null, room)
     }
-    
+
     const roomDoc = new RoomModel({
       room_name: newRoom.room_name,
       data: {}
     })
-  
+
     roomDoc.save().then((roomDoc) => {
       return callback(null, null) // no error, no room exists
-    })    
+    })
   })
 }
 

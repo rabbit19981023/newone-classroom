@@ -6,8 +6,8 @@ import morgan from 'morgan'
 import dotenv from 'dotenv'
 import db from './db.js' // custom mudule
 import handlebarsHelpers from './lib/handlebarsHelpers.js' // custom module
-import indexRoutes from './routes/index.routes.js'
-import adminRoutes from './routes/admin.routes.js'
+import indexRoutes from './routes/index.routes.js' // custom routes
+import adminRoutes from './routes/admin.routes.js' // custom routes
 
 /** Configurations **/
 dotenv.config()
@@ -31,10 +31,10 @@ app.use(express.json()) // fetch JSON Data from received POST Requests
 app.use(express.urlencoded({ extended: true })) // fetch Form Data from received POST Requests
 
 /** Routes **/
-app.use('/index/', indexRoutes)
+app.use('/', indexRoutes)
 app.use('/admin/', adminRoutes)
 
 /** Activating the Server **/
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => { console.log(`The Server is Running at PORT:${PORT}......`) })

@@ -1,11 +1,9 @@
 function getErrorMessage () {
-	const urlParams = new URLSearchParams(window.location.search)
+  const urlParams = new URLSearchParams(window.location.search)
 
-	const errorMessage = urlParams.get('message')
+  const errorMessage = urlParams.get('message')
 
-	if (errorMessage.includes('null') | errorMessage.includes('undefined')) {
-    return
-  } else {
+  if ((errorMessage.includes('null') | errorMessage.includes('undefined')) === 0) {
     window.alert(errorMessage)
   }
 }
@@ -16,9 +14,6 @@ function doubleCheck (event) {
   const div = document.getElementById('double-check')
 
   div.style.display = 'flex'
-
-
 }
-
 
 getErrorMessage()

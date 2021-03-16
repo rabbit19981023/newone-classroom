@@ -5,10 +5,12 @@ export default {
   index: function (req, res) {
     RoomModel.getAllRooms((error, rooms) => {
       if (error) {
-        console.error(`Database connecting ERROR:\n${error}`)
+        return res.json({
+          error: '目前無法連線到資料庫，請等候5分鐘再試，或直接聯繫工程師'
+        })
       }
 
-      res.json(rooms)
+      return res.json(rooms)
     })
   }
 }
