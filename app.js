@@ -1,13 +1,19 @@
+/** import modules **/
 import express from 'express'
 import expressHandlebars from 'express-handlebars'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
-import db from './db.js' // custom mudule
-import handlebarsHelpers from './lib/handlebarsHelpers.js' // custom module
-import indexRoutes from './routes/index.routes.js' // custom routes
-import adminRoutes from './routes/admin.routes.js' // custom routes
+
+/** import custom modules **/
+import db from './db.js'
+import handlebarsHelpers from './lib/handlebarsHelpers.js'
+
+/** import custom routes **/
+import indexRoutes from './routes/index.routes.js'
+import roomsManageRoutes from './routes/roomsManage.routes.js'
+import roomTimeManageRoutes from './routes/roomTimeManage.routes.js'
 
 /** Configurations **/
 dotenv.config()
@@ -32,7 +38,8 @@ app.use(express.urlencoded({ extended: true })) // fetch Form Data from received
 
 /** Routes **/
 app.use('/', indexRoutes)
-app.use('/admin/', adminRoutes)
+app.use('/rooms-manage/', roomsManageRoutes)
+app.use('/room-time-manage', roomTimeManageRoutes)
 
 /** Activating the Server **/
 const PORT = process.env.PORT || 3000
