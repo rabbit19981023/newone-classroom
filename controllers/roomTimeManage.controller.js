@@ -1,12 +1,10 @@
 // import data models
-import roomTimeModelApi from '../models/roomTime.js'
-
-// import getAllRooms to display all classrooms
-import getAllRooms from '../lib/getAllRooms.js'
+import RoomsListModelApi from '../models/roomsList.js'
+import RoomTimeModelApi from '../models/roomTime.js'
 
 export default {
   index: function (req, res) {
-    getAllRooms((error, rooms) => {
+    RoomsListModelApi.getAllRooms((error, rooms) => {
       if (error) { return res.send('<h1>目前無法連線到資料庫，請等候5分鐘再試</h1>') }
 
       rooms = JSON.parse(JSON.stringify(rooms))

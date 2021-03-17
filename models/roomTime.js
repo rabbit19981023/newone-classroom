@@ -14,6 +14,7 @@ const roomTimeSchema = new Schema({
 // compiling our roomTimeSchema into a RoomTime Model instance (same as a RoomTime Collection)
 const RoomTimeModel = model('RoomTime', roomTimeSchema)
 
+/** RoomTime Model APIs **/
 function addNewTime (room, callback) {
 
 }
