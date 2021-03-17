@@ -7,3 +7,4 @@ yarn.lock
 build
 test.js
 rooms(deprecated).js
+getAllRooms(deprecated).js
