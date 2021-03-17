@@ -15,7 +15,7 @@ const roomTimeSchema = new Schema({
 const RoomTimeModel = model('RoomTime', roomTimeSchema)
 
 function addNewTime (room, callback) {
-  
+
 }
 
 export default {

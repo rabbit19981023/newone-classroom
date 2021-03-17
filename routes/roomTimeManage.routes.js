@@ -3,4 +3,6 @@ import roomTimeManageController from '../controllers/roomTimeManage.controller.j
 
 const router = Router()
 
+router.get('/index', roomTimeManageController.index)
+
 export default router
