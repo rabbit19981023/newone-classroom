@@ -1,3 +1,20 @@
+body {
+  background: url(/img/bg.jpg) no-repeat;
+  background-size: 1800px 840px;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    background-size: cover;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    padding: 25px 80px 10px;
+  }
+}
+
 .container-button {
   display: flex;
   justify-content: center;

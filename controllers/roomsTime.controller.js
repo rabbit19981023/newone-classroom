@@ -3,15 +3,7 @@ import RoomsListModel from '../models/roomsList.js'
 import RoomsTimeModel from '../models/roomsTime.js'
 
 const data = {
-  weeks: {
-    Monday: '一',
-    Tuesday: '二',
-    Wednesday: '三',
-    Thursday: '四',
-    Friday: '五',
-    Saturday: '六',
-    Sunday: '日'
-  },
+  weeks: ['一', '二', '三', '四', '五', '六', '日'],
 
   times: [
     '0800~0900',
@@ -64,8 +56,11 @@ export default {
   },
 
   deleteIndex: function (req, res) {
-    RoomsTimeModel.getAllRoomsTime((error, roomstime) => {
+    RoomsTimeModel.getAllRoomsTime((error, roomsTime) => {
 
+      const allRoomsTime = JSON.parse(JSON.stringify(roomsTime))
+
+      res.json(allRoomsTime)
     })
   },
 

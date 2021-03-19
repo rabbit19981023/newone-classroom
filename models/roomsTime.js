@@ -2,8 +2,8 @@
 import mongoose from 'mongoose'
 const { Schema, model } = mongoose
 
-// design a Schema for RoomTime Model (same as RoomTime Collection)
-const roomTimeSchema = new Schema({
+// design a Schema for RoomsTime Model (same as RoomsTime Collection)
+const roomsTimeSchema = new Schema({
   room_name: String,
   time_data: {
     week: String,
@@ -11,16 +11,20 @@ const roomTimeSchema = new Schema({
   }
 })
 
-// compiling our roomTimeSchema into a RoomTime Model instance (same as a RoomTime Collection)
-const RoomTimeModel = model('RoomTime', roomTimeSchema)
+// compiling our roomsTimeSchema into a RoomsTime Model instance (same as a RoomsTime Collection)
+const RoomsTimeModel = model('RoomsTime', roomsTimeSchema)
 
-/** RoomTime Model APIs **/
-function getAllRoomTimes (callback) {
-  
+/** RoomsTime Model APIs **/
+function getAllRoomsTime (callback) {
+  RoomsTimeModel.find().sort({ room_name: 1, 'time_data.week': 1 }).exec((error, roomsTime) => {
+    if (error) { return callback(error, null) }
+
+    return callback(null, roomsTime)
+  })
 }
 
 function addTime (data, callback) {
-  RoomTimeModel.findOne({ room_name: data.room_name, 'time_data.week': data.week }, (error, roomTime) => {
+  RoomsTimeModel.findOne({ room_name: data.room_name, 'time_data.week': data.week }, (error, roomTime) => {
     if (error) { return callback(error, null) }
 
     if (roomTime) {
@@ -29,10 +33,12 @@ function addTime (data, callback) {
       }
 
       roomTime.time_data.time.push(data.time)
+      roomTime.time_data.time.sort()
+
       return roomTime.save().then(roomTimeDoc => { return callback(null, roomTimeDoc) })
     }
 
-    const roomTimeDoc = new RoomTimeModel({
+    const roomTimeDoc = new RoomsTimeModel({
       room_name: data.room_name,
       time_data: {
         week: data.week,
@@ -49,5 +55,6 @@ function deleteTime (data, callback) {
 }
 
 export default {
-  addTime: addTime
+  addTime: addTime,
+  getAllRoomsTime: getAllRoomsTime
 }
