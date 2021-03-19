@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 25px 25px 11px;
+  background-color: #ffffff;
+  border: 1px solid;
+  border-radius: 5px;
+  box-shadow: 7px 7px 5px #aaaaaa;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    width: 80%;
+  }
+}
+
+.container-select {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+label {
+  margin-right: 10px;
+}
+
+button {
+  padding: 5px;
+}

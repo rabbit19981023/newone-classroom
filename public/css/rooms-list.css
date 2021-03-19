@@ -1,0 +1,27 @@
+form[action="/rooms-manage/delete"] .container-select {
+  margin-top: 20px;
+}
+
+input[id="room_name"] {
+  width: 100px;
+  margin-right: 10px;
+}
+
+select[id="room_name"] {
+  margin-right: 10px
+}
+
+#double-check {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#double-check span {
+  font-size: 13px;
+}
+
+#double-check button {
+  width: 120px;
+  margin-top: 5px;
+}

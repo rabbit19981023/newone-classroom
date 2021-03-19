@@ -1,0 +1,17 @@
+.container-button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.container-button button[type="submit"] {
+  margin-right: 15px;
+}
+
+#double-check {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}

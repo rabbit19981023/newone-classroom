@@ -12,8 +12,8 @@ import handlebarsHelpers from './lib/handlebarsHelpers.js'
 
 /** import custom routes **/
 import indexRoutes from './routes/index.routes.js'
-import roomsManageRoutes from './routes/roomsManage.routes.js'
-import roomTimeManageRoutes from './routes/roomTimeManage.routes.js'
+import roomsListRoutes from './routes/roomsList.routes.js'
+import roomsTimeRoutes from './routes/roomsTime.routes.js'
 
 /** Configurations **/
 dotenv.config()
@@ -38,8 +38,8 @@ app.use(express.urlencoded({ extended: true })) // fetch Form Data from received
 
 /** Routes **/
 app.use('/', indexRoutes)
-app.use('/rooms-manage/', roomsManageRoutes)
-app.use('/room-time-manage', roomTimeManageRoutes)
+app.use('/admin/rooms/list', roomsListRoutes)
+app.use('/admin/rooms/time', roomsTimeRoutes)
 
 /** Activating the Server **/
 const PORT = process.env.PORT || 3000

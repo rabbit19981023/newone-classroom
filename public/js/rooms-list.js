@@ -3,14 +3,14 @@ function getErrorMessage () {
 
   const errorMessage = urlParams.get('message')
 
-  if ((errorMessage.includes('null') | errorMessage.includes('undefined')) === 0) {
+  if (errorMessage.includes('null')) {
+    window.alert('請選擇要刪除的教室！')
+  } else {
     window.alert(errorMessage)
   }
 }
 
-function doubleCheck (event) {
-  event.preventDefault()
-
+function doubleCheck () {
   const div = document.getElementById('double-check')
 
   div.style.display = 'flex'

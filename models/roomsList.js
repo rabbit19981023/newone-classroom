@@ -7,7 +7,7 @@ const roomsListSchema = new Schema({
   room_name: String
 })
 
-// compiling our roomsListSchema into a RoomsList Model instance (same as a RoomsList Collection)
+// compiling our roomsList Schema into a RoomsList Model instance (same as a RoomsList Collection)
 const RoomsListModel = model('RoomsList', roomsListSchema)
 
 /** RoomsList Model APIs **/
@@ -19,7 +19,7 @@ function getAllRooms (callback) {
   })
 }
 
-function addNewRoom (roomName, callback) {
+function addRoom (roomName, callback) {
   RoomsListModel.findOne({ room_name: roomName }, (error, room) => {
     if (error) { return callback(error, null) }
 
@@ -27,7 +27,7 @@ function addNewRoom (roomName, callback) {
 
     const roomDoc = new RoomsListModel({ room_name: roomName })
 
-    roomDoc.save().then((roomDoc) => { return callback(null, null) }) // no error occured, no room exists
+    roomDoc.save().then((roomDoc) => { return callback(null, null) }) // no error occurred, no room already exits
   })
 }
 
@@ -41,6 +41,6 @@ function deleteRoom (roomName, callback) {
 
 export default {
   getAllRooms: getAllRooms,
-  addNewRoom: addNewRoom,
+  addRoom: addRoom,
   deleteRoom: deleteRoom
 }
