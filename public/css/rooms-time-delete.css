@@ -2,3 +2,11 @@ table, th, td {
   text-align: center;
   border: 1px solid #333333;
 }
+
+th {
+  padding: 5px 30px;
+}
+
+td {
+  padding: 5px 15px;
+}

@@ -25,19 +25,18 @@ const timeData = {
   ]
 }
 
-const rooms = []
-function getAllRoomsTime(res, callback) {
+function getAllRoomsTime (callback) {
   RoomsTimeModel.getAllRoomsTime((error, roomsTime) => {
-    if (error) { return res.send('<h1>目前無法連線到資料庫，請等候5分鐘再試！</h1>') }
+    const rooms = []
 
     roomsTime.forEach((roomTime) => {
-      if (rooms.includes(roomTime.room_name) !== true) {
+      if (!rooms.includes(roomTime.room_name)) {
         rooms.push(roomTime.room_name)
         rooms.sort()
       }
     })
 
-    return callback()
+    return callback(error, rooms)
   })
 }
 
@@ -65,20 +64,25 @@ export default {
     RoomsTimeModel.addTime(roomTime, (error, data) => {
       if (error) { return res.send('<h1>目前無法連線到伺服器，請等候5分鐘再試！</h1>') }
 
-      if (data) { return res.redirect(`/admin/rooms/time?message=新增教室時段成功！`) }
+      if (data) { return res.redirect('/admin/rooms/time?message=新增教室時段成功！') }
 
-      res.redirect(`/admin/rooms/time?message=該教室時段已被登錄過囉！`)
+      res.redirect('/admin/rooms/time?message=該教室時段已被登錄過囉！')
     })
   },
 
   deleteIndex: function (req, res) {
-    getAllRoomsTime(res, () => {
-      res.render('roomsTimeDeleteIndex', { rooms: rooms, timeData: timeData })
-    })
-  },
+    if (!req.params.room_name) {
+      getAllRoomsTime((error, rooms) => {
+        if (error) { return res.send('<h1>目前無法連線到伺服器，請等候5分鐘再試！</h1>') }
 
-  deleteIndexRoomName: function (req, res) {
-    getAllRoomsTime(res, () => {
+        return res.render('roomsTimeDeleteIndex', { rooms: rooms, timeData: timeData })
+      })
+      return
+    }
+
+    getAllRoomsTime((error, rooms) => {
+      if (error) { return res.send('<h1>目前無法連線到伺服器，請等候5分鐘再試！</h1>') }
+
       const roomName = req.params.room_name
 
       RoomsTimeModel.getRoomsTime(roomName, (error, roomsTime) => {
@@ -88,37 +92,30 @@ export default {
 
         timeData.times.forEach((time) => {
           data[time] = {
-            '0': false,
-            '1': false,
-            '2': false,
-            '3': false,
-            '4': false,
-            '5': false,
-            '6': false,
+            0: false,
+            1: false,
+            2: false,
+            3: false,
+            4: false,
+            5: false,
+            6: false
           }
         })
 
         roomsTime.forEach((roomTime) => {
-          roomTime.time_data.time.forEach((time) => {
-            data[time][roomTime.time_data.week] = true
+          roomTime.times.forEach((time) => {
+            data[time][roomTime.week] = true
           })
         })
 
-        console.log(JSON.stringify(data))
+        console.log(data)
 
-        res.render('roomsTimeDelete', { rooms: rooms, roomName: roomName, data: data, timeData: timeData })
+        return res.render('roomsTimeDelete', { rooms: rooms, roomName: roomName, data: data, timeData: timeData })
       })
     })
   },
-
+  
   deleteTime: function (req, res) {
-    const roomTime = {}
-    roomTime.room_name = req.body.room_name
-    roomTime.week = req.body.week
-    roomTime.time = req.body.time
-
-    RoomsTimeModel.deleteTime(roomTime, (error, data) => {
-
-    })
+    console.log(req.body.rooms_time)
   }
 }
