@@ -23,6 +23,14 @@ function getAllRoomsTime (callback) {
   })
 }
 
+function getRoomsTime (roomName, callback) {
+  RoomsTimeModel.find({ room_name: roomName }, (error, roomsTime) => {
+    if (error) { return callback(error, null) }
+
+    return callback(null, roomsTime)
+  })
+}
+
 function addTime (data, callback) {
   RoomsTimeModel.findOne({ room_name: data.room_name, 'time_data.week': data.week }, (error, roomTime) => {
     if (error) { return callback(error, null) }
@@ -55,6 +63,7 @@ function deleteTime (data, callback) {
 }
 
 export default {
-  addTime: addTime,
-  getAllRoomsTime: getAllRoomsTime
+  getAllRoomsTime: getAllRoomsTime,
+  getRoomsTime: getRoomsTime,
+  addTime: addTime
 }

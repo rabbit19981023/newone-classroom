@@ -2,7 +2,7 @@
 import RoomsListModel from '../models/roomsList.js'
 import RoomsTimeModel from '../models/roomsTime.js'
 
-const data = {
+const timeData = {
   weeks: ['一', '二', '三', '四', '五', '六', '日'],
 
   times: [
@@ -25,6 +25,22 @@ const data = {
   ]
 }
 
+const rooms = []
+function getAllRoomsTime(res, callback) {
+  RoomsTimeModel.getAllRoomsTime((error, roomsTime) => {
+    if (error) { return res.send('<h1>目前無法連線到資料庫，請等候5分鐘再試！</h1>') }
+
+    roomsTime.forEach((roomTime) => {
+      if (rooms.includes(roomTime.room_name) !== true) {
+        rooms.push(roomTime.room_name)
+        rooms.sort()
+      }
+    })
+
+    return callback()
+  })
+}
+
 export default {
   index: function (req, res) {
     RoomsListModel.getAllRooms((error, rooms) => {
@@ -32,7 +48,7 @@ export default {
 
       const allRooms = JSON.parse(JSON.stringify(rooms)) // JSON.parse is synchronous!
 
-      return res.render('roomsTime', { rooms: allRooms, data: data })
+      return res.render('roomsTime', { rooms: allRooms, timeData: timeData })
     })
   },
 
@@ -56,11 +72,42 @@ export default {
   },
 
   deleteIndex: function (req, res) {
-    RoomsTimeModel.getAllRoomsTime((error, roomsTime) => {
+    getAllRoomsTime(res, () => {
+      res.render('roomsTimeDeleteIndex', { rooms: rooms, timeData: timeData })
+    })
+  },
 
-      const allRoomsTime = JSON.parse(JSON.stringify(roomsTime))
+  deleteIndexRoomName: function (req, res) {
+    getAllRoomsTime(res, () => {
+      const roomName = req.params.room_name
 
-      res.json(allRoomsTime)
+      RoomsTimeModel.getRoomsTime(roomName, (error, roomsTime) => {
+        if (error) { return res.send('<h1>目前無法連線到伺服器，請等候5分鐘再試！</h1>') }
+
+        const data = {}
+
+        timeData.times.forEach((time) => {
+          data[time] = {
+            '0': false,
+            '1': false,
+            '2': false,
+            '3': false,
+            '4': false,
+            '5': false,
+            '6': false,
+          }
+        })
+
+        roomsTime.forEach((roomTime) => {
+          roomTime.time_data.time.forEach((time) => {
+            data[time][roomTime.time_data.week] = true
+          })
+        })
+
+        console.log(JSON.stringify(data))
+
+        res.render('roomsTimeDelete', { rooms: rooms, roomName: roomName, data: data, timeData: timeData })
+      })
     })
   },
 

@@ -6,7 +6,8 @@ const router = Router()
 /** /admin/rooms/time/ Routes **/
 router.get('/', roomsTimeController.index)
 router.post('/add', roomsTimeController.addTime)
-router.get('/delete', roomsTimeController.deleteIndex)
+router.get('/delete/', roomsTimeController.deleteIndex)
+router.get('/delete/:room_name', roomsTimeController.deleteIndexRoomName)
 router.post('/delete', roomsTimeController.deleteTime)
 
 export default router

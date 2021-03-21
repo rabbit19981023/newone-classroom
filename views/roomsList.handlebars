@@ -14,7 +14,7 @@
 			<select id="room_name" name="room_name">
 				<option value="null">請選擇教室</option>
 				{{#each rooms}}
-				<option value="{{ this.room_name }}">{{ this.room_name }}</option>
+					<option value="{{ this.room_name }}">{{ this.room_name }}</option>
 				{{/each}}
 			</select>
 
@@ -22,7 +22,7 @@
 		</div>
 
 		<div id="double-check" style="display: none">
-			<span>警告：此動作將刪除所有該教室歷史資料</span>
+			<span>您確定要刪除此教室？</span>
 			<button type="submit">確認刪除</button>
 		</div>
 	</form>

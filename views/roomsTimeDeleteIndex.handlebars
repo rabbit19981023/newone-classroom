@@ -10,7 +10,7 @@
 
 <div class="container-table">
   <table>
-    <caption>{{ roomName }}教室時段表</caption>
+    <caption>教室時段表</caption>
 
     <thead>
       <tr>
@@ -22,9 +22,30 @@
     </thead>
 
     <tbody>
-      {{#each data}}
+      {{#each timeData.times}}
         <tr>
-          <td>{{ @key }}</td>
+          <td>{{ this }}</td>
+          <td>
+            <input type="checkbox" disabled>
+          </td>
+          <td>
+            <input type="checkbox" disabled>
+          </td>
+          <td>
+            <input type="checkbox" disabled>
+          </td>
+          <td>
+            <input type="checkbox" disabled>
+          </td>
+          <td>
+            <input type="checkbox" disabled>
+          </td>
+          <td>
+            <input type="checkbox" disabled>
+          </td>
+          <td>
+            <input type="checkbox" disabled>
+          </td>
         </tr>
       {{/each}}
     </tbody>

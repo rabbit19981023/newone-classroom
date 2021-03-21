@@ -5,7 +5,7 @@
       <select id="room_name" name="room_name">
         <option value="null">請選擇教室</option>
         {{#each rooms}}
-        <option value={{ this.room_name }}>{{ this.room_name }}</option>
+          <option value={{ this.room_name }}>{{ this.room_name }}</option>
         {{/each}}
       </select>
     </div>
@@ -13,8 +13,8 @@
     <div class="container-select">
       <label for="week">星期：</label>
       <select id="week" name="week">
-        {{#each data.weeks}}
-        <option value="{{ @index }}">{{ this }}</option>
+        {{#each timeData.weeks}}
+          <option value="{{ @index }}">{{ this }}</option>
         {{/each}}
       </select>
     </div>
@@ -22,8 +22,8 @@
     <div class="container-select">
       <label for="time">時段：</label>
       <select id="time" name="time">
-        {{#each data.times}}
-        <option value="{{ this }}">{{ this }}</option>
+        {{#each timeData.times}}
+          <option value="{{ this }}">{{ this }}</option>
         {{/each}}
       </select>
     </div>
