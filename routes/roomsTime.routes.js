@@ -8,6 +8,6 @@ router.get('/', roomsTimeController.index)
 router.post('/add', roomsTimeController.addTime)
 router.get('/delete/', roomsTimeController.deleteIndex)
 router.get('/delete/:room_name', roomsTimeController.deleteIndex)
-router.post('/delete', roomsTimeController.deleteTime)
+router.post('/delete/:room_name', roomsTimeController.deleteTime)
 
 export default router

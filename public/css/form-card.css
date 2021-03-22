@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -28,13 +28,7 @@ label {
   margin-right: 10px;
 }
 
-input {
-  background-color:rgba(255, 255, 255, 0.8);
-  border: 1px solid #6E6E6E;
-  border-radius: 5px;
-}
-
-select {
+input, select {
   background-color:rgba(255, 255, 255, 0.8);
   border: 1px solid #6E6E6E;
   border-radius: 5px;

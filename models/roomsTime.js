@@ -13,7 +13,7 @@ const roomsTimeSchema = new Schema({
 const RoomsTimeModel = model('RoomsTime', roomsTimeSchema)
 
 /** RoomsTime Model APIs **/
-function getAllRoomsTime (callback) {
+function getAllRoomsTime(callback) {
   RoomsTimeModel.find().sort({ room_name: 1, week: 1 }).exec((error, roomsTime) => {
     if (error) { return callback(error, null) }
 
@@ -21,7 +21,7 @@ function getAllRoomsTime (callback) {
   })
 }
 
-function getRoomsTime (roomName, callback) {
+function getRoomsTime(roomName, callback) {
   RoomsTimeModel.find({ room_name: roomName }, (error, roomsTime) => {
     if (error) { return callback(error, null) }
 
@@ -29,7 +29,7 @@ function getRoomsTime (roomName, callback) {
   })
 }
 
-function addTime (data, callback) {
+function addTime(data, callback) {
   RoomsTimeModel.findOne({ room_name: data.room_name, week: data.week }, (error, roomTime) => {
     if (error) { return callback(error, null) }
 
@@ -54,12 +54,31 @@ function addTime (data, callback) {
   })
 }
 
-function deleteTime (data, callback) {
+async function deleteTime(data, callback) {
+  let error = null
 
+  for (let i = 0; i < data.times.length; i++) {
+    await RoomsTimeModel.findOne({ room_name: data.room_name, week: data.weeks[i] }, async (err, roomTime) => {
+      if (err) {
+        error = err
+        return
+      }
+
+      const deleteIndex = roomTime.times.indexOf(data.times[i])
+      roomTime.times.splice(deleteIndex, 1)
+
+      await roomTime.save()
+    })
+
+    if (error) { break }
+  }
+
+  return callback(error)
 }
 
 export default {
   getAllRoomsTime: getAllRoomsTime,
   getRoomsTime: getRoomsTime,
-  addTime: addTime
+  addTime: addTime,
+  deleteTime: deleteTime
 }

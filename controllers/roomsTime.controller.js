@@ -62,7 +62,7 @@ export default {
     }
 
     RoomsTimeModel.addTime(roomTime, (error, data) => {
-      if (error) { return res.send('<h1>目前無法連線到伺服器，請等候5分鐘再試！</h1>') }
+      if (error) { return res.send('<h1>目前無法連線到資料庫，請等候5分鐘再試！</h1>') }
 
       if (data) { return res.redirect('/admin/rooms/time?message=新增教室時段成功！') }
 
@@ -73,7 +73,7 @@ export default {
   deleteIndex: function (req, res) {
     if (!req.params.room_name) {
       getAllRoomsTime((error, rooms) => {
-        if (error) { return res.send('<h1>目前無法連線到伺服器，請等候5分鐘再試！</h1>') }
+        if (error) { return res.send('<h1>目前無法連線到資料庫，請等候5分鐘再試！</h1>') }
 
         return res.render('roomsTimeDeleteIndex', { rooms: rooms, timeData: timeData })
       })
@@ -81,12 +81,12 @@ export default {
     }
 
     getAllRoomsTime((error, rooms) => {
-      if (error) { return res.send('<h1>目前無法連線到伺服器，請等候5分鐘再試！</h1>') }
+      if (error) { return res.send('<h1>目前無法連線到資料庫，請等候5分鐘再試！</h1>') }
 
       const roomName = req.params.room_name
 
       RoomsTimeModel.getRoomsTime(roomName, (error, roomsTime) => {
-        if (error) { return res.send('<h1>目前無法連線到伺服器，請等候5分鐘再試！</h1>') }
+        if (error) { return res.send('<h1>目前無法連線到資料庫，請等候5分鐘再試！</h1>') }
 
         const data = {}
 
@@ -108,14 +108,37 @@ export default {
           })
         })
 
-        console.log(data)
-
         return res.render('roomsTimeDelete', { rooms: rooms, roomName: roomName, data: data, timeData: timeData })
       })
     })
   },
   
   deleteTime: function (req, res) {
-    console.log(req.body.rooms_time)
+    const roomName = req.params.room_name
+    let weeks = []
+    let times = []
+
+    const inputs = req.body.rooms_time
+    try {
+      inputs.forEach((input) => {
+        input = input.split(',')
+        weeks.push(input[0])
+        times.push(input[1])
+      })
+    } catch (error) {
+      const input = inputs.split(',')
+      weeks.push(input[0])
+      times.push(input[1])
+    }
+    
+    RoomsTimeModel.deleteTime({
+      room_name: roomName,
+      weeks: weeks,
+      times: times
+    }, (error) => {
+      if (error) { return res.send('<h1>目前無法連線到資料庫，請等候5分鐘再試！</h1>') }
+      
+      return res.redirect('/admin/rooms/time/delete?message=刪除教室時段成功！')
+    })
   }
 }

@@ -1,6 +1,6 @@
 <div class="container-select">
-  <label for="room_name">教室：</label>
-  <select id="room_name" name="room_name" onchange="location.href = '/admin/rooms/time/delete/' + this.value">
+  <label for="">教室：</label>
+  <select id="" name="" onchange="location.href = '/admin/rooms/time/delete/' + this.value">
     <option value="">請選擇教室</option>
     {{#each rooms}}
       <option value="{{ this }}">{{ this }}</option>
@@ -8,9 +8,19 @@
   </select>
 </div>
 
-<form action="/admin/rooms/time/delete" method="POST">
+<form action="/admin/rooms/time/delete/{{ roomName }}" method="POST">
   <table>
     <caption>{{ roomName }}教室 時段表</caption>
+
+    <colgroup>
+      <col>
+      <col>
+      <col>
+      <col>
+      <col>
+      <col>
+      <col>
+    </colgroup>
 
     <thead>
       <tr>
@@ -29,7 +39,7 @@
           {{#each weeks as | status week | }}
             {{#if status}}
               <td>
-                <input type="checkbox" name="rooms_time" value="{{ time }},{{ week }}">
+                <input type="checkbox" name="rooms_time" value="{{ week }},{{ time }}">
               </td>
             {{else}}
               <td>
@@ -55,4 +65,5 @@
 {{/extend}}
 
 {{#extend 'scripts'}}
+<script src="/js/rooms-time-delete.js"></script>
 {{/extend}}
