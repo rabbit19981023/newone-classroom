@@ -1,0 +1,68 @@
+<div class="container-select">
+  <label>教室：</label>
+  <select onchange="location.href = '/admin/rooms/time/{{ mode.string }}/' + this.value">
+    <option value="">請選擇教室</option>
+    {{#each rooms as | room | }}
+      <option value="{{ room }}">{{ room }}</option>
+    {{/each}}
+  </select>
+</div>
+
+<form action="/admin/rooms/time/{{ mode.string }}/{{ roomName }}" method="POST">
+  <table>
+    <caption> {{ roomName }}教室 時段表 </caption>
+
+    <thead>
+      <tr>
+        <td></td>
+        {{#each timeData.weeks as | week | }}
+          <th>{{ week }}</th>
+        {{/each}}
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each data as | weeks time | }}
+        <tr>
+          <td>{{ time }}</td>
+          {{#each weeks as | status week | }}
+            {{#if status}}
+              <td>
+                <input type="checkbox" name="room_time" value="{{ week }},{{ time }}">
+              </td>
+            {{else}}
+              <td>
+                <input type="checkbox" disabled>
+              </td>
+            {{/if}}
+          {{/each}}
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  {{#if mode.add}}
+    <button type="submit">新增時段</button>
+  {{/if}}
+
+  {{#if mode.delete}}
+    <button type="submit">刪除時段</button>
+  {{/if}}
+</form>
+
+
+{{#if mode.add}}
+  <title>教室借用系統 - 新增時段</title>
+{{/if}}
+
+{{#if mode.delete}}
+  <title>教室借用系統 - 刪除時段</title>
+{{/if}}
+
+
+{{#extend 'css'}}
+<link rel="stylesheet" href="/css/timeTable.css">
+{{/extend}}
+
+{{#extend 'scripts'}}
+{{/extend}}

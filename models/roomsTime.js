@@ -21,37 +21,48 @@ function getAllRoomsTime(callback) {
   })
 }
 
-function getRoomsTime(roomName, callback) {
-  RoomsTimeModel.find({ room_name: roomName }, (error, roomsTime) => {
+function getRoomTime(roomName, callback) {
+  RoomsTimeModel.find({ room_name: roomName }, (error, roomTime) => {
     if (error) { return callback(error, null) }
 
-    return callback(null, roomsTime)
+    return callback(null, roomTime)
   })
 }
 
-function addTime(data, callback) {
-  RoomsTimeModel.findOne({ room_name: data.room_name, week: data.week }, (error, roomTime) => {
-    if (error) { return callback(error, null) }
+async function addTime(data, callback) {
+  let error = null
 
-    if (roomTime) {
-      if (roomTime.times.includes(data.time)) {
-        return callback(null, null) // no error occurred, the roomTime already exists
+  for (let i = 0; i < data.times.length; i++) {
+    await RoomsTimeModel.findOne({ room_name: data.room_name, week: data.weeks[i] }, async (err, roomTime) => {
+      if (err) {
+        error = err
+        return
       }
 
-      roomTime.times.push(data.time)
-      roomTime.times.sort()
+      if (roomTime) {
+        if (roomTime.times.includes(data.times[i])) {
+          return
+        }
 
-      return roomTime.save().then(roomTimeDoc => { return callback(null, roomTimeDoc) })
-    }
+        roomTime.times.push(data.times[i])
+        await roomTime.times.sort()
+        
+        return await roomTime.save()
+      }
 
-    const roomTimeDoc = new RoomsTimeModel({
-      room_name: data.room_name,
-      week: data.week,
-      times: data.time
+      const roomTimeDoc = new RoomsTimeModel({
+        room_name: data.room_name,
+        week: data.weeks[i],
+        times: data.times[i]
+      })
+
+      return await roomTimeDoc.save()
     })
 
-    return roomTimeDoc.save().then(roomTimeDoc => { return callback(null, roomTimeDoc) })
-  })
+    if (error) { break }
+  }
+
+  return callback(error)
 }
 
 async function deleteTime(data, callback) {
@@ -64,8 +75,8 @@ async function deleteTime(data, callback) {
         return
       }
 
-      const deleteIndex = roomTime.times.indexOf(data.times[i])
-      roomTime.times.splice(deleteIndex, 1)
+      const deleteIndex = await roomTime.times.indexOf(data.times[i])
+      await roomTime.times.splice(deleteIndex, 1)
 
       await roomTime.save()
     })
@@ -78,7 +89,7 @@ async function deleteTime(data, callback) {
 
 export default {
   getAllRoomsTime: getAllRoomsTime,
-  getRoomsTime: getRoomsTime,
+  getRoomTime: getRoomTime,
   addTime: addTime,
   deleteTime: deleteTime
 }

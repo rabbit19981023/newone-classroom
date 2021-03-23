@@ -2,6 +2,7 @@
 import RoomsListModel from '../models/roomsList.js'
 import RoomsTimeModel from '../models/roomsTime.js'
 
+/** global variables for data rendering **/
 const timeData = {
   weeks: ['一', '二', '三', '四', '五', '六', '日'],
 
@@ -25,120 +26,171 @@ const timeData = {
   ]
 }
 
-function getAllRoomsTime (callback) {
-  RoomsTimeModel.getAllRoomsTime((error, roomsTime) => {
-    const rooms = []
+/** global functions for module design **/
+function getAllRooms(mode, callback) {
+  const allRooms = []
 
-    roomsTime.forEach((roomTime) => {
-      if (!rooms.includes(roomTime.room_name)) {
-        rooms.push(roomTime.room_name)
-        rooms.sort()
-      }
+  if (mode.add) {
+    RoomsListModel.getAllRooms(async (error, rooms) => {
+      if (error) { return callback(error, null) }
+
+      await rooms.forEach((room) => {
+        if(!allRooms.includes(room.room_name)) {
+          allRooms.push(room.room_name)
+          allRooms.sort()
+        }
+      })
+
+      return callback(null, allRooms)
     })
+  }
+  
+  if (mode.delete) {
+    RoomsTimeModel.getAllRoomsTime(async (error, roomsTime) => {
+      if (error) { return callback(error, null) }
+  
+      await roomsTime.forEach((roomTime) => {
+        if (!allRooms.includes(roomTime.room_name)) {
+          allRooms.push(roomTime.room_name)
+          allRooms.sort()
+        }
+      })
 
-    return callback(error, rooms)
-  })
+      return callback(null, allRooms)
+    })
+  }
 }
 
+function addOrDelete(req, callback) {
+  const roomTime = {
+    room_name: req.params.room_name,
+    weeks: [],
+    times: []
+  }
+
+  const inputs = req.body.room_time
+  
+  try {
+    inputs.forEach((input) => {
+      input = input.split(',')
+
+      roomTime.weeks.push(input[0])
+      roomTime.times.push(input[1])
+    })
+  } catch (error) {
+    const input = inputs.split(',')
+
+    roomTime.weeks.push(input[0])
+    roomTime.times.push(input[1])
+  }
+
+  return callback(roomTime)
+}
+
+/** /admin/rooms/time/ Routes Controller **/
 export default {
-  index: function (req, res) {
-    RoomsListModel.getAllRooms((error, rooms) => {
-      if (error) { return res.send('<h1>目前無法連線到資料庫，請等候5分鐘再試！</h1>') }
+  timeTable: function (req, res) {
+    const path = req.path.split('/')[1]
 
-      const allRooms = JSON.parse(JSON.stringify(rooms)) // JSON.parse is synchronous!
+    const mode = {
+      string: '',
+      add: false,
+      delete: false
+    }
 
-      return res.render('roomsTime', { rooms: allRooms, timeData: timeData })
+    switch (path) {
+      case 'add':
+        mode.add = true
+        mode.string = 'add'
+        break
+      case 'delete':
+        mode.delete = true
+        mode.string = 'delete'
+        break
+    }
+
+    getAllRooms(mode, (error, allRooms) => {
+      if (error) { return res.render('500error') }
+      
+      if (!req.params.room_name) { return res.render('timeTable', { mode: mode, rooms: allRooms, timeData: timeData }) }
+
+      const roomName = req.params.room_name
+
+      RoomsTimeModel.getRoomTime(roomName, (error, roomTime) => {
+        if (error) { res.render('500error') }
+
+        const data = {}
+
+        if (mode.add) {
+          timeData.times.forEach((time) => {
+            data[time] = {
+              0: true,
+              1: true,
+              2: true,
+              3: true,
+              4: true,
+              5: true,
+              6: true
+            }
+          })
+  
+          roomTime.forEach((eachRoomTime) => {
+            eachRoomTime.times.forEach((time) => {
+              data[time][eachRoomTime.week] = false
+            })
+          })
+        }
+
+        if (mode.delete) {
+          timeData.times.forEach((time) => {
+            data[time] = {
+              0: false,
+              1: false,
+              2: false,
+              3: false,
+              4: false,
+              5: false,
+              6: false
+            }
+          })
+  
+          roomTime.forEach((eachRoomTime) => {
+            eachRoomTime.times.forEach((time) => {
+              data[time][eachRoomTime.week] = true
+            })
+          })
+        }
+
+        return res.render('timeTable', { roomName: roomName, mode: mode, rooms: allRooms, timeData: timeData, data: data })
+      })
     })
   },
 
   addTime: function (req, res) {
-    const roomTime = {}
-    roomTime.room_name = req.body.room_name
-    roomTime.week = req.body.week
-    roomTime.time = req.body.time
+    addOrDelete(req, (roomTime) => {
+      RoomsTimeModel.addTime({
+        room_name: roomTime.room_name,
+        weeks: roomTime.weeks,
+        times: roomTime.times
+      }, (error) => {
+        if (error) { return res.render('500error') }
 
-    if (roomTime.room_name === 'null') {
-      return res.redirect('/admin/rooms/time?message=請選擇教室！')
-    }
-
-    RoomsTimeModel.addTime(roomTime, (error, data) => {
-      if (error) { return res.send('<h1>目前無法連線到資料庫，請等候5分鐘再試！</h1>') }
-
-      if (data) { return res.redirect('/admin/rooms/time?message=新增教室時段成功！') }
-
-      res.redirect('/admin/rooms/time?message=該教室時段已被登錄過囉！')
-    })
-  },
-
-  deleteIndex: function (req, res) {
-    if (!req.params.room_name) {
-      getAllRoomsTime((error, rooms) => {
-        if (error) { return res.send('<h1>目前無法連線到資料庫，請等候5分鐘再試！</h1>') }
-
-        return res.render('roomsTimeDeleteIndex', { rooms: rooms, timeData: timeData })
-      })
-      return
-    }
-
-    getAllRoomsTime((error, rooms) => {
-      if (error) { return res.send('<h1>目前無法連線到資料庫，請等候5分鐘再試！</h1>') }
-
-      const roomName = req.params.room_name
-
-      RoomsTimeModel.getRoomsTime(roomName, (error, roomsTime) => {
-        if (error) { return res.send('<h1>目前無法連線到資料庫，請等候5分鐘再試！</h1>') }
-
-        const data = {}
-
-        timeData.times.forEach((time) => {
-          data[time] = {
-            0: false,
-            1: false,
-            2: false,
-            3: false,
-            4: false,
-            5: false,
-            6: false
-          }
-        })
-
-        roomsTime.forEach((roomTime) => {
-          roomTime.times.forEach((time) => {
-            data[time][roomTime.week] = true
-          })
-        })
-
-        return res.render('roomsTimeDelete', { rooms: rooms, roomName: roomName, data: data, timeData: timeData })
+        return res.redirect('/admin/rooms/time/add?message=新增教室時段成功！')
       })
     })
   },
-  
+
   deleteTime: function (req, res) {
-    const roomName = req.params.room_name
-    let weeks = []
-    let times = []
-
-    const inputs = req.body.rooms_time
-    try {
-      inputs.forEach((input) => {
-        input = input.split(',')
-        weeks.push(input[0])
-        times.push(input[1])
+    addOrDelete(req, (roomTime) => {
+      RoomsTimeModel.deleteTime({
+        room_name: roomTime.room_name,
+        weeks: roomTime.weeks,
+        times: roomTime.times
+      }, (error) => {
+        if (error) { return res.render('500error') }
+  
+        return res.redirect('/admin/rooms/time/delete?message=刪除教室時段成功！')
       })
-    } catch (error) {
-      const input = inputs.split(',')
-      weeks.push(input[0])
-      times.push(input[1])
-    }
-    
-    RoomsTimeModel.deleteTime({
-      room_name: roomName,
-      weeks: weeks,
-      times: times
-    }, (error) => {
-      if (error) { return res.send('<h1>目前無法連線到資料庫，請等候5分鐘再試！</h1>') }
-      
-      return res.redirect('/admin/rooms/time/delete?message=刪除教室時段成功！')
     })
   }
 }
