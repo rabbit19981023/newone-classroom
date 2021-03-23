@@ -13,7 +13,7 @@ const roomsTimeSchema = new Schema({
 const RoomsTimeModel = model('RoomsTime', roomsTimeSchema)
 
 /** RoomsTime Model APIs **/
-function getAllRoomsTime(callback) {
+function getAllRoomsTime (callback) {
   RoomsTimeModel.find().sort({ room_name: 1, week: 1 }).exec((error, roomsTime) => {
     if (error) { return callback(error, null) }
 
@@ -21,7 +21,7 @@ function getAllRoomsTime(callback) {
   })
 }
 
-function getRoomTime(roomName, callback) {
+function getRoomTime (roomName, callback) {
   RoomsTimeModel.find({ room_name: roomName }, (error, roomTime) => {
     if (error) { return callback(error, null) }
 
@@ -29,7 +29,7 @@ function getRoomTime(roomName, callback) {
   })
 }
 
-async function addTime(data, callback) {
+async function addTime (data, callback) {
   let error = null
 
   for (let i = 0; i < data.times.length; i++) {
@@ -44,10 +44,7 @@ async function addTime(data, callback) {
           return
         }
 
-        roomTime.times.push(data.times[i])
-        await roomTime.times.sort()
-        
-        return await roomTime.save()
+        return await RoomsTimeModel.updateOne({ room_name: data.room_name, week: data.weeks[i] }, { $addToSet: { times: data.times[i] } })
       }
 
       const roomTimeDoc = new RoomsTimeModel({
@@ -65,7 +62,7 @@ async function addTime(data, callback) {
   return callback(error)
 }
 
-async function deleteTime(data, callback) {
+async function deleteTime (data, callback) {
   let error = null
 
   for (let i = 0; i < data.times.length; i++) {
@@ -75,10 +72,7 @@ async function deleteTime(data, callback) {
         return
       }
 
-      const deleteIndex = await roomTime.times.indexOf(data.times[i])
-      await roomTime.times.splice(deleteIndex, 1)
-
-      await roomTime.save()
+      return await roomTime.updateOne({ $pull: { times: data.times[i] } })
     })
 
     if (error) { break }

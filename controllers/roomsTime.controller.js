@@ -27,7 +27,7 @@ const timeData = {
 }
 
 /** global functions for module design **/
-function getAllRooms(mode, callback) {
+function getAllRooms (mode, callback) {
   const allRooms = []
 
   if (mode.add) {
@@ -35,7 +35,7 @@ function getAllRooms(mode, callback) {
       if (error) { return callback(error, null) }
 
       await rooms.forEach((room) => {
-        if(!allRooms.includes(room.room_name)) {
+        if (!allRooms.includes(room.room_name)) {
           allRooms.push(room.room_name)
           allRooms.sort()
         }
@@ -44,11 +44,11 @@ function getAllRooms(mode, callback) {
       return callback(null, allRooms)
     })
   }
-  
+
   if (mode.delete) {
     RoomsTimeModel.getAllRoomsTime(async (error, roomsTime) => {
       if (error) { return callback(error, null) }
-  
+
       await roomsTime.forEach((roomTime) => {
         if (!allRooms.includes(roomTime.room_name)) {
           allRooms.push(roomTime.room_name)
@@ -61,7 +61,7 @@ function getAllRooms(mode, callback) {
   }
 }
 
-function addOrDelete(req, callback) {
+function getRoomsTime (req, callback) {
   const roomTime = {
     room_name: req.params.room_name,
     weeks: [],
@@ -69,8 +69,9 @@ function addOrDelete(req, callback) {
   }
 
   const inputs = req.body.room_time
-  
+
   try {
+    // if (inputs.length > 1):
     inputs.forEach((input) => {
       input = input.split(',')
 
@@ -78,6 +79,7 @@ function addOrDelete(req, callback) {
       roomTime.times.push(input[1])
     })
   } catch (error) {
+    // if (inputs.length == 1):
     const input = inputs.split(',')
 
     roomTime.weeks.push(input[0])
@@ -111,7 +113,7 @@ export default {
 
     getAllRooms(mode, (error, allRooms) => {
       if (error) { return res.render('500error') }
-      
+
       if (!req.params.room_name) { return res.render('timeTable', { mode: mode, rooms: allRooms, timeData: timeData }) }
 
       const roomName = req.params.room_name
@@ -133,7 +135,7 @@ export default {
               6: true
             }
           })
-  
+
           roomTime.forEach((eachRoomTime) => {
             eachRoomTime.times.forEach((time) => {
               data[time][eachRoomTime.week] = false
@@ -153,7 +155,7 @@ export default {
               6: false
             }
           })
-  
+
           roomTime.forEach((eachRoomTime) => {
             eachRoomTime.times.forEach((time) => {
               data[time][eachRoomTime.week] = true
@@ -167,7 +169,7 @@ export default {
   },
 
   addTime: function (req, res) {
-    addOrDelete(req, (roomTime) => {
+    getRoomsTime(req, (roomTime) => {
       RoomsTimeModel.addTime({
         room_name: roomTime.room_name,
         weeks: roomTime.weeks,
@@ -181,14 +183,14 @@ export default {
   },
 
   deleteTime: function (req, res) {
-    addOrDelete(req, (roomTime) => {
+    getRoomsTime(req, (roomTime) => {
       RoomsTimeModel.deleteTime({
         room_name: roomTime.room_name,
         weeks: roomTime.weeks,
         times: roomTime.times
       }, (error) => {
         if (error) { return res.render('500error') }
-  
+
         return res.redirect('/admin/rooms/time/delete?message=刪除教室時段成功！')
       })
     })
