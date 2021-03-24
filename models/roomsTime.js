@@ -32,6 +32,11 @@ function getRoomTime (roomName, callback) {
 async function addTime (data, callback) {
   let error = null
 
+  if (data.times.length === 0) {
+    error = "請選擇教室時段！"
+    return callback(error)
+  }
+
   for (let i = 0; i < data.times.length; i++) {
     await RoomsTimeModel.findOne({ room_name: data.room_name, week: data.weeks[i] }, async (err, roomTime) => {
       if (err) {
@@ -64,6 +69,11 @@ async function addTime (data, callback) {
 
 async function deleteTime (data, callback) {
   let error = null
+
+  if (data.times.length === 0) {
+    error = "請選擇教室時段！"
+    return callback(error)
+  }
 
   for (let i = 0; i < data.times.length; i++) {
     await RoomsTimeModel.findOne({ room_name: data.room_name, week: data.weeks[i] }, async (err, roomTime) => {

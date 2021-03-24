@@ -57,7 +57,7 @@ function getAllRooms (mode, callback) {
   }
 }
 
-function getRoomsTime (req, callback) {
+function getUploadedData (req, callback) {
   const roomTime = {
     room_name: req.params.room_name,
     weeks: [],
@@ -74,12 +74,19 @@ function getRoomsTime (req, callback) {
       roomTime.weeks.push(input[0])
       roomTime.times.push(input[1])
     })
-  } catch (error) {
-    // if (array inputs.length == 1):
+  }
+  catch (error) {
+    try {
+      // if (array inputs.length == 1):
     const input = inputs.split(',')
 
     roomTime.weeks.push(input[0])
     roomTime.times.push(input[1])
+    }
+    catch (error) {
+      // this returned roomTime is empty because of a error occured
+      return callback(roomTime)
+    }
   }
 
   return callback(roomTime)
@@ -165,12 +172,16 @@ export default {
   },
 
   addTime: function (req, res) {
-    getRoomsTime(req, (roomTime) => {
+    getUploadedData(req, (roomTime) => {
       RoomsTimeModel.addTime({
         room_name: roomTime.room_name,
         weeks: roomTime.weeks,
         times: roomTime.times
       }, (error) => {
+        if (error === '請選擇教室時段！') {
+          return res.redirect('/admin/rooms/time/add?message=請選擇教室時段！')
+        }
+
         if (error) { return res.render('500error') }
 
         return res.redirect('/admin/rooms/time/add?message=新增教室時段成功！')
@@ -179,12 +190,16 @@ export default {
   },
 
   deleteTime: function (req, res) {
-    getRoomsTime(req, (roomTime) => {
+    getUploadedData(req, (roomTime) => {
       RoomsTimeModel.deleteTime({
         room_name: roomTime.room_name,
         weeks: roomTime.weeks,
         times: roomTime.times
       }, (error) => {
+        if (error === '請選擇教室時段！') {
+          return res.redirect('/admin/rooms/time/add?message=請選擇教室時段！')
+        }
+
         if (error) { return res.render('500error') }
 
         return res.redirect('/admin/rooms/time/delete?message=刪除教室時段成功！')
