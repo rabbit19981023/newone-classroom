@@ -40,7 +40,7 @@ async function addTime (data, callback) {
       }
 
       if (roomTime) {
-        if (roomTime.times.includes(data.times[i])) {
+        if (roomTime.times.includes(data.times[i])){
           return
         }
 

@@ -20,10 +20,10 @@ function getAllRooms (callback) {
 }
 
 function addRoom (roomName, callback) {
-  RoomsListModel.findOne({ room_name: roomName }, (error, room) => {
+  RoomsListModel.findOne({ room_name: roomName }, (error, existRoom) => {
     if (error) { return callback(error, null) }
 
-    if (room) { return callback(null, room) }
+    if (existRoom) { return callback(null, existRoom) }
 
     const roomDoc = new RoomsListModel({ room_name: roomName })
 

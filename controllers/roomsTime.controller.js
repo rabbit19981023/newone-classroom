@@ -34,11 +34,8 @@ function getAllRooms (mode, callback) {
     RoomsListModel.getAllRooms(async (error, rooms) => {
       if (error) { return callback(error, null) }
 
-      await rooms.forEach((room) => {
-        if (!allRooms.includes(room.room_name)) {
-          allRooms.push(room.room_name)
-          allRooms.sort()
-        }
+      await rooms.forEach(room => {
+        allRooms.push(room.room_name)
       })
 
       return callback(null, allRooms)
@@ -49,10 +46,9 @@ function getAllRooms (mode, callback) {
     RoomsTimeModel.getAllRoomsTime(async (error, roomsTime) => {
       if (error) { return callback(error, null) }
 
-      await roomsTime.forEach((roomTime) => {
+      await roomsTime.forEach(roomTime => {
         if (!allRooms.includes(roomTime.room_name)) {
           allRooms.push(roomTime.room_name)
-          allRooms.sort()
         }
       })
 
@@ -71,15 +67,15 @@ function getRoomsTime (req, callback) {
   const inputs = req.body.room_time
 
   try {
-    // if (inputs.length > 1):
-    inputs.forEach((input) => {
+    // if (array inputs.length > 1):
+    inputs.forEach(input => {
       input = input.split(',')
 
       roomTime.weeks.push(input[0])
       roomTime.times.push(input[1])
     })
   } catch (error) {
-    // if (inputs.length == 1):
+    // if (array inputs.length == 1):
     const input = inputs.split(',')
 
     roomTime.weeks.push(input[0])
@@ -124,7 +120,7 @@ export default {
         const data = {}
 
         if (mode.add) {
-          timeData.times.forEach((time) => {
+          timeData.times.forEach(time => {
             data[time] = {
               0: true,
               1: true,
@@ -136,15 +132,15 @@ export default {
             }
           })
 
-          roomTime.forEach((eachRoomTime) => {
-            eachRoomTime.times.forEach((time) => {
+          roomTime.forEach(eachRoomTime => {
+            eachRoomTime.times.forEach(time => {
               data[time][eachRoomTime.week] = false
             })
           })
         }
 
         if (mode.delete) {
-          timeData.times.forEach((time) => {
+          timeData.times.forEach(time => {
             data[time] = {
               0: false,
               1: false,
@@ -156,8 +152,8 @@ export default {
             }
           })
 
-          roomTime.forEach((eachRoomTime) => {
-            eachRoomTime.times.forEach((time) => {
+          roomTime.forEach(eachRoomTime => {
+            eachRoomTime.times.forEach(time => {
               data[time][eachRoomTime.week] = true
             })
           })

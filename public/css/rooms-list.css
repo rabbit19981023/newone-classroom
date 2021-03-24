@@ -1,38 +1,44 @@
-body {
-  background: url(/img/bg.jpg) no-repeat;
-  background-size: 1800px 840px;
+.container {
+  background-color: #CDDCEF;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  padding: 3% 0% 10% 6%;
+  border: 2px solid #527590;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.6);
 }
 
 @media screen and (max-width: 768px) {
-  body {
-    background-size: cover;
+  .container {
+    width: 80%;
+    padding: 10% 0% 30% 6%;
   }
 }
 
-form[action="/rooms-manage/delete"] .container-select {
-  margin-top: 20px;
+.container-input:nth-of-type(1) {
+  margin-bottom: 5%;
 }
 
-input[id="room_name"] {
-  width: 100px;
-  margin-right: 10px;
+input {
+  width: 20%;
+  margin-right: 3%;
+  border: 1.5px solid #527590;
+  border-radius: 3px;
 }
 
-select[id="room_name"] {
-  margin-right: 10px
+select {
+  background-color: #FFFFFF;
+  margin-right: 3%;
+  border: 1.5px solid #527590;
+  border-radius: 3px;
 }
 
-#double-check {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#double-check span {
-  font-size: 16px;
-}
-
-#double-check button {
-  width: 120px;
-  margin-top: 5px;
+button {
+  background-color: #F2E1CD;
+  padding: 5px;
+  border: 1.5px solid #527590;
+  border-radius: 3px;
 }

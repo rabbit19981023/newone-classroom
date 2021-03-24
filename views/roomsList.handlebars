@@ -1,6 +1,6 @@
 <div class="container">
 	<form action="/admin/rooms/list/add" method="POST">
-		<div class="container-select">
+		<div class="container-input">
 			<label for="room_name">教室：</label>
 			<input id="room_name" type="text" name="room_name">
 
@@ -9,7 +9,7 @@
 	</form>
 
 	<form action="/admin/rooms/list/delete" method="POST">
-		<div class="container-select">
+		<div class="container-input">
 			<label for="room_name">教室：</label>
 			<select id="room_name" name="room_name">
 				<option value="null">請選擇教室</option>
@@ -34,7 +34,6 @@
 {{/extend}}
 
 {{#extend 'css'}}
-<link rel="stylesheet" href="/css/form-card.css">
 <link rel="stylesheet" href="/css/rooms-list.css">
 {{/extend}}
 

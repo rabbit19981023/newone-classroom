@@ -36,7 +36,9 @@ export default {
         return res.render('500error')
       }
 
-      return res.redirect(`/admin/rooms/list?message=${roomName}教室已成功刪除！`)
+      if (room) {
+        return res.redirect(`/admin/rooms/list?message=${roomName}教室已成功刪除！`)
+      }
     })
   }
 }
