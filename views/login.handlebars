@@ -1,0 +1,29 @@
+{{#if login}}
+  {{#extend 'h1-class'}}
+login
+  {{/extend}}
+{{/if}}
+
+{{#if user}}
+  {{#extend 'loginOrSignUp'}}
+教室借用系統 - 使用者登入
+  {{/extend}}
+{{/if}}
+
+{{#if user}}
+  {{#extend 'formPath'}}
+/login
+  {{/extend}}
+{{/if}}
+
+{{#if admin}}
+  {{#extend 'loginOrSignUp'}}
+管理員登入
+  {{/extend}}
+{{/if}}
+
+{{#if admin}}
+  {{#extend 'formPath'}}
+/admin/login
+  {{/extend}}
+{{/if}}

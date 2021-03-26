@@ -1,6 +1,7 @@
 // import Data Models
 import RoomsListModel from '../models/roomsList.js'
 
+/** Routes Controllers **/
 export default {
   index: function (req, res) {
     RoomsListModel.getAllRooms((error, rooms) => {
@@ -8,7 +9,7 @@ export default {
 
       const allRooms = JSON.parse(JSON.stringify(rooms)) // JSON.parse is synchronous!
 
-      return res.render('roomsList', { rooms: allRooms })
+      return res.render('roomsList', { layout: 'admin', login: req.user, rooms: allRooms })
     })
   },
 

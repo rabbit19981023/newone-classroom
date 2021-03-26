@@ -57,7 +57,7 @@ function getAllRooms (mode, callback) {
   }
 }
 
-function getUploadedData (req, callback) {
+async function getUploadedData (req, callback) {
   const roomTime = {
     room_name: req.params.room_name,
     weeks: [],
@@ -68,7 +68,7 @@ function getUploadedData (req, callback) {
 
   try {
     // if (array inputs.length > 1):
-    inputs.forEach(input => {
+    await inputs.forEach(input => {
       input = input.split(',')
 
       roomTime.weeks.push(input[0])
@@ -92,7 +92,7 @@ function getUploadedData (req, callback) {
   return callback(roomTime)
 }
 
-/** /admin/rooms/time/ Routes Controller **/
+/** Routes Controller **/
 export default {
   timeTable: function (req, res) {
     const path = req.path.split('/')[1]
@@ -117,17 +117,17 @@ export default {
     getAllRooms(mode, (error, allRooms) => {
       if (error) { return res.render('500error') }
 
-      if (!req.params.room_name) { return res.render('timeTable', { mode: mode, rooms: allRooms, timeData: timeData }) }
+      if (!req.params.room_name) { return res.render('timeManage', { mode: mode, rooms: allRooms, timeData: timeData }) }
 
       const roomName = req.params.room_name
 
-      RoomsTimeModel.getRoomTime(roomName, (error, roomTime) => {
+      RoomsTimeModel.getRoomTime(roomName, async (error, roomTime) => {
         if (error) { res.render('500error') }
 
         const data = {}
 
         if (mode.add) {
-          timeData.times.forEach(time => {
+          await timeData.times.forEach(time => {
             data[time] = {
               0: true,
               1: true,
@@ -139,7 +139,7 @@ export default {
             }
           })
 
-          roomTime.forEach(eachRoomTime => {
+          await roomTime.forEach(eachRoomTime => {
             eachRoomTime.times.forEach(time => {
               data[time][eachRoomTime.week] = false
             })
@@ -147,7 +147,7 @@ export default {
         }
 
         if (mode.delete) {
-          timeData.times.forEach(time => {
+          await timeData.times.forEach(time => {
             data[time] = {
               0: false,
               1: false,
@@ -159,14 +159,14 @@ export default {
             }
           })
 
-          roomTime.forEach(eachRoomTime => {
-            eachRoomTime.times.forEach(time => {
+          await roomTime.forEach(async eachRoomTime => {
+            await eachRoomTime.times.forEach(time => {
               data[time][eachRoomTime.week] = true
             })
           })
         }
 
-        return res.render('timeTable', { roomName: roomName, mode: mode, rooms: allRooms, timeData: timeData, data: data })
+        return res.render('timeManage', { roomName: roomName, mode: mode, rooms: allRooms, timeData: timeData, data: data })
       })
     })
   },

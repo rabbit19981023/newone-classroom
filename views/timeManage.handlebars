@@ -3,9 +3,11 @@
     <label>教室：</label>
     <select onchange="location.href = '/admin/rooms/time/{{ mode.string }}/' + this.value">
       <option value="">請選擇教室</option>
+
       {{#each rooms as | room | }}
         <option value="{{ room }}">{{ room }}</option>
       {{/each}}
+
     </select>
   </div>
 
@@ -17,9 +19,11 @@
         <thead>
           <tr>
             <th>時段</th>
+
             {{#each timeData.weeks as | week | }}
               <th>{{ week }}</th>
             {{/each}}
+
           </tr>
         </thead>
 
@@ -27,6 +31,7 @@
           {{#each data as | weeks time | }}
             <tr>
               <td>{{ time }}</td>
+
               {{#each weeks as | status week | }}
                 {{#if status}}
                   <td>
@@ -48,7 +53,9 @@
       {{#if mode.add}}
         <button type="submit">新增時段</button>
       {{/if}}
+    {{/if}}
 
+    {{#if roomName}}
       {{#if mode.delete}}
         <button type="submit">刪除時段</button>
       {{/if}}
@@ -57,20 +64,23 @@
 </div>
 
 
-
 {{#if mode.add}}
-  <title>教室借用系統 - 新增時段</title>
+  {{#extend 'title'}}
+    <title>教室借用系統 - 新增時段</title>
+  {{/extend}}
 {{/if}}
 
 {{#if mode.delete}}
-  <title>教室借用系統 - 刪除時段</title>
+  {{#extend 'title'}}
+    <title>教室借用系統 - 刪除時段</title>
+  {{/extend}}
 {{/if}}
 
-
 {{#extend 'css'}}
-<link rel="stylesheet" href="/css/time-table.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/time-table.css">
 {{/extend}}
 
 {{#extend 'scripts'}}
-<script src="/js/time-table.js"></script>
+  <script src="/js/time-table.js"></script>
 {{/extend}}

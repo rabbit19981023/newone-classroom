@@ -1,18 +1,20 @@
 .container {
-  background-color: #CDDCEF;
+  background-color: #FFFFFF;
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 40%;
   padding: 3% 0% 10% 6%;
-  border: 2px solid #527590;
+  border: 2px solid #AAAAAA;
   border-radius: 5px;
   box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.6);
+  z-index: -1;
 }
 
 @media screen and (max-width: 768px) {
   .container {
+    top: 40%;
     width: 80%;
     padding: 10% 0% 30% 6%;
   }
@@ -37,7 +39,6 @@ select {
 }
 
 button {
-  background-color: #F2E1CD;
   padding: 5px;
   border: 1.5px solid #527590;
   border-radius: 3px;

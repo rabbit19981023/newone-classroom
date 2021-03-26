@@ -1,0 +1,17 @@
+{{#if signUp}}
+  {{#extend 'h1-class'}}
+sign-up
+  {{/extend}}
+{{/if}}
+
+{{#if user}}
+  {{#extend 'loginOrSignUp'}}
+教室借用系統 - 使用者註冊
+  {{/extend}}
+{{/if}}
+
+{{#if user}}
+  {{#extend 'formPath'}}
+/sign-up
+  {{/extend}}
+{{/if}}
