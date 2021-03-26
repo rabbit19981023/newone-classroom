@@ -12,7 +12,7 @@ import dotenv from 'dotenv'
 /** Import custom modules (custom middlewares) **/
 import db from './db.js'
 import handlebarsHelpers from './lib/handlebarsHelpers.js'
-import passport from './lib/auth.js'
+import passportAuth from './lib/passportAuth.js'
 
 /** Import routes mapping handler **/
 import authUserRoutes from './routes/authUser.routes.js'
@@ -43,14 +43,15 @@ app.use(express.static('public'))
 app.use(express.json()) // fetch JSON Data from received POST Requests
 app.use(express.urlencoded({ extended: true })) // fetch Form Data from received POST Requests
 app.use(session({
-  secret: "New One Church",
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: { maxAge: 600 * 1000 * 6 * 2 },
   store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI })
 }))
-app.use(passport.initialize())
-app.use(passport.session())
+// Custom Middlewares for Passport Authentication
+app.use(passportAuth.initialize())
+app.use(passportAuth.session())
 app.use(flash())
 
 /** Routes **/

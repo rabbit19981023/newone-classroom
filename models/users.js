@@ -4,6 +4,7 @@ const { Schema, model } = mongoose
 // design a Schema for User Model (same as User Collection)
 const userSchema = new Schema({
   user: String,
+  role: String,
   username: String,
   password: String
 })

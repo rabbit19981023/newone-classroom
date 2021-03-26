@@ -2,6 +2,8 @@
 import RoomsListModel from '../models/roomsList.js'
 import RoomsTimeModel from '../models/roomsTime.js'
 
+import isLogin from '../lib/isLogin.js'
+
 /** global variables for data rendering **/
 const timeData = {
   weeks: ['一', '二', '三', '四', '五', '六', '日'],
@@ -117,7 +119,7 @@ export default {
     getAllRooms(mode, (error, allRooms) => {
       if (error) { return res.render('500error') }
 
-      if (!req.params.room_name) { return res.render('timeManage', { mode: mode, rooms: allRooms, timeData: timeData }) }
+      if (!req.params.room_name) { return res.render('timeManage', { layout: 'admin', isLogin: isLogin(req.user, 'Admin'), mode: mode, rooms: allRooms, timeData: timeData }) }
 
       const roomName = req.params.room_name
 
@@ -166,7 +168,7 @@ export default {
           })
         }
 
-        return res.render('timeManage', { roomName: roomName, mode: mode, rooms: allRooms, timeData: timeData, data: data })
+        return res.render('timeManage', { layout: 'admin', isLogin: isLogin(req.user, 'Admin'), roomName: roomName, mode: mode, rooms: allRooms, timeData: timeData, data: data })
       })
     })
   },

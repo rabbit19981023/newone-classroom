@@ -3,7 +3,7 @@ import authUserController from '../controllers/authUser.controller.js'
 
 const router = Router()
 
-/** Routes **/
+/** / Routes **/
 router.get('/login', authUserController.loginForm)
 router.get('/sign-up', authUserController.signUpForm)
 

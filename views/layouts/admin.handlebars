@@ -12,7 +12,7 @@
   {{{ block 'css' }}}
 </head>
 
-{{#if login}}
+{{#if isLogin}}
 <body>
   <nav class="navbar navbar-expand-md navbar-light bg-light">
     <div class="container-fluid">
@@ -27,18 +27,25 @@
             <a class="nav-link active" href="#">教室審核</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">新增教室</a>
+            <a class="nav-link" href="/admin/rooms/list">新增教室</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">新增時段</a>
+            <a class="nav-link" href="/admin/rooms/time/add">新增時段</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/rooms/time/delete">刪除時段</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">歷史紀錄</a>
           </li>
           <hr>
+          
+          {{#if isLogin}}
           <li class="nav-item ms-3">
             <button type="button" class="btn btn-secondary" onclick="location.href = '/admin/log-out'">登出</button>
           </li>
+          {{/if}}
+
         </ul>
       </div>
     </div>

@@ -1,6 +1,8 @@
 // import Data Models
 import RoomsListModel from '../models/roomsList.js'
 
+import isLogin from '../lib/isLogin.js'
+
 /** Routes Controllers **/
 export default {
   index: function (req, res) {
@@ -9,7 +11,7 @@ export default {
 
       const allRooms = JSON.parse(JSON.stringify(rooms)) // JSON.parse is synchronous!
 
-      return res.render('roomsList', { layout: 'admin', login: req.user, rooms: allRooms })
+      return res.render('roomsList', { layout: 'admin', isLogin: isLogin(req.user, 'Admin'), rooms: allRooms })
     })
   },
 
