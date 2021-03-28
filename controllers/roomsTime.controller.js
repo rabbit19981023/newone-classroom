@@ -60,7 +60,7 @@ function getAllRooms (mode, callback) {
 }
 
 async function getUploadedData (req, callback) {
-  const roomTime = {
+  const data = {
     room_name: req.params.room_name,
     weeks: [],
     times: []
@@ -73,8 +73,8 @@ async function getUploadedData (req, callback) {
     await inputs.forEach(input => {
       input = input.split(',')
 
-      roomTime.weeks.push(input[0])
-      roomTime.times.push(input[1])
+      data.weeks.push(input[0])
+      data.times.push(input[1])
     })
   }
   catch (error) {
@@ -82,16 +82,16 @@ async function getUploadedData (req, callback) {
       // if (array inputs.length == 1):
     const input = inputs.split(',')
 
-    roomTime.weeks.push(input[0])
-    roomTime.times.push(input[1])
+    data.weeks.push(input[0])
+    data.times.push(input[1])
     }
     catch (error) {
-      // this returned roomTime is empty because of a error occured
-      return callback(roomTime)
+      // this returned data is empty because of a error occured
+      return callback(data)
     }
   }
 
-  return callback(roomTime)
+  return callback(data)
 }
 
 /** Routes Controller **/
@@ -119,7 +119,7 @@ export default {
     getAllRooms(mode, (error, allRooms) => {
       if (error) { return res.render('500error') }
 
-      if (!req.params.room_name) { return res.render('timeManage', { layout: 'admin', isLogin: isLogin(req.user, 'Admin'), mode: mode, rooms: allRooms, timeData: timeData }) }
+      if (!req.params.room_name) { return res.render('timeManage', { layout: 'admin', isAuth: isAuth(req.user, 'Admin'), mode: mode, rooms: allRooms, timeData: timeData }) }
 
       const roomName = req.params.room_name
 
@@ -168,7 +168,7 @@ export default {
           })
         }
 
-        return res.render('timeManage', { layout: 'admin', isLogin: isLogin(req.user, 'Admin'), roomName: roomName, mode: mode, rooms: allRooms, timeData: timeData, data: data })
+        return res.render('timeManage', { layout: 'admin', isAuth: isAuth(req.user, 'Admin'), roomName: roomName, mode: mode, rooms: allRooms, timeData: timeData, data: data })
       })
     })
   },

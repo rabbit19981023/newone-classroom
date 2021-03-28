@@ -2,7 +2,7 @@
 import mongoose from 'mongoose'
 const { Schema, model } = mongoose
 
-// design a Schema for RoomsTime Model (same as RoomsTime Collection)
+// design a Schema for RoomsTime Model
 const roomsTimeSchema = new Schema({
   room_name: String,
   week: String,
@@ -30,6 +30,16 @@ function getRoomTime (roomName, callback) {
 }
 
 async function addTime (data, callback) {
+  /**
+  
+  data = {
+    room_name: String,
+    weeks: Array,
+    times: Array
+  }
+
+  **/
+
   let error = null
 
   if (data.times.length === 0) {
@@ -68,6 +78,16 @@ async function addTime (data, callback) {
 }
 
 async function deleteTime (data, callback) {
+  /**
+  
+  data = {
+    room_name: String,
+    weeks: Array,
+    times: Array
+  }
+
+  **/
+
   let error = null
 
   if (data.times.length === 0) {

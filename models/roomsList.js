@@ -2,7 +2,7 @@
 import mongoose from 'mongoose'
 const { Schema, model } = mongoose
 
-// design a Schema for RoomsList Model (same as RoomsList collection)
+// design a Schema for RoomsList Model
 const roomsListSchema = new Schema({
   room_name: String
 })
