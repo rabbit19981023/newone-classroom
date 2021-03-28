@@ -38,7 +38,7 @@ app.engine('handlebars', expressHandlebars.create().engine)
 app.set('view engine', 'handlebars')
 
 /** Middlewares **/
-app.use(morgan('dev')) // checking all the user requests in terminal
+app.use(morgan('dev')) // tracking all the user requests in terminal
 app.use(express.static('public'))
 app.use(express.json()) // fetch JSON Data from received POST Requests
 app.use(express.urlencoded({ extended: true })) // fetch Form Data from received POST Requests
@@ -49,7 +49,7 @@ app.use(session({
   cookie: { maxAge: 600 * 1000 * 6 * 2 },
   store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI })
 }))
-// Custom Middlewares for Passport Authentication
+// Custom Middlewares for Authentication with Passport.js
 app.use(passportAuth.initialize())
 app.use(passportAuth.session())
 app.use(flash())

@@ -2,7 +2,7 @@
 import RoomsListModel from '../models/roomsList.js'
 import RoomsTimeModel from '../models/roomsTime.js'
 
-import isLogin from '../lib/isLogin.js'
+import isAuth from '../lib/isAuth.js'
 
 /** global variables for data rendering **/
 const timeData = {

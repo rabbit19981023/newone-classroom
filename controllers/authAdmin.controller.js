@@ -1,13 +1,10 @@
 import passport from 'passport'
-import isLogin from '../lib/isLogin.js'
+import isAuth from '../lib/isAuth.js'
 
 /** Routes Controllers **/
 export default {
   loginForm: function loginForm(req, res) {
-    console.log(req.session)
-    console.log(req.user)
-
-    res.render('login', { layout: 'loginForm', isLogin: isLogin(req.user, 'Admin'), admin: true, login: true, message: req.flash('error') })
+    return res.render('login', { layout: 'loginForm', isAuth: isAuth(req.user, 'Admin'), isAdmin: true, isLogin: true, message: req.flash('error') })
   },
 
   login: function login(req, res) {
@@ -22,6 +19,7 @@ export default {
 
   logOut: function logOut(req, res) {
     req.logOut()
-    res.redirect('/')
+
+    return res.redirect('/')
   }
 }

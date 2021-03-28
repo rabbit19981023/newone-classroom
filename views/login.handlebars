@@ -1,28 +1,28 @@
-{{#if login}}
+{{#if isLogin}}
   {{#extend 'h1-class'}}
 login
   {{/extend}}
 {{/if}}
 
-{{#if user}}
-  {{#extend 'loginOrSignUp'}}
+{{#if isUser}}
+  {{#extend 'title'}}
 教室借用系統 - 使用者登入
   {{/extend}}
 {{/if}}
 
-{{#if user}}
+{{#if isUser}}
   {{#extend 'formPath'}}
 /login
   {{/extend}}
 {{/if}}
 
-{{#if admin}}
-  {{#extend 'loginOrSignUp'}}
-管理員登入
+{{#if isAdmin}}
+  {{#extend 'title'}}
+教室借用系統 - 管理員登入
   {{/extend}}
 {{/if}}
 
-{{#if admin}}
+{{#if isAdmin}}
   {{#extend 'formPath'}}
 /admin/login
   {{/extend}}

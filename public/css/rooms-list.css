@@ -39,7 +39,17 @@ select {
 }
 
 button {
+  width: 80px;
   padding: 5px;
   border: 1.5px solid #527590;
   border-radius: 3px;
+}
+
+#double-check {
+  position: absolute;
+  left: 28%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
 }

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>{{{ block 'loginOrSignUp' }}}</title>
+  <title>{{{ block 'title' }}}</title>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,11 +14,11 @@
 
 <body class="text-center">
   
-  <h1 class="mb-3 fw-normal {{ block 'h1-class' }}">{{{ block 'loginOrSignUp' }}}</h1>
+  <h1 class="mb-3 fw-normal {{ block 'h1-class' }}">{{{ block 'title' }}}</h1>
 
   <main class="form">
     <form action="{{{ block 'formPath' }}}" method="POST">
-      {{#if signUp}}
+      {{#if isSignUp}}
         <input type="text" id="inputUser" name="user" class="form-control" placeholder="您的名字" minlength="2" maxlength="4" required>
       {{/if}}
 
@@ -30,14 +30,23 @@
         <br>
       {{/if}}
       
-      <input type="checkbox" onclick="displayPassword()">顯示密碼
+      <input type="checkbox" id="display-password" onclick="displayPassword()">
+      <label for="display-password">顯示密碼</label>
       
-      {{#if login}}
-        <button class="w-75 btn btn-lg btn-primary" type="submit">登入</button>
+      {{#if isLogin}}
+        <button class="mb-2 w-75 btn btn-lg btn-primary" type="submit">登入</button>
+        {{#if isUser}}
+          <br>
+          <span>還沒有帳號嗎？這裡可以<a href="/sign-up">註冊</a></span>
+        {{/if}}
       {{/if}}
       
-      {{#if signUp}}
-        <button class="w-75 btn btn-lg btn-primary" type="submit">註冊</button>
+      {{#if isSignUp}}
+        <button class="mb-2 w-75 btn btn-lg btn-primary" type="submit">註冊</button>
+        {{#if isUser}}
+          <br>
+          <span>已經有帳號了嗎？這裡可以<a href="/login">登入</a></span>
+        {{/if}}
       {{/if}}
     </form>
   </main>

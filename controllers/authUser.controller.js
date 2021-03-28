@@ -1,18 +1,15 @@
 import passport from 'passport'
-import isLogin from '../lib/isLogin.js'
+import isAuth from '../lib/isAuth.js'
 
 /** Routes Controllers **/
 export default {
   loginForm: function loginForm(req, res) {
-    console.log(req.session)
-    console.log(req.user)
-
-    res.render('login', { layout: 'loginForm', isLogin: isLogin(req.user, 'User'), user: true, login: true, message: req.flash('error') })
+    return res.render('login', { layout: 'loginForm', isAuth: isAuth(req.user, 'User'), isUser: true, isLogin: true, message: req.flash('error') })
   },
 
   login: function login(req, res) {
     const callback = passport.authenticate('login-user', {
-      successRedirect: '/login',
+      successRedirect: '/',
       failureRedirect: '/login',
       failureFlash: true
     })
@@ -21,7 +18,7 @@ export default {
   },
 
   signUpForm: function signUpForm(req, res) {
-    res.render('signUp', { layout: 'loginForm', isLogin: isLogin(req.user, 'User'), user: true, signUp: true, message: req.flash('error') })
+    return res.render('signUp', { layout: 'loginForm', isAuth: isAuth(req.user, 'User'), isUser: true, isSignUp: true, message: req.flash('error') })
   },
 
   signUp: function signUp(req, res) {
@@ -36,6 +33,7 @@ export default {
 
   logOut: function logOut(req, res) {
     req.logOut()
-    res.redirect('/')
+
+    return res.redirect('/')
   }
 }
