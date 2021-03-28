@@ -1,15 +1,18 @@
 // import the Data Models
 import RoomsListModel from '../models/roomsList.js'
+import RoomsTimeModel from '../models/roomsTime.js'
+
+import isAuth from '../lib/isAuth.js'
+import parsingUser from '../lib/parsingUser.js'
+import timeData from '../lib/timeData.js'
 
 /** Routes Controllers **/
 export default {
   index: function (req, res) {
-    RoomsListModel.getAllRooms((error, rooms) => {
-      if (error) {
-        return res.render('500error')
-      }
+    return res.render('index', { layout: 'user', isAuth: isAuth(req.user, 'User'), user: user })
+  },
 
-      return res.json(rooms)
-    })
+  roomsReserve: function (req, res) {
+    
   }
 }

@@ -3,30 +3,7 @@ import RoomsListModel from '../models/roomsList.js'
 import RoomsTimeModel from '../models/roomsTime.js'
 
 import isAuth from '../lib/isAuth.js'
-
-/** global variables for data rendering **/
-const timeData = {
-  weeks: ['一', '二', '三', '四', '五', '六', '日'],
-
-  times: [
-    '0800~0900',
-    '0900~1000',
-    '1000~1100',
-    '1100~1200',
-    '1200~1300',
-    '1300~1400',
-    '1400~1500',
-    '1500~1600',
-    '1600~1700',
-    '1700~1800',
-    '1800~1900',
-    '1900~2000',
-    '2000~2100',
-    '2100~2200',
-    '2200~2300',
-    '2300~2400'
-  ]
-}
+import timeData from '../lib/timeData.js'
 
 /** global functions for module design **/
 function getAllRooms (mode, callback) {

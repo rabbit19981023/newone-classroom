@@ -13,7 +13,7 @@
 
   <form action="/admin/rooms/time/{{ mode.string }}/{{ roomName }}" method="POST">
     <div class="table-wrapper">
-      <table>
+      <table class="caption-top">
         <caption> {{ roomName }}教室 時段表 </caption>
 
         <thead>
@@ -83,3 +83,17 @@
 {{#extend 'scripts'}}
   <script src="/js/time-table.js"></script>
 {{/extend}}
+
+{{#if mode.add}}
+  <script>
+    const navLink = document.querySelector('.times-add')
+    navLink.classList.add('active')
+  </script>
+{{/if}}
+
+{{#if mode.delete}}
+  <script>
+    const navLink = document.querySelector('.times-delete')
+    navLink.classList.add('active')
+  </script>
+{{/if}}

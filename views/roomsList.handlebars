@@ -38,5 +38,10 @@
 {{/extend}}
 
 {{#extend 'scripts'}}
+	<script>
+		const navLink = document.querySelector('.rooms-list')
+		navLink.classList.add('active')
+	</script>
+	
 	<script src="/js/rooms-list.js"></script>
 {{/extend}}
