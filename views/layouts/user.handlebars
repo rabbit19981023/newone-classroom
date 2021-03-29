@@ -25,7 +25,7 @@
             <a class="nav-link" href="/">所有教室借用狀況</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">借用教室</a>
+            <a class="nav-link" href="/rooms/reserve">借用教室</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">審核狀況</a>
@@ -46,7 +46,7 @@
           {{/unless}}
 
           {{#if isAuth}}
-            <span class="ms-0 ms-md-4 mb-2 mb-md-0">我是{{{ user }}}，是 上帝寶貴的兒女！</span>
+            <span class="ms-0 ms-md-4 mb-2 mb-md-0">歡迎回來，{{ user }}！</span>
             <li class="nav-item ms-0 ms-md-3">
               <button type="button" class="btn btn-secondary" onclick="location.href = '/log-out'">登出</button>
             </li>

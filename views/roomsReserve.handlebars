@@ -1,0 +1,25 @@
+{{#unless isAuth}}
+  <script>location.href="/login"</script>
+{{/unless}}
+
+<div class="container">
+  <div class="selector-wrapper">
+    <label>教室：</label>
+    <select name="room_name">
+      <option value="">請選擇教室</option>
+
+      {{#each data.rooms as | room | }}
+        <option value="{{ room }}">{{ room }}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <label>日期：</label>
+  <select name="room_name">
+    <option value="">請選擇日期</option>
+
+    {{#each dates as | date | }}
+      <option value="{{ date }}">{{ date }}</option>
+    {{/each}}
+  </select>
+</div>
