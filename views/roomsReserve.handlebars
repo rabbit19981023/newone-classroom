@@ -1,25 +1,63 @@
 {{#unless isAuth}}
-  <script>location.href="/login"</script>
+<script>location.href = "/login"</script>
 {{/unless}}
 
 <div class="container">
   <div class="selector-wrapper">
     <label>教室：</label>
-    <select name="room_name">
+    <select name="room_name" onchange="location.href = '/rooms/reserve/' + this.value">
       <option value="">請選擇教室</option>
 
-      {{#each data.rooms as | room | }}
+      {{#each rooms as | room | }}
         <option value="{{ room }}">{{ room }}</option>
+      {{/each}}
+    </select>
+
+    <label>日期：</label>
+    <select name="room_name">
+      <option value="">請選擇日期</option>
+
+      {{#each dates as | date | }}
+        <option value="{{ date }}">{{ date }}</option>
       {{/each}}
     </select>
   </div>
 
-  <label>日期：</label>
-  <select name="room_name">
-    <option value="">請選擇日期</option>
+  <form action="" method="POST">
+    <div class="table-wrapper">
+      <table class="caption-top">
+        <caption>{{ roomName }}教室 時段表</caption>
 
-    {{#each dates as | date | }}
-      <option value="{{ date }}">{{ date }}</option>
-    {{/each}}
-  </select>
+        <thead>
+          <tr>
+            <th>時段</th>
+
+            {{#each timeData.weeks as | week | }}
+              <th>{{ week }}</th>
+            {{/each}}
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#each data as | weeks time | }}
+            <tr>
+              <td>{{ time }}</td>
+
+              {{#each weeks as | status week | }}
+                <td>
+                  {{#if status}}
+                    <input type="checkbox" name="room_time" value="{{ date }}, {{ time }}">
+                  {{else}}
+                    <input type="checkbox" disabled>
+                  {{/if}}
+                </td>
+              {{/each}}
+            </tr>
+          {{/each}}
+        </tbody>
+
+      </table>
+
+    </div>
+  </form>
 </div>

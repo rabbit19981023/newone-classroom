@@ -118,8 +118,8 @@ export default {
             }
           })
 
-          await roomTime.forEach(eachRoomTime => {
-            eachRoomTime.times.forEach(time => {
+          await roomTime.forEach(async eachRoomTime => {
+            await eachRoomTime.times.forEach(time => {
               data[time][eachRoomTime.week] = false
             })
           })
