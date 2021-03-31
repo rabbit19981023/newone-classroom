@@ -4,7 +4,6 @@ import RoomsTimeModel from '../models/roomsTime.js'
 import isAuth from '../lib/isAuth.js'
 import parsingUser from '../lib/parsingUser.js'
 import timeData from '../lib/timeData.js'
-import EventEmitter from 'node:events'
 
 /** Routes Controllers **/
 export default {
