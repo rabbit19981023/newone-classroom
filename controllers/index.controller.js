@@ -1,8 +1,6 @@
 // import the Data Models
 import RoomsTimeModel from '../models/roomsTime.js'
 
-import formidable from 'formidable'
-
 import isAuth from '../lib/isAuth.js'
 import parsingUser from '../lib/parsingUser.js'
 import timeData from '../lib/timeData.js'
@@ -71,16 +69,6 @@ export default {
   },
 
   add: function (req, res) {
-    const form = formidable()
-
-    form.on('field', (fieldName, fieldValue) => {
-      form.emit('data', { name: 'field', key: fieldName, value: fieldValue });
-    })
-
-    form.once('end', () => {
-      console.log('Done!');
-    })
-
     console.log(req.body)
   }
 }

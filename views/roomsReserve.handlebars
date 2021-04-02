@@ -21,7 +21,7 @@
       </div>
     </form>
 
-    <form id="reserveForm" action="/rooms/reserve/add" method="POST">
+    <form id="reserveForm">
       <div class="table-wrapper">
         <table class="caption-top">
           <caption>{{ roomName }}教室 時段表</caption>
@@ -55,11 +55,10 @@
           </tbody>
         </table>
       </div>
-
-      {{#if roomName}}
-        <button onclick="submit()">借用教室</button>
-      {{/if}}
     </form>
+    {{#if roomName}}
+      <button onclick="submit()">借用教室</button>
+    {{/if}}
       
   </div>
 {{/with}}
@@ -79,8 +78,7 @@
   </script>
 
   <script>
-
-    async function submit() {
+    function submit() {
       const reserveForm = document.getElementById('reserveForm')
 
       const urlParams = new URLSearchParams(window.location.search)
@@ -90,21 +88,20 @@
       const formData = new FormData(reserveForm)
       formData.append('room_name', roomName)
       formData.append('date', date)
-        
-      console.log(reserveForm)
-      console.log(formData.get('date'))
 
-      const response = await fetch('/rooms/reserve/add', {
+      const bodyData = {
+        room_name: formData.get('room_name'),
+        date: formData.get('date'),
+        times: formData.getAll('room_time')
+      }
+
+      fetch('/rooms/reserve/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: formData
+        body: `data=${JSON.stringify(bodyData)}`
       })
-
-      const result = await response.json()
-
-      console.log(result)
     }
   </script>
 {{/extend}}
