@@ -41,4 +41,3 @@ export default {
   getRoomsReserve: getRoomsReserve,
   addRoomsReserve: addRoomsReserve
 }
-

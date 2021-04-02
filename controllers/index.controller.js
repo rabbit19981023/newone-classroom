@@ -1,5 +1,6 @@
 // import the Data Models
 import RoomsTimeModel from '../models/roomsTime.js'
+import RoomsReserveModel from '../models/roomsReserve.js'
 
 import isAuth from '../lib/isAuth.js'
 import parsingUser from '../lib/parsingUser.js'
@@ -69,12 +70,14 @@ export default {
   },
 
   add: function (req, res) {
-    const data = JSON.parse(req.body.data)
+    const data = req.body
+
+    console.log(data)
 
     const today = new Date()
     const reserveDay = new Date(data.date)
 
-    if (reserveDay < today) { return res.send({ status: 'error', message: '請選擇正確的日期！' }) }
+    if (reserveDay < today) { return res.redirect('./?message=請選擇正確的日期！') }
 
     
   }
