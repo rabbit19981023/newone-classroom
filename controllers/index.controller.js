@@ -69,6 +69,13 @@ export default {
   },
 
   add: function (req, res) {
-    console.log(req.body)
+    const data = JSON.parse(req.body.data)
+
+    const today = new Date()
+    const reserveDay = new Date(data.date)
+
+    if (reserveDay < today) { return res.send({ status: 'error', message: '請選擇正確的日期！' }) }
+
+    
   }
 }
