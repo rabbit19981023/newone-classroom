@@ -53,16 +53,14 @@ async function getUploadedData (req, callback) {
       data.weeks.push(input[0])
       data.times.push(input[1])
     })
-  }
-  catch (error) {
+  } catch (error) {
     try {
       // if (array inputs.length == 1):
-    const input = inputs.split(',')
+      const input = inputs.split(',')
 
-    data.weeks.push(input[0])
-    data.times.push(input[1])
-    }
-    catch (error) {
+      data.weeks.push(input[0])
+      data.times.push(input[1])
+    } catch (error) {
       // this returned data is empty because of a error occured
       return callback(data)
     }

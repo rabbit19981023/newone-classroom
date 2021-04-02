@@ -82,7 +82,18 @@
 {{/extend}}
 
 {{#extend 'scripts'}}
-  <script src="/js/time-table.js"></script>
+  <script>
+    function getErrorMessage () {
+      const urlParams = new URLSearchParams(window.location.search)
+      const errorMessage = urlParams.get('message')
+
+      if (errorMessage) {
+        window.alert(errorMessage)
+      }
+    }
+    
+    getErrorMessage()
+  </script>
 {{/extend}}
 
 {{#if mode.add}}

@@ -21,13 +21,13 @@ function getAllRoomsTime (callback) {
   })
 }
 
-function getRoomTime ({roomName, roomWeek}, callback) {
+function getRoomTime ({ roomName, roomWeek }, callback) {
   const filter = { room_name: roomName }
 
   if (roomWeek) {
     filter.week = roomWeek
   }
-  
+
   RoomsTimeModel.find(filter, (error, roomTime) => {
     if (error) { return callback(error, null) }
 
@@ -37,7 +37,7 @@ function getRoomTime ({roomName, roomWeek}, callback) {
 
 async function addTime (data, callback) {
   /**
-  
+
   data = {
     room_name: String,
     weeks: Array,
@@ -49,7 +49,7 @@ async function addTime (data, callback) {
   let error = null
 
   if (data.times.length === 0) {
-    error = "請選擇教室時段！"
+    error = '請選擇教室時段！'
     return callback(error)
   }
 
@@ -61,7 +61,7 @@ async function addTime (data, callback) {
       }
 
       if (roomTime) {
-        if (roomTime.times.includes(data.times[i])){
+        if (roomTime.times.includes(data.times[i])) {
           return
         }
 
@@ -85,7 +85,7 @@ async function addTime (data, callback) {
 
 async function deleteTime (data, callback) {
   /**
-  
+
   data = {
     room_name: String,
     weeks: Array,
@@ -97,7 +97,7 @@ async function deleteTime (data, callback) {
   let error = null
 
   if (data.times.length === 0) {
-    error = "請選擇教室時段！"
+    error = '請選擇教室時段！'
     return callback(error)
   }
 

@@ -58,11 +58,11 @@ export default {
             6: false
           }
         })
-        
+
         await roomTime[0].times.forEach((time) => {
           data.times[time][roomWeek] = true
         })
-        
+
         return res.render('roomsReserve', { layout: 'user', data: data })
       })
     })

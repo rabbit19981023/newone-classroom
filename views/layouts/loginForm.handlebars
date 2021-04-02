@@ -53,6 +53,16 @@
 
   <p class="mt-5 mb-3 text-muted">&copy; Copyright 2020-2021 by NewOne靈糧堂. All Rights Reserved. </p>
 
-  <script src="/js/loginForm.js"></script>
+  <script>
+  function displayPassword () {
+    const password = document.getElementById('inputPassword')
+
+    if (password.type === 'password') {
+      password.type = 'text'
+    } else {
+      password.type = 'password'
+    }
+  }
+  </script>
 </body>
 </html>
