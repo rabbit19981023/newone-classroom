@@ -21,8 +21,14 @@ function getAllRoomsTime (callback) {
   })
 }
 
-function getRoomTime (roomName, callback) {
-  RoomsTimeModel.find({ room_name: roomName }, (error, roomTime) => {
+function getRoomTime ({roomName, roomWeek}, callback) {
+  const filter = { room_name: roomName }
+
+  if (roomWeek) {
+    filter.week = roomWeek
+  }
+  
+  RoomsTimeModel.find(filter, (error, roomTime) => {
     if (error) { return callback(error, null) }
 
     return callback(null, roomTime)

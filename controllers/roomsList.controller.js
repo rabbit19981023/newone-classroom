@@ -6,12 +6,16 @@ import isAuth from '../lib/isAuth.js'
 /** Routes Controllers **/
 export default {
   index: function (req, res) {
+    const data = {}
+    data.isAuth = isAuth(req.user, 'Admin')
+
     RoomsListModel.getAllRooms((error, rooms) => {
       if (error) { return res.render('500error') }
 
       const allRooms = JSON.parse(JSON.stringify(rooms)) // JSON.parse is synchronous!
+      data.rooms = allRooms
 
-      return res.render('roomsList', { layout: 'admin', isAuth: isAuth(req.user, 'Admin'), rooms: allRooms })
+      return res.render('roomsList', { layout: 'admin', data: data })
     })
   },
 

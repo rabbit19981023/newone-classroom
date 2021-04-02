@@ -1,63 +1,110 @@
-{{#unless isAuth}}
-<script>location.href = "/login"</script>
-{{/unless}}
+{{#with data}}
+  {{#unless isAuth}}
+  <script>location.href = "/login"</script>
+  {{/unless}}
 
-<div class="container">
-  <div class="selector-wrapper">
-    <label>教室：</label>
-    <select name="room_name" onchange="location.href = '/rooms/reserve/' + this.value">
-      <option value="">請選擇教室</option>
+  <div class="container">
+    <form action="/rooms/reserve" method="GET">
+      <div class="form-wrapper">
+        <label for="room-name">教室：</label>
+        <select id="room-name" name="room_name" required>
+          <option value="">請選擇教室</option>
+          {{#each allRooms as | room | }}
+            <option value="{{ room }}">{{ room }}</option>
+          {{/each}}
+        </select>
 
-      {{#each rooms as | room | }}
-        <option value="{{ room }}">{{ room }}</option>
-      {{/each}}
-    </select>
+        <label for="date">日期：</label>
+        <input id="date" name="date" type="date" required>
 
-    <label>日期：</label>
-    <select name="room_name">
-      <option value="">請選擇日期</option>
+        <button type="submit">更新時段表</button>
+      </div>
+    </form>
 
-      {{#each dates as | date | }}
-        <option value="{{ date }}">{{ date }}</option>
-      {{/each}}
-    </select>
-  </div>
+    <form id="reserveForm" action="/rooms/reserve/add" method="POST">
+      <div class="table-wrapper">
+        <table class="caption-top">
+          <caption>{{ roomName }}教室 時段表</caption>
 
-  <form action="" method="POST">
-    <div class="table-wrapper">
-      <table class="caption-top">
-        <caption>{{ roomName }}教室 時段表</caption>
+          <thead>
+            <tr>
+              <th>時段</th>
 
-        <thead>
-          <tr>
-            <th>時段</th>
-
-            {{#each timeData.weeks as | week | }}
+              {{#each timeData.weeks as | week | }}
               <th>{{ week }}</th>
-            {{/each}}
-          </tr>
-        </thead>
+              {{/each}}
+            </tr>
+          </thead>
 
-        <tbody>
-          {{#each data as | weeks time | }}
+          <tbody>
+            {{#each times as | weeks time | }}
             <tr>
               <td>{{ time }}</td>
 
               {{#each weeks as | status week | }}
-                <td>
-                  {{#if status}}
-                    <input type="checkbox" name="room_time" value="{{ date }}, {{ time }}">
-                  {{else}}
-                    <input type="checkbox" disabled>
-                  {{/if}}
-                </td>
+              <td>
+                {{#if status}}
+                  <input type="checkbox" name="room_time" value="{{ time }}">
+                {{else}}
+                <input type="checkbox" disabled>
+                {{/if}}
+              </td>
               {{/each}}
             </tr>
-          {{/each}}
-        </tbody>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
 
-      </table>
+      {{#if roomName}}
+        <button onclick="submit()">借用教室</button>
+      {{/if}}
+    </form>
+      
+  </div>
+{{/with}}
 
-    </div>
-  </form>
-</div>
+{{#extend 'title'}}
+<title>高雄NewOne靈糧堂 - 借用教室</title>
+{{/extend}}
+
+{{#extend 'css'}}
+
+{{/extend}}
+
+{{#extend 'scripts'}}
+  <script>
+    const navLink = document.getElementsByClassName('nav-link')[1]
+    navLink.classList.add('active')
+  </script>
+
+  <script>
+
+    async function submit() {
+      const reserveForm = document.getElementById('reserveForm')
+
+      const urlParams = new URLSearchParams(window.location.search)
+      const roomName = urlParams.get('room_name')
+      const date = urlParams.get('date')
+      
+      const formData = new FormData(reserveForm)
+      formData.append('room_name', roomName)
+      formData.append('date', date)
+        
+      console.log(reserveForm)
+      console.log(formData.get('date'))
+
+      const response = await fetch('/rooms/reserve/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: formData
+      })
+
+      const result = await response.json()
+
+      console.log(result)
+    }
+  </script>
+{{/extend}}

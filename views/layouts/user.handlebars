@@ -12,51 +12,49 @@
   {{{ block 'css' }}}
 </head>
 <body>
-  <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="https://nzgcc.com/">高雄NewOne靈糧堂</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="d-flex align-items-center navbar-nav">
-          <li class="nav-item mt-4 mt-md-0">
-            <a class="nav-link" href="/">所有教室借用狀況</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/rooms/reserve">借用教室</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">審核狀況</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">借用紀錄</a>
-          </li>
-          <hr>
-        
-          {{#unless isAuth}}
-            <li class="nav-item ms-0 ms-md-4 mb-2 mb-md-0">
-              <button type="button" class="btn btn-secondary" onclick="location.href = '/login'">登入</button>
+  {{#with data}}
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="https://nzgcc.com/">高雄NewOne靈糧堂</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="d-flex align-items-center navbar-nav">
+            <li class="nav-item mt-4 mt-md-0">
+              <a class="nav-link" href="/">所有教室借用狀況</a>
             </li>
-
-            <li class="nav-item ms-0 ms-md-2">
-              <button type="button" class="btn btn-secondary" onclick="location.href = '/sign-up'">註冊</button>
+            <li class="nav-item">
+              <a class="nav-link" href="/rooms/reserve">借用教室</a>
             </li>
-          {{/unless}}
-
-          {{#if isAuth}}
-            <span class="ms-0 ms-md-4 mb-2 mb-md-0">歡迎回來，{{ user }}！</span>
-            <li class="nav-item ms-0 ms-md-3">
-              <button type="button" class="btn btn-secondary" onclick="location.href = '/log-out'">登出</button>
+            <li class="nav-item">
+              <a class="nav-link" href="#">審核狀況</a>
             </li>
-          {{/if}}
+            <hr>
+          
+            {{#unless isAuth}}
+              <li class="nav-item ms-0 ms-md-4 mb-2 mb-md-0">
+                <button type="button" class="btn btn-secondary" onclick="location.href = '/login'">登入</button>
+              </li>
 
-        </ul>
+              <li class="nav-item ms-0 ms-md-2">
+                <button type="button" class="btn btn-secondary" onclick="location.href = '/sign-up'">註冊</button>
+              </li>
+            {{/unless}}
+
+            {{#if isAuth}}
+              <span class="ms-0 ms-md-4 mb-2 mb-md-0">歡迎回來，{{ user }}！</span>
+              <li class="nav-item ms-0 ms-md-3">
+                <button type="button" class="btn btn-secondary" onclick="location.href = '/log-out'">登出</button>
+              </li>
+            {{/if}}
+
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
-
+    </nav>
+  {{/with}}
   {{{ body }}}
 
   <!-- Bootstrap core JavaScript -->

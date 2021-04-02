@@ -1,6 +1,8 @@
 // import the Data Models
 import RoomsTimeModel from '../models/roomsTime.js'
 
+import formidable from 'formidable'
+
 import isAuth from '../lib/isAuth.js'
 import parsingUser from '../lib/parsingUser.js'
 import timeData from '../lib/timeData.js'
@@ -8,16 +10,22 @@ import timeData from '../lib/timeData.js'
 /** Routes Controllers **/
 export default {
   index: function (req, res) {
-    const user = parsingUser(req)
+    const data = {}
+    data.isAuth = isAuth(req.user, 'User')
+    data.user = parsingUser(req)
 
-    return res.render('index', { layout: 'user', isAuth: isAuth(req.user, 'User'), user: user })
+    return res.render('index', { layout: 'user', data: data })
   },
 
   roomsReserve: function (req, res) {
-    const user = parsingUser(req)
+    const data = {}
+    data.user = parsingUser(req)
+    data.isAuth = isAuth(req.user, 'User')
 
     RoomsTimeModel.getAllRoomsTime(async (error, roomsTime) => {
       if (error) { return res.render('500error') }
+
+      data.timeData = timeData
 
       const allRooms = []
 
@@ -27,17 +35,22 @@ export default {
         }
       })
 
-      if (!req.params.room_name) { return res.render('roomsReserve', { layout: 'user', isAuth: isAuth(req.user, 'User'), user: user, rooms: allRooms, timeData: timeData, }) }
+      data.allRooms = allRooms
 
-      const roomName = req.params.room_name
+      if (!req.query.room_name) { return res.render('roomsReserve', { layout: 'user', data: data }) }
+      const roomName = req.query.room_name
+      const roomDate = req.query.date
+      const roomWeek = new Date(roomDate).getDay().toString()
 
-      RoomsTimeModel.getRoomTime(roomName, async (error, roomTime) => {
+      data.roomName = roomName
+
+      RoomsTimeModel.getRoomTime({ roomName: roomName, roomWeek: roomWeek }, async (error, roomTime) => {
         if (error) { return res.render('500error') }
 
-        const data = {}
+        data.times = {}
 
         await timeData.times.forEach((time) => {
-          data[time] = {
+          data.times[time] = {
             0: false,
             1: false,
             2: false,
@@ -47,15 +60,27 @@ export default {
             6: false
           }
         })
-
-        await roomTime.forEach(async (eachRoomTime) => {
-          await eachRoomTime.times.forEach((time) => {
-            data[time][eachRoomTime.week] = true
-          })
+        
+        await roomTime[0].times.forEach((time) => {
+          data.times[time][roomWeek] = true
         })
         
-        return res.render('roomsReserve', { layout: 'user', isAuth: isAuth(req.user, 'User'), user: user, roomName: roomName, rooms: allRooms, timeData: timeData, data: data })
+        return res.render('roomsReserve', { layout: 'user', data: data })
       })
     })
+  },
+
+  add: function (req, res) {
+    const form = formidable()
+
+    form.on('field', (fieldName, fieldValue) => {
+      form.emit('data', { name: 'field', key: fieldName, value: fieldValue });
+    })
+
+    form.once('end', () => {
+      console.log('Done!');
+    })
+
+    console.log(req.body)
   }
 }

@@ -1,33 +1,34 @@
-<div class="container">
-	<form action="/admin/rooms/list/add" method="POST">
-		<div class="container-input">
-			<label for="room_name">教室：</label>
-			<input id="room_name" type="text" name="room_name">
+{{#with data}}
+	<div class="container">
+		<form action="/admin/rooms/list/add" method="POST">
+			<div class="container-input">
+				<label for="room_name">教室：</label>
+				<input id="room_name" type="text" name="room_name">
 
-			<button type="submit">新增教室</button>
-		</div>
-	</form>
+				<button type="submit">新增教室</button>
+			</div>
+		</form>
 
-	<form action="/admin/rooms/list/delete" method="POST">
-		<div class="container-input">
-			<label for="room_name">教室：</label>
-			<select id="room_name" name="room_name">
-				<option value="null">請選擇教室</option>
-				{{#each rooms}}
-					<option value="{{ this.room_name }}">{{ this.room_name }}</option>
-				{{/each}}
-			</select>
+		<form action="/admin/rooms/list/delete" method="POST">
+			<div class="container-input">
+				<label for="room_name">教室：</label>
+				<select id="room_name" name="room_name">
+					<option value="null">請選擇教室</option>
+					{{#each rooms as | room | }}
+						<option value="{{ room.room_name }}">{{ room.room_name }}</option>
+					{{/each}}
+				</select>
 
-			<button type="button" onclick="doubleCheck()">刪除教室</button>
-		</div>
+				<button type="button" onclick="doubleCheck()">刪除教室</button>
+			</div>
 
-		<div id="double-check">
-			<span>您確定要刪除此教室？</span>
-			<button type="submit">確認刪除</button>
-		</div>
-	</form>
-</div>
-
+			<div id="double-check">
+				<span>您確定要刪除此教室？</span>
+				<button type="submit">確認刪除</button>
+			</div>
+		</form>
+	</div>
+{{/with}}
 
 {{#extend 'title'}}
 <title>教室借用系統 - 教室管理</title>
