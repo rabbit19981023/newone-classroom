@@ -6,38 +6,121 @@ import isAuth from '../lib/isAuth.js'
 import parsingUser from '../lib/parsingUser.js'
 import timeData from '../lib/timeData.js'
 
-/** global functions for module design **/
-function getAllRooms (mode, callback) {
-  const allRooms = []
+/** global Namespace**/
 
-  if (mode.add) {
+// Custom Strategies
+class AddStrategy {
+  use(req, res, data) {
+    const allRooms = []
+
     RoomsListModel.getAllRooms(async (error, rooms) => {
-      if (error) { return callback(error, null) }
+      if (error) { return res.render('500error', { layout: 'error' }) }
 
       await rooms.forEach(room => {
         allRooms.push(room.room_name)
       })
 
-      return callback(null, allRooms)
-    })
-  }
+      data.rooms = allRooms
 
-  if (mode.delete) {
-    RoomsTimeModel.getAllRoomsTime(async (error, roomsTime) => {
-      if (error) { return callback(error, null) }
+      if (!req.params.room_name) { return res.render('timeManage', { layout: 'admin', data: data }) }
 
-      await roomsTime.forEach(roomTime => {
-        if (!allRooms.includes(roomTime.room_name)) {
-          allRooms.push(roomTime.room_name)
-        }
+      const roomName = req.params.room_name
+      data.roomName = roomName
+
+      RoomsTimeModel.getRoomTime({ roomName: roomName }, async (error, roomTime) => {
+        if (error) { res.render('500error', { layout: 'error' }) }
+
+        data.times = {}
+
+        await timeData.times.forEach(time => {
+          data.times[time] = {
+            0: true,
+            1: true,
+            2: true,
+            3: true,
+            4: true,
+            5: true,
+            6: true
+          }
+        })
+
+        await roomTime.forEach(async eachRoomTime => {
+          await eachRoomTime.times.forEach(time => {
+            data.times[time][eachRoomTime.week] = false
+          })
+        })
+
+        return res.render('timeManage', { layout: 'admin', data: data })
       })
-
-      return callback(null, allRooms)
     })
   }
 }
 
-async function getUploadedData (req, callback) {
+class DeleteStrategy {
+  use(req, res, data) {
+    const allRooms = []
+
+    RoomsTimeModel.getAllRoomsTime(async (error, roomsTime) => {
+      if (error) { return res.render('timeManage', { layout: 'admin', data: data }) }
+
+      await roomsTime.forEach(roomTime => {
+        const roomName = roomTime.room_name
+
+        if (!allRooms.includes(roomName)) {
+          allRooms.push(roomName)
+        }
+      })
+
+      data.rooms = allRooms
+
+      if (!req.params.room_name) { return res.render('timeManage', { layout: 'admin', data: data }) }
+
+      const roomName = req.params.room_name
+      data.roomName = roomName
+
+      RoomsTimeModel.getRoomTime({ roomName: roomName }, async (error, roomTime) => {
+        if (error) { res.render('500error', { layout: 'error' }) }
+
+        data.times = {}
+
+        await timeData.times.forEach(time => {
+          data.times[time] = {
+            0: false,
+            1: false,
+            2: false,
+            3: false,
+            4: false,
+            5: false,
+            6: false
+          }
+        })
+
+        await roomTime.forEach(async eachRoomTime => {
+          await eachRoomTime.times.forEach(time => {
+            data.times[time][eachRoomTime.week] = true
+          })
+        })
+
+        return res.render('timeManage', { layout: 'admin', data: data })
+      })
+    })
+  }
+}
+
+// Strategies Context
+const timeTableStrategies = {
+  add: new AddStrategy(),
+  delete: new DeleteStrategy()
+}
+
+// Strategy Controller
+function renderTimeTable(req, res, data, type) {
+  const strategy = timeTableStrategies[type]
+
+  strategy.use(req, res, data)
+}
+
+async function getUploadedData(req, callback) {
   const data = {
     room_name: req.params.room_name,
     weeks: [],
@@ -85,6 +168,7 @@ export default {
       add: false,
       delete: false
     }
+
     data.mode = mode
 
     switch (path) {
@@ -98,64 +182,7 @@ export default {
         break
     }
 
-    getAllRooms(mode, (error, allRooms) => {
-      if (error) { return res.render('500error') }
-
-      data.rooms = allRooms
-
-      if (!req.params.room_name) { return res.render('timeManage', { layout: 'admin', data: data }) }
-
-      const roomName = req.params.room_name
-      data.roomName = roomName
-
-      RoomsTimeModel.getRoomTime({ roomName: roomName }, async (error, roomTime) => {
-        if (error) { res.render('500error') }
-
-        data.times = {}
-
-        if (mode.add) {
-          await timeData.times.forEach(time => {
-            data.times[time] = {
-              0: true,
-              1: true,
-              2: true,
-              3: true,
-              4: true,
-              5: true,
-              6: true
-            }
-          })
-
-          await roomTime.forEach(async eachRoomTime => {
-            await eachRoomTime.times.forEach(time => {
-              data.times[time][eachRoomTime.week] = false
-            })
-          })
-        }
-
-        if (mode.delete) {
-          await timeData.times.forEach(time => {
-            data.times[time] = {
-              0: false,
-              1: false,
-              2: false,
-              3: false,
-              4: false,
-              5: false,
-              6: false
-            }
-          })
-
-          await roomTime.forEach(async eachRoomTime => {
-            await eachRoomTime.times.forEach(time => {
-              data.times[time][eachRoomTime.week] = true
-            })
-          })
-        }
-
-        return res.render('timeManage', { layout: 'admin', data: data })
-      })
-    })
+    renderTimeTable(req, res, data, mode.string)
   },
 
   addTime: function (req, res) {
