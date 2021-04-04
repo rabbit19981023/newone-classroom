@@ -39,28 +39,17 @@
 {{/extend}}
 
 {{#extend 'scripts'}}
+	<script src="/js/getErrorMessage.js"></script>
+
 	<script>
-		const navLink = document.querySelector('.rooms-list')
+		const navLink = document.querySelectorAll('.nav-link')[1]
 		navLink.classList.add('active')
 	</script>
 	
 	<script>
-		function getErrorMessage () {
-			const urlParams = new URLSearchParams(window.location.search)
-			const errorMessage = urlParams.get('message')
-
-			if (errorMessage.includes('null')) {
-				window.alert('請選擇要刪除的教室！')
-			} else {
-				window.alert(errorMessage)
-			}
-		}
-
 		function doubleCheck () {
-			const div = document.getElementById('double-check')
+			const div = document.querySelector('#double-check')
 			div.style.display = 'flex'
 		}
-
-		getErrorMessage()
 	</script>
 {{/extend}}

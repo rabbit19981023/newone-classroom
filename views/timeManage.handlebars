@@ -63,49 +63,39 @@
       {{/if}}
     </form>
   </div>
+
+  {{#if mode.add}}
+    {{#extend 'title'}}
+      <title>教室借用系統 - 新增時段</title>
+    {{/extend}}
+  {{/if}}
+
+  {{#if mode.delete}}
+    {{#extend 'title'}}
+      <title>教室借用系統 - 刪除時段</title>
+    {{/extend}}
+  {{/if}}
+
+  {{#extend 'css'}}
+    <link rel="stylesheet" href="/css/time-table.css">
+  {{/extend}}
+
+  {{#extend 'scripts'}}
+    <script src="/js/getErrorMessage.js"></script>
+  {{/extend}}
+
+  {{#if mode.add}}
+    <script>
+      const navLink = document.querySelectorAll('.nav-link')[2]
+      navLink.classList.add('active')
+    </script>
+  {{/if}}
+
+  {{#if mode.delete}}
+    <script>
+      const navLink = document.querySelectorAll('.nav-link')[3]
+      navLink.classList.add('active')
+    </script>
+  {{/if}}
+
 {{/with}}
-
-{{#if mode.add}}
-  {{#extend 'title'}}
-    <title>教室借用系統 - 新增時段</title>
-  {{/extend}}
-{{/if}}
-
-{{#if mode.delete}}
-  {{#extend 'title'}}
-    <title>教室借用系統 - 刪除時段</title>
-  {{/extend}}
-{{/if}}
-
-{{#extend 'css'}}
-  <link rel="stylesheet" href="/css/time-table.css">
-{{/extend}}
-
-{{#extend 'scripts'}}
-  <script>
-    function getErrorMessage () {
-      const urlParams = new URLSearchParams(window.location.search)
-      const errorMessage = urlParams.get('message')
-
-      if (errorMessage) {
-        window.alert(errorMessage)
-      }
-    }
-    
-    getErrorMessage()
-  </script>
-{{/extend}}
-
-{{#if mode.add}}
-  <script>
-    const navLink = document.querySelector('.times-add')
-    navLink.classList.add('active')
-  </script>
-{{/if}}
-
-{{#if mode.delete}}
-  <script>
-    const navLink = document.querySelector('.times-delete')
-    navLink.classList.add('active')
-  </script>
-{{/if}}

@@ -1,19 +1,30 @@
-#form-details {
+.form-details {
+  pointer-events: none;
+  opacity: 0;
+  display: flex;
   flex-direction: column;
   background-color: #FFFFFF;
   position: fixed;
   width: 90%;
   height: 80%;
-  top: 10%;
-  left: 5%;
+  top: 5%;
+  left: 10%;
   padding: 20px;
   border: 1px solid #000000;
   border-radius: 5px;
   box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.6);
+  transform: scale(0.5);
+  transition: 0.4s;
+}
+
+.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
 }
 
 @media screen and (min-width: 768px) {
-  #form-details {
+  .form-details {
     padding-top: 10px;
     width: 60%;
     height: 90%;
@@ -22,9 +33,9 @@
   }
 }
 
-#form-details span,
-#form-details .times-wrapper,
-#form-details .purpose-wrapper {
+.form-details span,
+.form-details .times-wrapper,
+.form-details .purpose-wrapper {
   margin-bottom: 15px;
 }
 
@@ -52,6 +63,6 @@
   align-items: center;
 }
 
-#form-details button {
+.form-details button {
   width: 30%;
 }

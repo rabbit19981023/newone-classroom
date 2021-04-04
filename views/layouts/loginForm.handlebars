@@ -13,49 +13,50 @@
 </head>
 
 <body class="text-center">
-  
-  <h1 class="mb-3 fw-normal {{ block 'h1-class' }}">{{{ block 'title' }}}</h1>
+  {{#with data}}
+    <h1 class="mb-3 fw-normal {{ block 'h1-class' }}">{{{ block 'title' }}}</h1>
 
-  <main class="form">
-    <form action="{{{ block 'formPath' }}}" method="POST">
-      {{#if isSignUp}}
-        <input type="text" id="inputUser" name="user" class="form-control" placeholder="您的名字" minlength="2" maxlength="4" required>
-      {{/if}}
+    <main class="form">
+      <form action="{{{ block 'formPath' }}}" method="POST">
+        {{#if isSignUp}}
+          <input type="text" id="inputUser" name="user" class="form-control" placeholder="您的名字" minlength="2" maxlength="4" required>
+        {{/if}}
 
-      <input type="text" id="inputUsername" name="username" class="form-control" placeholder="您的帳號" minlength="5" maxlength="20" required>
-      <input type="password" id="inputPassword" name="password" class="form-control" placeholder="您的密碼" minlength="8" maxlength="25" required>
-      
-      {{#if message}}
-        <span class="text-danger fw-bold">{{ message }}</span>
-        <br>
-      {{/if}}
-      
-      <input type="checkbox" id="display-password" onclick="displayPassword()">
-      <label for="display-password">顯示密碼</label>
-      
-      {{#if isLogin}}
-        <button class="mb-2 w-75 btn btn-lg btn-primary" type="submit">登入</button>
-        {{#if isUser}}
+        <input type="text" id="inputUsername" name="username" class="form-control" placeholder="您的帳號" minlength="5" maxlength="20" required>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="您的密碼" minlength="8" maxlength="25" required>
+        
+        {{#if message}}
+          <span class="text-danger fw-bold">{{ message }}</span>
           <br>
-          <span>還沒有帳號嗎？這裡可以<a href="/sign-up">註冊</a></span>
         {{/if}}
-      {{/if}}
-      
-      {{#if isSignUp}}
-        <button class="mb-2 w-75 btn btn-lg btn-primary" type="submit">註冊</button>
-        {{#if isUser}}
-          <br>
-          <span>已經有帳號了嗎？這裡可以<a href="/login">登入</a></span>
+        
+        <input type="checkbox" id="display-password" onclick="displayPassword()">
+        <label for="display-password">顯示密碼</label>
+        
+        {{#if isLogin}}
+          <button class="mb-2 w-75 btn btn-lg btn-primary" type="submit">登入</button>
+          {{#if isUser}}
+            <br>
+            <span>還沒有帳號嗎？這裡可以<a href="/sign-up">註冊</a></span>
+          {{/if}}
         {{/if}}
-      {{/if}}
-    </form>
-  </main>
+        
+        {{#if isSignUp}}
+          <button class="mb-2 w-75 btn btn-lg btn-primary" type="submit">註冊</button>
+          {{#if isUser}}
+            <br>
+            <span>已經有帳號了嗎？這裡可以<a href="/login">登入</a></span>
+          {{/if}}
+        {{/if}}
+      </form>
+    </main>
+  {{/with}}
 
   <p class="mt-5 mb-3 text-muted">&copy; Copyright 2020-2021 by NewOne靈糧堂. All Rights Reserved. </p>
 
   <script>
   function displayPassword () {
-    const password = document.getElementById('inputPassword')
+    const password = document.querySelector('#inputPassword')
 
     if (password.type === 'password') {
       password.type = 'text'

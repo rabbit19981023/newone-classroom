@@ -53,3 +53,7 @@ button {
   align-items: center;
   font-size: 14px;
 }
+
+#double-check button {
+  margin-top: 5px;
+}

@@ -46,7 +46,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 600 * 1000 * 6 * 2 },
+  cookie: { maxAge: 600 * 1000 * 6 * 2 }, // 600miles * 1000 * 6 = 1hr
   store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI })
 }))
 // Custom Middlewares for Authentication with Passport.js
@@ -61,6 +61,9 @@ app.use('/admin', authAdminRoutes)
 app.use('/', indexRoutes)
 app.use('/admin/rooms/list', roomsListRoutes)
 app.use('/admin/rooms/time', roomsTimeRoutes)
+
+// 404 Error Route
+app.use('/', (req, res) => { return res.render('404error', { layout: 'error' }) })
 
 /** Activating the Server **/
 const PORT = process.env.PORT || 3000

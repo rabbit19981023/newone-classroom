@@ -3,6 +3,7 @@ import RoomsListModel from '../models/roomsList.js'
 import RoomsTimeModel from '../models/roomsTime.js'
 
 import isAuth from '../lib/isAuth.js'
+import parsingUser from '../lib/parsingUser.js'
 import timeData from '../lib/timeData.js'
 
 /** global functions for module design **/
@@ -75,6 +76,7 @@ export default {
     const data = {}
     data.timeData = timeData
     data.isAuth = isAuth(req.user, 'Admin')
+    data.user = parsingUser(req)
 
     const path = req.path.split('/')[1]
 

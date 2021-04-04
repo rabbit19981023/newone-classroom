@@ -1,13 +1,18 @@
 import passport from 'passport'
-import isAuth from '../lib/isAuth.js'
 
 /** Routes Controllers **/
 export default {
-  loginForm: function loginForm (req, res) {
-    return res.render('login', { layout: 'loginForm', isAuth: isAuth(req.user, 'User'), isUser: true, isLogin: true, message: req.flash('error') })
+  loginForm: function (req, res) {
+    const data = {
+      isUser: true,
+      isLogin: true,
+      message: req.flash('error')
+    }
+
+    return res.render('login', { layout: 'loginForm', data: data })
   },
 
-  login: function login (req, res) {
+  login: function (req, res) {
     const callback = passport.authenticate('login-user', {
       successRedirect: '/',
       failureRedirect: '/login',
@@ -17,11 +22,17 @@ export default {
     return callback(req, res)
   },
 
-  signUpForm: function signUpForm (req, res) {
-    return res.render('signUp', { layout: 'loginForm', isAuth: isAuth(req.user, 'User'), isUser: true, isSignUp: true, message: req.flash('error') })
+  signUpForm: function (req, res) {
+    const data = {
+      isUser: true,
+      isSignUp: true,
+      message: req.flash('error')
+    }
+
+    return res.render('signUp', { layout: 'loginForm', data: data })
   },
 
-  signUp: function signUp (req, res) {
+  signUp: function (req, res) {
     const callback = passport.authenticate('sign-up-user', {
       successRedirect: '/',
       failureRedirect: '/sign-up',
@@ -31,7 +42,7 @@ export default {
     return callback(req, res)
   },
 
-  logOut: function logOut (req, res) {
+  logOut: function (req, res) {
     req.logOut()
 
     return res.redirect('/')

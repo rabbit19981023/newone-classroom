@@ -1,17 +1,31 @@
-{{#if isSignUp}}
-  {{#extend 'h1-class'}}
-sign-up
-  {{/extend}}
-{{/if}}
+{{#with data}}
+  {{#if isSignUp}}
+    {{#extend 'h1-class'}}
+  sign-up
+    {{/extend}}
+  {{/if}}
 
-{{#if isUser}}
-  {{#extend 'title'}}
-教室借用系統 - 使用者註冊
-  {{/extend}}
-{{/if}}
+  {{#if isUser}}
+    {{#extend 'title'}}
+  教室借用系統 - 使用者註冊
+    {{/extend}}
+  {{/if}}
 
-{{#if isUser}}
-  {{#extend 'formPath'}}
-/sign-up
-  {{/extend}}
-{{/if}}
+  {{#if isUser}}
+    {{#extend 'formPath'}}
+  /sign-up
+    {{/extend}}
+  {{/if}}
+
+  {{#if isAdmin}}
+    {{#extend 'title'}}
+  教室借用系統 - 管理員註冊
+    {{/extend}}
+  {{/if}}
+
+  {{#if isAdmin}}
+    {{#extend 'formPath'}}
+  /admin/sign-up
+    {{/extend}}
+  {{/if}}
+{{/with}}

@@ -2,12 +2,14 @@
 import RoomsListModel from '../models/roomsList.js'
 
 import isAuth from '../lib/isAuth.js'
+import parsingUser from '../lib/parsingUser.js'
 
 /** Routes Controllers **/
 export default {
   index: function (req, res) {
     const data = {}
     data.isAuth = isAuth(req.user, 'Admin')
+    data.user = parsingUser(req)
 
     RoomsListModel.getAllRooms((error, rooms) => {
       if (error) { return res.render('500error') }

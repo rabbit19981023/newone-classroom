@@ -31,24 +31,23 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="d-flex align-items-center navbar-nav">
             <li class="nav-item mt-4 mt-md-0">
-              <a class="nav-link audit" href="#">教室借用審核</a>
+              <a class="nav-link" href="#">教室借用審核</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link rooms-list" href="/admin/rooms/list">教室列表</a>
+              <a class="nav-link" href="/admin/rooms/list">教室列表</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link times-add" href="/admin/rooms/time/add">新增時段</a>
+              <a class="nav-link" href="/admin/rooms/time/add">新增時段</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link times-delete" href="/admin/rooms/time/delete">刪除時段</a>
+              <a class="nav-link" href="/admin/rooms/time/delete">刪除時段</a>
             </li>
             <hr>
 
             <div class="button-wrapper">
               {{#if isAuth}}
-                <li class="nav-item">
-                  <button type="button" class="btn btn-secondary" onclick="location.href = '/admin/log-out'">登出</button>
-                </li>
+                <span>歡迎回來，{{ user }}！</span>
+                <button type="button" class="btn btn-secondary" onclick="location.href = '/admin/log-out'">登出</button>
               {{/if}}
             </div>
           </ul>
