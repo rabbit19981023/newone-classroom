@@ -47,6 +47,7 @@ body {
   box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.6);
   transform: scale(0.5);
   transition: 0.4s;
+  overflow-y: auto;
 }
 
 .is-active {
@@ -61,7 +62,6 @@ body {
     height: 90%;
     top: 5%;
     left: 12.5%;
-    overflow-y: auto;
   }
 }
 

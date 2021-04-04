@@ -18,13 +18,12 @@ export default {
 
   roomsReserve: function (req, res) {
     const data = {}
+    data.timeData = timeData
     data.user = parsingUser(req)
     data.isAuth = isAuth(req.user, 'User')
 
     RoomsTimeModel.getAllRoomsTime(async (error, roomsTime) => {
       if (error) { return res.render('500error') }
-
-      data.timeData = timeData
 
       const allRooms = []
 
@@ -34,7 +33,7 @@ export default {
         }
       })
 
-      data.allRooms = allRooms
+      data.rooms = allRooms
 
       if (!req.query.room_name) { return res.render('roomsReserve', { layout: 'user', data: data }) }
       const roomName = req.query.room_name
