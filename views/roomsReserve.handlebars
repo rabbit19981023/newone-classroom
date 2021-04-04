@@ -3,21 +3,25 @@
     <script>location.href = "/login"</script>
   {{/unless}}
 
-  <div class="container">
+  <div class="wrapper">
     <form action="/rooms/reserve" method="GET">
-      <div class="form-wrapper">
-        <label for="room-name">教室：</label>
-        <select id="room-name" name="room_name" required>
-          <option value="">請選擇教室</option>
-          {{#each allRooms as | room | }}
-            <option value="{{ room }}">{{ room }}</option>
-          {{/each}}
-        </select>
+      <div class="options-wrapper">
+        <div class="option">
+          <label for="room-name">教室：</label>
+          <select id="room-name" name="room_name" required>
+            <option value="">請選擇教室</option>
+            {{#each allRooms as | room | }}
+              <option value="{{ room }}">{{ room }}</option>
+            {{/each}}
+          </select>
+        </div>
 
-        <label for="room-date">日期：</label>
-        <input id="room-date" name="date" type="date" required>
+        <div class="option">
+          <label for="room-date">日期：</label>
+          <input id="room-date" name="date" type="date" required>
+        </div>
 
-        <button type="submit">更新時段表</button>
+        <button type="submit" class="btn btn-secondary">更新時段表</button>
       </div>
     </form>
 
@@ -79,13 +83,15 @@
         </div>
 
         <center>
-          <button type="submit">確定借用</button>
+          <button type="submit" class="btn btn-secondary">確定借用</button>
         </center>
       </div>
     </form>
 
     {{#if roomName}}
-      <button onclick="displayForm()">我要借用</button>
+      <center>
+        <button class="btn btn-secondary mb-2" onclick="displayForm()">我要借用</button>
+      </center>
     {{/if}}
   </div>
 {{/with}}
@@ -95,6 +101,7 @@
 {{/extend}}
 
 {{#extend 'css'}}
+<link rel="stylesheet" href="/css/table.css">
 <link rel="stylesheet" href="/css/roomsReserve.css">
 {{/extend}}
 

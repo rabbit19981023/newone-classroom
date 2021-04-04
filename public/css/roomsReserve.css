@@ -1,3 +1,38 @@
+body {
+  overflow-x: hidden;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 5px 10px;
+}
+
+.options-wrapper {
+  display: flex;
+  width: 38rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .options-wrapper {
+    width: 100%;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .options-wrapper div {
+    margin-bottom: 10px;
+  }
+
+  .options-wrapper button {
+    align-self: center;
+  }
+}
+
 .form-details {
   pointer-events: none;
   opacity: 0;
@@ -5,10 +40,6 @@
   flex-direction: column;
   background-color: #FFFFFF;
   position: fixed;
-  width: 90%;
-  height: 80%;
-  top: 5%;
-  left: 10%;
   padding: 20px;
   border: 1px solid #000000;
   border-radius: 5px;
@@ -21,6 +52,25 @@
   opacity: 1;
   pointer-events: auto;
   transform: scale(1);
+}
+
+@media screen and (max-width: 768px) {
+  .form-details {
+    width: 75%;
+    height: 90%;
+    top: 5%;
+    left: 12.5%;
+    overflow-y: auto;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .form-details {
+    width: 90%;
+    height: 80%;
+    top: 5%;
+    left: 5%;
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -65,4 +115,15 @@
 
 .form-details button {
   width: 30%;
+}
+
+@media screen and (max-width: 576px) {
+  .purpose-wrapper {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .form-details button {
+    width: 45%;
+  }
 }

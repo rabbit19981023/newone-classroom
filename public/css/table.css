@@ -1,0 +1,93 @@
+.table-wrapper {
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 1.5%;
+  font-size: 16px;
+  border: 1px solid #555555;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  overflow-x: auto;
+  margin-bottom: 2%;
+}
+
+input[name="room_time"] {
+  appearance: none;
+  position: relative;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #000000;
+  border-radius: 3px;
+}
+
+input[name="room_time"]:checked {
+  background: #3190E8;
+}
+
+input[name="room_time"]:checked::after {
+  content: '\2714';
+  position: absolute;
+  top: -6px;
+  left: -3px;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+@media screen and (max-width: 768px) {
+  input[name="room_time"]:checked::after {
+    top: -3px;
+    left: 2px;
+    font-size: 14px;
+  }
+}
+
+caption {
+  text-align: center;
+}
+
+th, td {
+  text-align: center;
+}
+
+th {
+  padding: 0px 45px;
+  border-bottom: 1px solid #000000;
+}
+
+@media screen and (max-width: 768px) {
+  th {
+    padding: 0px 30px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  th {
+    padding: 3px 15px;
+  }
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+  border-right: 1px solid #000000;
+}
+
+tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+}
+
+td:last-child() {
+  border-bottom: 1px solid #000000;
+}
+
+td:nth-child(1) {
+  padding: 10px 15px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th:nth-child(even),
+td:nth-child(even) {
+  background: #F2F2F2;
+}
