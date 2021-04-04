@@ -39,6 +39,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #FFFFFF;
+  font-size: 18px;
   position: fixed;
   padding: 20px;
   border: 1px solid #000000;
@@ -90,7 +91,7 @@ body {
 }
 
 .close-btn::after {
-  position: absolute;
+  position: fixed;
   top: -5px;
   right: 10px;
   content: 'x';
