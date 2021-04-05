@@ -5,9 +5,6 @@ const router = Router()
 
 /** /index/ Routes **/
 router.get('/', indexController.index)
-router.get('/rooms/reserve', indexController.roomsReserve)
-
-router.post('/rooms/reserve/add', indexController.add)
 
 // exports the express.Router instance
 export default router

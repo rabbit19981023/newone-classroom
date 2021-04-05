@@ -17,7 +17,7 @@ const roomsReserveSchema = new Schema({
 const RoomsReserveModel = model('RoomsReserve', roomsReserveSchema)
 
 /** RoomsReserve Model APIs **/
-function getAllRoomsReserve (callback) {
+function findAll (callback) {
   RoomsReserveModel.find().sort({ room_name: 1, date: -1 }).exec((error, roomsReserve) => {
     if (error) { return callback(error, null) }
 
@@ -25,7 +25,7 @@ function getAllRoomsReserve (callback) {
   })
 }
 
-function getRoomsReserve (filter, callback) {
+function findMany (filter, callback) {
   RoomsReserveModel.find(filter).sort({ date: -1 }).exec((error, roomsReserve) => {
     if (error) { return callback(error, null) }
 
@@ -33,7 +33,7 @@ function getRoomsReserve (filter, callback) {
   })
 }
 
-function addRoomsReserve (data, callback) {
+function addMany (data, callback) {
   const reserveDoc = new RoomsReserveModel({
     room_name: data.room_name,
     date: data.date,
@@ -47,7 +47,7 @@ function addRoomsReserve (data, callback) {
 }
 
 export default {
-  getAllRoomsReserve: getAllRoomsReserve,
-  getRoomsReserve: getRoomsReserve,
-  addRoomsReserve: addRoomsReserve
+  findAll: findAll,
+  findMany: findMany,
+  addMany: addMany
 }

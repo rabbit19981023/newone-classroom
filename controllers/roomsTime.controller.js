@@ -1,11 +1,11 @@
-// import data models
+// Import Data Models
 import RoomsTimeModel from '../models/roomsTime.js'
 
 import isAuth from '../lib/isAuth.js'
 import parsingUser from '../lib/parsingUser.js'
 import renderTimeTable from '../lib/renderTimeTable.js'
 
-/** global Namespace**/
+/** Global Namespace**/
 async function getUploadedData (req, callback) {
   const data = {
     room_name: req.params.room_name,

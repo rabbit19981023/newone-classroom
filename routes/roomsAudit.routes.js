@@ -1,0 +1,9 @@
+import { Router } from 'express'
+import roomsAuditController from '../controllers/roomsAudit.controller.js'
+
+const router = Router()
+
+/** /admin/rooms/audit Routes **/
+router.get('/', roomsAuditController.index)
+
+export default router

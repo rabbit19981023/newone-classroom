@@ -1,4 +1,4 @@
-/** Import npm modules **/
+/** Import npm Modules **/
 import express from 'express'
 import expressHandlebars from 'express-handlebars'
 import session from 'express-session'
@@ -9,16 +9,20 @@ import { fileURLToPath } from 'url'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
 
-/** Import custom modules (custom middlewares) **/
+/** Import Custom Modules (custom middlewares) **/
 import db from './db.js'
 import handlebarsHelpers from './lib/handlebarsHelpers.js'
 import passportAuth from './lib/passportAuth.js'
 
-/** Import routes mapping handler **/
+/** Import Routes Mapping Handler **/
+// User
 import authUserRoutes from './routes/authUser.routes.js'
-import authAdminRoutes from './routes/authAdmin.routes.js'
-
 import indexRoutes from './routes/index.routes.js'
+import roomsReserveRoutes from './routes/roomsReserve.routes.js'
+
+// Admin
+import authAdminRoutes from './routes/authAdmin.routes.js'
+import roomsAuditRoutes from './routes/roomsAudit.routes.js'
 import roomsListRoutes from './routes/roomsList.routes.js'
 import roomsTimeRoutes from './routes/roomsTime.routes.js'
 
@@ -49,16 +53,21 @@ app.use(session({
   cookie: { maxAge: 600 * 1000 * 6 * 2 }, // 600miles * 1000 * 6 = 1hr
   store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI })
 }))
+
 // Custom Middlewares for Authentication with Passport.js
 app.use(passportAuth.initialize())
 app.use(passportAuth.session())
 app.use(flash())
 
 /** Routes **/
+// User
 app.use('/', authUserRoutes)
-app.use('/admin', authAdminRoutes)
-
 app.use('/', indexRoutes)
+app.use('/rooms/reserve', roomsReserveRoutes)
+
+// Admin
+app.use('/admin', authAdminRoutes)
+app.use('/admin/rooms/audit', roomsAuditRoutes)
 app.use('/admin/rooms/list', roomsListRoutes)
 app.use('/admin/rooms/time', roomsTimeRoutes)
 

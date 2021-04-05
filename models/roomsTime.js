@@ -21,13 +21,7 @@ function findAll (callback) {
   })
 }
 
-function findMany ({ roomName, roomWeek }, callback) {
-  const filter = { room_name: roomName }
-
-  if (roomWeek) {
-    filter.week = roomWeek
-  }
-
+function findMany (filter, callback) {
   RoomsTimeModel.find(filter, (error, roomTime) => {
     if (error) { return callback(error, null) }
 

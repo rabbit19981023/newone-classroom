@@ -1,0 +1,52 @@
+{{#with data}}
+  {{#unless isAuth}}
+    <script>location.href = '/admin/login'</script>
+  {{/unless}}
+
+  <div class="wrapper">
+    <label for="filter">篩選器：</label>
+    <select id="filter" name="filter">
+      <option value="" selected>審核中</option>
+      <option value="">已被借用</option>
+      <option value="">審核未通過</option>
+    </select>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>教室</th>
+            <th>日期</th>
+            <th>時段</th>
+            <th>狀態</th>
+            <th></th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          {{#each data}}
+            <tr>
+              <td>{{ this.room_name }}</td>
+              <td>{{ this.date }}</td>
+              <td>{{ this.times }}</td>
+              <td>{{ this.status }}</td>
+              <td>審核</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{{/with}}
+
+{{#extend 'title'}}
+<title>高雄NewOne靈糧堂 - 審核系統</title>
+{{/extend}}
+
+{{#extend 'css'}}
+
+{{/extend}}
+
+{{#extend 'scripts'}}
+
+{{/extend}}
