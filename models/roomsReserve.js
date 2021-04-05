@@ -7,6 +7,7 @@ const roomsReserveSchema = new Schema({
   room_name: String,
   date: Date,
   times: Array,
+  status: String,
   user: String,
   purpose: String,
   result: String
@@ -33,7 +34,16 @@ function getRoomsReserve (filter, callback) {
 }
 
 function addRoomsReserve (data, callback) {
-  
+  const reserveDoc = new RoomsReserveModel({
+    room_name: data.room_name,
+    date: data.date,
+    times: data.room_time,
+    status: data.status,
+    user: data.user,
+    purpose: data.purpose
+  })
+
+  reserveDoc.save().then(reserveDoc => { return callback(null, reserveDoc) })
 }
 
 export default {

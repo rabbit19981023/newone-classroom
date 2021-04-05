@@ -74,6 +74,8 @@
           <div id="times"></div>
         </div>
 
+        <input type="text" name="status" value="審核中" style="display: none;">
+
         <span id="user">借用人：{{ user }}</span>
         <input type="text" name="user" value="{{ user }}" style="display: none;">
 
@@ -146,7 +148,7 @@
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
-        divForm.classList.toggle('is-active') // check if '.is-active' is already in classlist, add if true, else remove it
+        divForm.classList.remove('is-active')
       }
     })
   </script>

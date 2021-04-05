@@ -8,7 +8,7 @@ export default {
       isLogin: true,
       message: req.flash('error')
     }
-    
+
     return res.render('login', { layout: 'loginForm', data: data })
   },
 
@@ -18,7 +18,7 @@ export default {
       failureRedirect: '/admin/login',
       failureFlash: true
     })
-    
+
     return callback(req, res)
   },
 

@@ -11,7 +11,7 @@ export default {
     data.isAuth = isAuth(req.user, 'Admin')
     data.user = parsingUser(req)
 
-    RoomsListModel.getAllRooms((error, rooms) => {
+    RoomsListModel.findAll((error, rooms) => {
       if (error) { return res.render('500error') }
 
       const allRooms = JSON.parse(JSON.stringify(rooms)) // JSON.parse is synchronous!
@@ -24,7 +24,7 @@ export default {
   addRoom: function (req, res) {
     const roomName = req.body.room_name
 
-    RoomsListModel.addRoom(roomName, (error, existRoom) => {
+    RoomsListModel.add(roomName, (error, existRoom) => {
       if (error) {
         return res.render('500error')
       }
@@ -40,7 +40,7 @@ export default {
   deleteRoom: function (req, res) {
     const roomName = req.body.room_name
 
-    RoomsListModel.deleteRoom(roomName, (error, room) => {
+    RoomsListModel.deleteOne(roomName, (error, room) => {
       if (error) {
         return res.render('500error')
       }

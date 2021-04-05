@@ -1,10 +1,10 @@
 // import the Data Models
-import RoomsTimeModel from '../models/roomsTime.js'
 import RoomsReserveModel from '../models/roomsReserve.js'
 
 import isAuth from '../lib/isAuth.js'
 import parsingUser from '../lib/parsingUser.js'
-import timeData from '../lib/timeData.js'
+import todayFormat from '../lib/todayFormat.js'
+import renderTimeTable from '../lib/renderTimeTable.js'
 
 /** Routes Controllers **/
 export default {
@@ -18,66 +18,24 @@ export default {
 
   roomsReserve: function (req, res) {
     const data = {}
-    data.timeData = timeData
     data.user = parsingUser(req)
     data.isAuth = isAuth(req.user, 'User')
 
-    RoomsTimeModel.getAllRoomsTime(async (error, roomsTime) => {
-      if (error) { return res.render('500error') }
-
-      const allRooms = []
-
-      await roomsTime.forEach((roomTime) => {
-        if (!allRooms.includes(roomTime.room_name)) {
-          allRooms.push(roomTime.room_name)
-        }
-      })
-
-      data.rooms = allRooms
-
-      if (!req.query.room_name) { return res.render('roomsReserve', { layout: 'user', data: data }) }
-      const roomName = req.query.room_name
-      const roomDate = req.query.date
-      const roomWeek = new Date(roomDate).getDay().toString()
-
-      data.roomName = roomName
-
-      RoomsTimeModel.getRoomTime({ roomName: roomName, roomWeek: roomWeek }, async (error, roomTime) => {
-        if (error) { return res.render('500error') }
-
-        data.times = {}
-
-        await timeData.times.forEach((time) => {
-          data.times[time] = {
-            0: false,
-            1: false,
-            2: false,
-            3: false,
-            4: false,
-            5: false,
-            6: false
-          }
-        })
-
-        await roomTime[0].times.forEach((time) => {
-          data.times[time][roomWeek] = true
-        })
-
-        return res.render('roomsReserve', { layout: 'user', data: data })
-      })
-    })
+    renderTimeTable(req, res, data, 'reserve')
   },
 
   add: function (req, res) {
     const data = req.body
 
-    console.log(data)
-
-    const today = new Date()
+    const today = todayFormat(new Date())
     const reserveDay = new Date(data.date)
 
     if (reserveDay < today) { return res.redirect('./?message=請選擇正確的日期！') }
 
-    
+    RoomsReserveModel.addRoomsReserve(data, (error, roomsReserve) => {
+      if (error) { return res.render('500error', { layout: 'error' }) }
+
+      res.redirect('./?message="借用成功！請等待管理員審核"')
+    })
   }
 }

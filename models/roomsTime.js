@@ -13,7 +13,7 @@ const roomsTimeSchema = new Schema({
 const RoomsTimeModel = model('RoomsTime', roomsTimeSchema)
 
 /** RoomsTime Model APIs **/
-function getAllRoomsTime (callback) {
+function findAll (callback) {
   RoomsTimeModel.find().sort({ room_name: 1, week: 1 }).exec((error, roomsTime) => {
     if (error) { return callback(error, null) }
 
@@ -21,7 +21,7 @@ function getAllRoomsTime (callback) {
   })
 }
 
-function getRoomTime ({ roomName, roomWeek }, callback) {
+function findMany ({ roomName, roomWeek }, callback) {
   const filter = { room_name: roomName }
 
   if (roomWeek) {
@@ -35,7 +35,7 @@ function getRoomTime ({ roomName, roomWeek }, callback) {
   })
 }
 
-async function addTime (data, callback) {
+async function addMany (data, callback) {
   /**
 
   data = {
@@ -83,7 +83,7 @@ async function addTime (data, callback) {
   return callback(error)
 }
 
-async function deleteTime (data, callback) {
+async function deleteMany (data, callback) {
   /**
 
   data = {
@@ -118,8 +118,8 @@ async function deleteTime (data, callback) {
 }
 
 export default {
-  getAllRoomsTime: getAllRoomsTime,
-  getRoomTime: getRoomTime,
-  addTime: addTime,
-  deleteTime: deleteTime
+  findAll: findAll,
+  findMany: findMany,
+  addMany: addMany,
+  deleteMany: deleteMany
 }

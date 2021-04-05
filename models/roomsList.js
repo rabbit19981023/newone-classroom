@@ -11,7 +11,7 @@ const roomsListSchema = new Schema({
 const RoomsListModel = model('RoomsList', roomsListSchema)
 
 /** RoomsList Model APIs **/
-function getAllRooms (callback) {
+function findAll (callback) {
   RoomsListModel.find().sort('room_name').exec((error, rooms) => {
     if (error) { return callback(error, null) }
 
@@ -19,7 +19,7 @@ function getAllRooms (callback) {
   })
 }
 
-function addRoom (roomName, callback) {
+function add (roomName, callback) {
   RoomsListModel.findOne({ room_name: roomName }, (error, existRoom) => {
     if (error) { return callback(error, null) }
 
@@ -27,11 +27,11 @@ function addRoom (roomName, callback) {
 
     const roomDoc = new RoomsListModel({ room_name: roomName })
 
-    roomDoc.save().then((roomDoc) => { return callback(null, null) }) // no error occurred, no room already exits
+    roomDoc.save().then(roomDoc => { return callback(null, null) }) // no error occurred, no room already exits
   })
 }
 
-function deleteRoom (roomName, callback) {
+function deleteOne (roomName, callback) {
   RoomsListModel.deleteOne({ room_name: roomName }, (error, room) => {
     if (error) { return callback(error, null) }
 
@@ -40,7 +40,7 @@ function deleteRoom (roomName, callback) {
 }
 
 export default {
-  getAllRooms: getAllRooms,
-  addRoom: addRoom,
-  deleteRoom: deleteRoom
+  findAll: findAll,
+  add: add,
+  deleteOne: deleteOne
 }
