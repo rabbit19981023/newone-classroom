@@ -14,7 +14,7 @@ export default {
 
   login: function (req, res) {
     const callback = passport.authenticate('login-admin', {
-      successRedirect: '/admin/rooms/list',
+      successRedirect: '/admin/rooms/audit',
       failureRedirect: '/admin/login',
       failureFlash: true
     })
@@ -34,7 +34,7 @@ export default {
 
   signUp: function (req, res) {
     const callback = passport.authenticate('sign-up-admin', {
-      successRedirect: '/admin/rooms/list',
+      successRedirect: '/admin/rooms/audit',
       failureRedirect: '/admin/sign-up',
       failureFlash: true
     })
@@ -45,6 +45,6 @@ export default {
   logOut: function (req, res) {
     req.logOut()
 
-    return res.redirect('/admin/login')
+    return res.redirect('/')
   }
 }
