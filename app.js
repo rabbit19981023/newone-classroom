@@ -61,13 +61,13 @@ app.use(flash())
 
 /** Routes **/
 // User
-app.use('/', authUserRoutes)
-app.use('/', indexRoutes)
-app.use('/rooms/reserve', roomsReserveRoutes)
+//app.use('/', authUserRoutes)
+//app.use('/', indexRoutes)
+//app.use('/rooms/reserve', roomsReserveRoutes)
 
 // Admin
 app.use('/admin', authAdminRoutes)
-app.use('/admin/rooms/audit', roomsAuditRoutes)
+//app.use('/admin/rooms/audit', roomsAuditRoutes)
 app.use('/admin/rooms/list', roomsListRoutes)
 app.use('/admin/rooms/time', roomsTimeRoutes)
 
