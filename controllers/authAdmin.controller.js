@@ -45,6 +45,6 @@ export default {
   logOut: function (req, res) {
     req.logOut()
 
-    return res.redirect('/')
+    return res.redirect('/admin/login')
   }
 }
