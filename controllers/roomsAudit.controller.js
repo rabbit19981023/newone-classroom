@@ -1,9 +1,8 @@
 // Import Data Models
 import RoomsReserveModel from '../models/roomsReserve.js'
 
-import isAuth from '../lib/isAuth.js'
-import parsingUser from '../lib/parsingUser.js'
-import users from '../models/users.js'
+import isAuth from '../utils/isAuth.js'
+import parsingUser from '../utils/parsingUser.js'
 
 /** Routes Controllers **/
 export default {

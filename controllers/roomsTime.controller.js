@@ -1,9 +1,9 @@
 // Import Data Models
 import RoomsTimeModel from '../models/roomsTime.js'
 
-import isAuth from '../lib/isAuth.js'
-import parsingUser from '../lib/parsingUser.js'
-import renderTimeTable from '../lib/renderTimeTable.js'
+import isAuth from '../utils/isAuth.js'
+import parsingUser from '../utils/parsingUser.js'
+import renderTimeTable from '../utils/renderTimeTable.js'
 
 /** Global Namespace**/
 async function getUploadedData (req, callback) {

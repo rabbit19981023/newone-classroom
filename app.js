@@ -11,8 +11,8 @@ import dotenv from 'dotenv'
 
 /** Import Custom Modules (custom middlewares) **/
 import db from './db.js'
-import handlebarsHelpers from './lib/handlebarsHelpers.js'
-import passportAuth from './lib/passportAuth.js'
+import handlebarsHelpers from './utils/handlebarsHelpers.js'
+import passportAuth from './utils/passportAuth.js'
 
 /** Import Routes Mapping Handler **/
 // User

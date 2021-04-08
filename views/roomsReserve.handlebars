@@ -92,7 +92,7 @@
 
     {{#if roomName}}
       <center>
-        <button class="btn btn-secondary mb-2" onclick="displayForm()">我要借用</button>
+        <button class="btn btn-secondary mb-2" onclick="displayForm(); isValidDate()">我要借用</button>
       </center>
     {{/if}}
   </div>
@@ -177,5 +177,18 @@
     }
     
     appendValuesToInputs()
+  </script>
+
+  <script>
+    function isValidDate() {
+      const today = new Date().setHours(0, 0, 0, 0)
+
+      const dataInput = document.querySelector('#date_input')
+      const reserveDay = new Date(dataInput.value)
+      
+      if (reserveDay < today) {
+        location.href = '?message=請選擇正確的日期！'
+      }
+    }
   </script>
 {{/extend}}

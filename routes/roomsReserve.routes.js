@@ -5,6 +5,6 @@ const router = Router()
 
 /** /rooms/reserve Routes **/
 router.get('/', roomsReserveController.index)
-router.post('/add', roomsReserveController.add)
+router.post('/add', roomsReserveController.reserve)
 
 export default router

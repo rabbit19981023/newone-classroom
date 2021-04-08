@@ -125,7 +125,7 @@ class ReserveStrategy {
       data.rooms = allRooms
 
       if (!req.query.room_name) { return res.render('roomsReserve', { layout: 'user', data: data }) }
-      
+
       const roomName = req.query.room_name
       const roomDate = req.query.date
       const roomWeek = new Date(roomDate).getDay().toString()
