@@ -11,12 +11,22 @@ export default {
     data.isAuth = isAuth(req.user, 'Admin')
     data.user = parsingUser(req)
 
-    RoomsReserveModel.findMany({ status: '審核中' }, async (error, roomsReserve) => {
+    let filter = { status: '審核中' }
+
+    if (req.query.status) {
+      filter = { status: req.query.status }
+    }
+
+    RoomsReserveModel.findMany(filter, async (error, roomsReserve) => {
       if (error) { return res.render('500error', { layout: 'error' }) }
 
       data.data = JSON.parse(JSON.stringify(roomsReserve))
 
       return res.render('reserveAudit', { layout: 'admin', data: data })
     })
+  },
+
+  audit: function (req, res) {
+    console.log(req.body)
   }
 }

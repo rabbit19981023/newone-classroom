@@ -1,6 +1,3 @@
-// import the Data Models
-
-
 import isAuth from '../utils/isAuth.js'
 import parsingUser from '../utils/parsingUser.js'
 

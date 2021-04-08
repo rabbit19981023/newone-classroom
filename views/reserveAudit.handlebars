@@ -5,10 +5,11 @@
 
   <div class="wrapper">
     <label for="filter">篩選器：</label>
-    <select id="filter" name="filter">
-      <option value="" selected>審核中</option>
-      <option value="">已被借用</option>
-      <option value="">審核未通過</option>
+    <select id="filter" name="filter" onchange="location.href = '?status=' + this.value">
+      <option value="">請選擇狀態</option>
+      <option value="審核中">審核中</option>
+      <option value="已被借用">已被借用</option>
+      <option value="審核未通過">審核未通過</option>
     </select>
 
     <div class="table-wrapper">
@@ -24,14 +25,66 @@
         </thead>
         
         <tbody>
-          {{#each data}}
+          {{#each data as | data | }}
             <tr>
-              <td>{{ this.room_name }}</td>
-              <td>{{ this.date }}</td>
-              <td>{{ this.times }}</td>
-              <td>{{ this.status }}</td>
-              <td>審核</td>
+              <td>{{ data.room_name }}</td>
+              <td>{{ data.date }}</td>
+              <td>
+                <div class="times-wrapper">
+                  {{#each data.times as | time | }}
+                    <p>{{ time }}</p>
+                  {{/each}}
+                </div>
+              </td>
+              <td>{{ data.status }}</td>
+              <td>
+                <span class="btn-audit" onclick="displayForm(this)">審核</span>
+              </td>
             </tr>
+
+            <div class="form-details">
+              <form action="/admin/rooms/audit/audit" method="POST">
+                <input name="reserve_id" value="{{ data._id }}" style="display: none"></input>
+
+                <span class="close-btn" onclick="closeBtn()"></span>
+
+                <span>教室：{{ data.room_name }}</span>
+                <span>日期：{{ data.date }}</span>
+
+                <div class="times-wrapper-form">
+                  <span>借用時段：</span>
+                  <div>
+                    {{#each data.times as | time | }}
+                      {{ time }} ,
+                      <br>
+                    {{/each}}
+                  </div>
+                </div>
+
+                <span>狀態：{{ data.status }}</span>
+                <span>借用人：{{ data.user }}</span>
+                <span>借用原因：{{ data.purpose }}</span>
+                
+                <div class="input-wrapper">
+                  <center>
+                    {{#if data.status}}
+                      <input type="radio" name="is_audit_success" value="true">
+                      <label for="auditSuccess">審核通過</label>
+                      
+                      <input type="radio" name="is_audit_success" value="false">
+                      <label for="auditFailed">審核不通過</label>
+                      <br>
+
+                      <label for="result">審核結果</label>
+                      <input type="text" name="result" minlength="2" maxlength="20" size="20" required>
+                      <br>
+
+                      <button type="submit" class="btn btn-secondary">審核</button>
+                    {{/if}}
+                  </center>
+                </div>
+              </form>
+            </div>
           {{/each}}
         </tbody>
       </table>
@@ -44,9 +97,59 @@
 {{/extend}}
 
 {{#extend 'css'}}
-
+<link rel="stylesheet" href="/css/table.css">
+<link rel="stylesheet" href="/css/reserveAudit.css">
 {{/extend}}
 
 {{#extend 'scripts'}}
+  <script>
+    /** Assign a Unique ID to Every div.form-details **/
+    const divForms = document.querySelectorAll('.form-details')
 
+    for (let i = 0; i < divForms.length; i++) {
+      divForms[i].id = 'form-details-' + (i + 1)
+    }
+  </script>
+
+  <script>
+    /** Display/Hidden the Transparent Div Element According to its Table Row Index **/
+    let currentRow, currentDivForm, currentQueryId, currentInputs, currentFirstRadio, currentSecondRadio, currentResult
+
+    function displayForm (thisSpan) {
+      currentRow = thisSpan.parentNode.parentNode.rowIndex
+      currentQueryId = `#form-details-${currentRow}`
+      currentDivForm = document.querySelector(currentQueryId)
+
+      currentInputs = document.querySelectorAll(`${currentQueryId} .input-wrapper input`)
+
+      currentFirstRadio = currentInputs[0]
+      currentFirstRadio.id = 'auditSuccess'
+
+      currentSecondRadio = currentInputs[1]
+      currentSecondRadio.id = 'auditFailed'
+
+      currentResult = currentInputs[2]
+      currentResult.id = 'result'
+
+      currentDivForm.classList.toggle('is-active')
+    }
+
+    function closeBtn () {
+      currentDivForm.classList.remove('is-active')
+
+      currentFirstRadio.removeAttribute('id')
+      currentSecondRadio.removeAttribute('id')
+      currentResult.removeAttribute('id')
+    }
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        currentDivForm.classList.remove('is-active')
+
+        currentFirstRadio.removeAttribute('id')
+        currentSecondRadio.removeAttribute('id')
+        currentResult.removeAttribute('id')
+      }
+    })
+  </script>
 {{/extend}}

@@ -18,7 +18,7 @@ export default {
   reserve: function (req, res) {
     const data = req.body
 
-    RoomsReserveModel.addMany(data, (error, rooms) => {
+    RoomsReserveModel.add(data, (error, rooms) => {
       if (error) { return res.render('500error', { layout: 'user', data: data }) }
 
       res.redirect('./?message="借用成功！請等待管理員審核"')

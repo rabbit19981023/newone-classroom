@@ -92,7 +92,7 @@
 
     {{#if roomName}}
       <center>
-        <button class="btn btn-secondary mb-2" onclick="displayForm(); isValidDate()">我要借用</button>
+        <button class="btn btn-secondary mb-2" onclick="isValidDate(); displayForm()">我要借用</button>
       </center>
     {{/if}}
   </div>
@@ -121,6 +121,20 @@
   </script>
 
   <script>
+    /** Check if the reserved day is valid **/
+    function isValidDate() {
+      const today = new Date().setHours(0, 0, 0, 0)
+
+      const dataInput = document.querySelector('#date_input')
+      const reserveDay = new Date(dataInput.value)
+      
+      if (reserveDay < today) {
+        location.href = '?message=請選擇正確的日期！'
+      }
+    }
+  </script>
+
+  <script>
     /** Display the Transparent Div Element for Posting Data **/
     const divForm = document.querySelector('.form-details')
     
@@ -143,7 +157,7 @@
     }
 
     function closeBtn () {
-      divForm.classList.toggle('is-active') // check if '.is-active' is already in classlist, add if true, else remove it
+      divForm.classList.remove('is-active')
     }
 
     document.addEventListener('keydown', (event) => {
@@ -177,18 +191,5 @@
     }
     
     appendValuesToInputs()
-  </script>
-
-  <script>
-    function isValidDate() {
-      const today = new Date().setHours(0, 0, 0, 0)
-
-      const dataInput = document.querySelector('#date_input')
-      const reserveDay = new Date(dataInput.value)
-      
-      if (reserveDay < today) {
-        location.href = '?message=請選擇正確的日期！'
-      }
-    }
   </script>
 {{/extend}}

@@ -5,5 +5,6 @@ const router = Router()
 
 /** /admin/rooms/audit Routes **/
 router.get('/', roomsAuditController.index)
+router.post('/audit', roomsAuditController.audit)
 
 export default router

@@ -5,7 +5,7 @@ const { Schema, model } = mongoose
 // design a schema for RoomsReserve Model
 const roomsReserveSchema = new Schema({
   room_name: String,
-  date: Date,
+  date: String,
   times: Array,
   status: String,
   user: String,
@@ -26,14 +26,14 @@ function findAll (callback) {
 }
 
 function findMany (filter, callback) {
-  RoomsReserveModel.find(filter).sort({ date: -1 }).exec((error, roomsReserve) => {
+  RoomsReserveModel.find(filter).sort({ room_name: 1, date: -1 }).exec((error, roomsReserve) => {
     if (error) { return callback(error, null) }
 
     return callback(null, roomsReserve)
   })
 }
 
-function addMany (data, callback) {
+function add (data, callback) {
   const reserveDoc = new RoomsReserveModel({
     room_name: data.room_name,
     date: data.date,
@@ -49,5 +49,5 @@ function addMany (data, callback) {
 export default {
   findAll: findAll,
   findMany: findMany,
-  addMany: addMany
+  add: add
 }
