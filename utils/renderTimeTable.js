@@ -174,14 +174,14 @@ class ReserveStrategy {
 
 // Strategies Context
 const timeTableStrategies = {
-  add: new AddStrategy(),
-  delete: new DeleteStrategy(),
-  reserve: new ReserveStrategy()
+  add: AddStrategy,
+  delete: DeleteStrategy,
+  reserve: ReserveStrategy
 }
 
 // Strategy Controller
-export default function renderTimeTable (req, res, data, type) {
-  const strategy = timeTableStrategies[type]
+export default function renderTimeTable (req, res, data, strategyUsed) {
+  const strategy = new timeTableStrategies[strategyUsed]()
 
   strategy.use(req, res, data)
 }

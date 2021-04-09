@@ -74,7 +74,7 @@ app.use('/admin/rooms/audit', roomsAuditRoutes)
 app.use('/admin/rooms/list', roomsListRoutes)
 app.use('/admin/rooms/time', roomsTimeRoutes)
 
-// 404 Error Route
+// 404 Error Route Handler
 app.use('/', (req, res) => { return res.render('404error', { layout: 'error' }) })
 
 /** Activating the Server **/
