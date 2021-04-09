@@ -156,7 +156,7 @@ class ReserveStrategy {
 
         RoomsReserveModel.findMany({ room_name: roomName, date: roomDate }, async (error, roomsReserve) => {
           if (error) { res.render('500error', { layout: 'error' }) }
-
+          
           await roomsReserve.forEach(async eachReserve => {
             if (eachReserve.status === '已被借用') {
               await eachReserve.times.forEach(time => {

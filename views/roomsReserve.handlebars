@@ -1,13 +1,7 @@
 {{#with data}}
-  <!--
-
-
-    {{#unless isAuth}}
-      <script>location.href = "/login"</script>
-    {{/unless}}
-
-  -->
-  
+  {{#unless isAuth}}
+    <script>location.href = "/login"</script>
+  {{/unless}}
 
   <div class="wrapper">
     <form action="/rooms/reserve" method="GET">

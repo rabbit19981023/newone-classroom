@@ -1,7 +1,7 @@
 /** the parent element must be a flex box **/
 .table-wrapper {
-  width: 70%;
-  margin-left: 15%;
+  width: 60%;
+  margin-left: 20%;
   margin-top: 1.5%;
   font-size: 16px;
   border: 1px solid #555555;
@@ -64,7 +64,7 @@ th {
 
 @media screen and (max-width: 576px) {
   th {
-    padding: 3px 30px;
+    padding: 3px 20px;
   }
 }
 
