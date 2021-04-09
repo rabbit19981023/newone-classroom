@@ -1,6 +1,7 @@
 // Import Data Models
 import RoomsListModel from '../models/roomsList.js'
 import RoomsTimeModel from '../models/roomsTime.js'
+import RoomsReserveModel from '../models/roomsReserve.js'
 
 import timeData from './timeData.js'
 
@@ -153,7 +154,19 @@ class ReserveStrategy {
           data.times[time][roomWeek] = true
         })
 
-        return res.render('roomsReserve', { layout: 'user', data: data })
+        RoomsReserveModel.findMany({ room_name: roomName, date: roomDate }, async (error, roomsReserve) => {
+          if (error) { res.render('500error', { layout: 'error' }) }
+
+          await roomsReserve.forEach(async eachReserve => {
+            if (eachReserve.status === '已被借用') {
+              await eachReserve.times.forEach(time => {
+                data.times[time][roomWeek] = false
+              })
+            }
+          })
+
+          return res.render('roomsReserve', { layout: 'user', data: data })
+        })
       })
     })
   }
