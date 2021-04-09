@@ -98,3 +98,13 @@ p {
 .input-wrapper label {
   margin-bottom: 10px;
 }
+
+.result-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-wrapper button {
+  width: 25%;
+}

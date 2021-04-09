@@ -17,7 +17,7 @@ export default {
       filter = { status: req.query.status }
     }
 
-    RoomsReserveModel.findMany(filter, async (error, roomsReserve) => {
+    RoomsReserveModel.findMany(filter, (error, roomsReserve) => {
       if (error) { return res.render('500error', { layout: 'error' }) }
 
       data.data = JSON.parse(JSON.stringify(roomsReserve))
@@ -56,6 +56,7 @@ export default {
 
             await roomsReserve.forEach(async eachRoomReserve => {
               const times = eachRoomReserve.times
+              const originTimes = times.slice()
 
               for (let i = (times.length - 1); i >= 0; i--) {
                 if (reserveAudited.times.includes(times[i])) {
@@ -68,6 +69,7 @@ export default {
               }
 
               if (times.length === 0) {
+                content.times = originTimes
                 content.status = '審核未通過'
                 content.result = '已被其他使用者借用'
               }

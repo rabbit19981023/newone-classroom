@@ -13,16 +13,18 @@ function displayForm (thisSpan) {
   currentQueryId = `#form-details-${currentRow}`
   currentDivForm = document.querySelector(currentQueryId)
 
-  currentInputs = document.querySelectorAll(`${currentQueryId} .input-wrapper input`)
+  try {
+    currentInputs = document.querySelectorAll(`${currentQueryId} .input-wrapper input`)
 
-  currentFirstRadio = currentInputs[0]
-  currentFirstRadio.id = 'auditSuccess'
+    currentFirstRadio = currentInputs[0]
+    currentFirstRadio.id = 'auditSuccess'
 
-  currentSecondRadio = currentInputs[1]
-  currentSecondRadio.id = 'auditFailed'
+    currentSecondRadio = currentInputs[1]
+    currentSecondRadio.id = 'auditFailed'
 
-  currentResult = currentInputs[2]
-  currentResult.id = 'result'
+    currentResult = currentInputs[2]
+    currentResult.id = 'result'
+  } catch { }
 
   currentDivForm.classList.toggle('is-active')
 }
@@ -30,17 +32,21 @@ function displayForm (thisSpan) {
 function closeBtn () {
   currentDivForm.classList.remove('is-active')
 
-  currentFirstRadio.removeAttribute('id')
-  currentSecondRadio.removeAttribute('id')
-  currentResult.removeAttribute('id')
+  try {
+    currentFirstRadio.removeAttribute('id')
+    currentSecondRadio.removeAttribute('id')
+    currentResult.removeAttribute('id')
+  } catch { }
 }
 
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     currentDivForm.classList.remove('is-active')
 
-    currentFirstRadio.removeAttribute('id')
-    currentSecondRadio.removeAttribute('id')
-    currentResult.removeAttribute('id')
+    try {
+      currentFirstRadio.removeAttribute('id')
+      currentSecondRadio.removeAttribute('id')
+      currentResult.removeAttribute('id')
+    } catch { }
   }
 })

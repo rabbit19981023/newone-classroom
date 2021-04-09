@@ -4,13 +4,15 @@
   {{/unless}}
 
   <div class="wrapper">
-    <label for="filter">篩選器：</label>
-    <select id="filter" name="filter" onchange="location.href = '?status=' + this.value">
-      <option value="">請選擇狀態</option>
-      <option value="審核中">審核中</option>
-      <option value="已被借用">已被借用</option>
-      <option value="審核未通過">審核未通過</option>
-    </select>
+    <center>
+      <label for="filter" class="mt-2">篩選器：</label>
+      <select id="filter" name="filter" onchange="location.href = '?status=' + this.value">
+        <option value="">請選擇狀態</option>
+        <option value="審核中">審核中</option>
+        <option value="已被借用">已被借用</option>
+        <option value="審核未通過">審核未通過</option>
+      </select>
+    </center>
 
     <div class="table-wrapper">
       <table>
@@ -38,7 +40,13 @@
               </td>
               <td>{{ data.status }}</td>
               <td>
-                <span class="btn-audit" onclick="displayForm(this)">審核</span>
+                {{#unless data.result}}
+                  <span class="btn-audit" onclick="displayForm(this)">審核</span>
+                {{/unless}}
+
+                {{#if data.result}}
+                  <span class="btn-audit" onclick="displayForm(this)">查看</span>
+                {{/if}}
               </td>
             </tr>
 
@@ -67,7 +75,7 @@
                 
                 <div class="input-wrapper">
                   <center>
-                    {{#if data.status}}
+                    {{#unless data.result}}
                       <input type="radio" name="is_audit_success" value="1">
                       <label for="auditSuccess">審核通過</label>
                       
@@ -80,6 +88,13 @@
                       <br>
 
                       <button type="submit" class="btn btn-secondary">審核</button>
+                    {{/unless}}
+
+                    {{#if data.result}}
+                      <div class="result-wrapper">
+                        <span>審核結果：{{ data.result }}</span>
+                        <button type="button" class="btn btn-secondary" onclick="closeBtn()">確認</button>
+                      </div>
                     {{/if}}
                   </center>
                 </div>
