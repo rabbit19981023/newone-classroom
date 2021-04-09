@@ -33,6 +33,14 @@ function findMany (filter, callback) {
   })
 }
 
+function findOne (filter, callback) {
+  RoomsReserveModel.findOne(filter).exec((error, roomReserve) => {
+    if (error) { return callback(error, null) }
+
+    return callback(null, roomReserve)
+  })
+}
+
 function add (data, callback) {
   const reserveDoc = new RoomsReserveModel({
     room_name: data.room_name,
@@ -46,8 +54,18 @@ function add (data, callback) {
   reserveDoc.save().then(reserveDoc => { return callback(null, reserveDoc) })
 }
 
+function updateOne (filter, content, callback) {
+  RoomsReserveModel.updateOne(filter, content).exec((error, roomReserveDoc) => {
+    if (error) { return callback(error) }
+
+    return callback(null)
+  })
+}
+
 export default {
   findAll: findAll,
   findMany: findMany,
+  findOne: findOne,
+  updateOne: updateOne,
   add: add
 }

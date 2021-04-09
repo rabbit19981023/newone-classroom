@@ -5,8 +5,8 @@ const urlParams = new URLSearchParams(window.location.search)
 function isValidDate () {
   const today = new Date().setHours(0, 0, 0, 0)
 
-  const dataInput = document.querySelector('#date_input')
-  const reserveDay = new Date(dataInput.value)
+  const dateInput = document.querySelector('#date_input')
+  const reserveDay = new Date(dateInput.value)
 
   if (reserveDay < today) {
     location.href = '?message=請選擇正確的日期！'

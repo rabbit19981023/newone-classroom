@@ -68,10 +68,10 @@
                 <div class="input-wrapper">
                   <center>
                     {{#if data.status}}
-                      <input type="radio" name="is_audit_success" value="true">
+                      <input type="radio" name="is_audit_success" value="1">
                       <label for="auditSuccess">審核通過</label>
                       
-                      <input type="radio" name="is_audit_success" value="false">
+                      <input type="radio" name="is_audit_success" value="0">
                       <label for="auditFailed">審核不通過</label>
                       <br>
 
@@ -107,5 +107,6 @@
     navLink.classList.add('active')
   </script>
 
+  <script src="/js/getErrorMessage.js"></script>
   <script src="/js/reserveAudit.js"></script>
 {{/extend}}

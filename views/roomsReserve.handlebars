@@ -1,7 +1,13 @@
 {{#with data}}
-  {{#unless isAuth}}
-    <script>location.href = "/login"</script>
-  {{/unless}}
+  <!--
+
+
+    {{#unless isAuth}}
+      <script>location.href = "/login"</script>
+    {{/unless}}
+
+  -->
+  
 
   <div class="wrapper">
     <form action="/rooms/reserve" method="GET">
@@ -92,7 +98,7 @@
 
     {{#if roomName}}
       <center>
-        <button class="btn btn-secondary mb-2" onclick="isValidDate(); displayForm()">我要借用</button>
+        <button class="btn btn-secondary mb-2" onclick="displayForm(); isValidDate()">我要借用</button>
       </center>
     {{/if}}
   </div>
