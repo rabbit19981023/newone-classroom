@@ -31,14 +31,18 @@
   }
 }
 
+.times-wrapper p {
+  margin-bottom: 7px;
+}
+
+.times-wrapper p:last-of-type {
+  margin-bottom: 0px;
+}
+
 .times-wrapper {
   display: flex;
   flex-direction: column;
   margin: 15px 0px;
-}
-
-p {
-  margin: 5px 0px;
 }
 
 .btn-audit {
@@ -85,7 +89,7 @@ p {
     width: 80%;
     height: 90%;
     top: 5%;
-    left: 10%
+    left: 10%;
   }
 }
 
@@ -93,8 +97,8 @@ p {
   .form-details {
     width: 90%;
     height: 80%;
-    top: 5%;
-    left: 5%
+    top: 10%;
+    left: 5%;
   }
 }
 
@@ -125,20 +129,6 @@ p {
   margin-bottom: 15px;
 }
 
-.input-wrapper {
-  margin-top: 5%;
-}
-
-.input-wrapper label {
-  margin-bottom: 10px;
-}
-
-.result-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.result-wrapper button {
-  width: 25%;
+.form-details button {
+  width: 20%;
 }

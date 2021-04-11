@@ -1,9 +1,7 @@
-export default function parsingUser (req) {
-  let user = req.user
-
-  if (req.user) {
-    user = user.user
+export default function parsingUser (user) {
+  if (user) {
+    return user.user
   }
 
-  return user
+  return undefined
 }

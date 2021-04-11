@@ -1,3 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
 .button-wrapper {
   display: flex;
   flex-direction: column;

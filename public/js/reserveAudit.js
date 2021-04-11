@@ -5,9 +5,10 @@ for (let i = 0; i < divForms.length; i++) {
   divForms[i].id = 'form-details-' + (i + 1)
 }
 
-/** Display/Hidden the Transparent Div Element According to its Table Row Index **/
+/** Global Namespace **/
 let currentRow, currentDivForm, currentQueryId, currentInputs, currentFirstRadio, currentSecondRadio, currentResult
 
+/** Display/Hidden the Transparent Div Element According to its Table Row Index **/
 function displayForm (thisSpan) {
   currentRow = thisSpan.parentNode.parentNode.rowIndex
   currentQueryId = `#form-details-${currentRow}`

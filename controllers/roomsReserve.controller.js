@@ -9,7 +9,7 @@ import renderTimeTable from '../utils/renderTimeTable.js'
 export default {
   index: function (req, res) {
     const data = {}
-    data.user = parsingUser(req)
+    data.user = parsingUser(req.user)
     data.isAuth = isAuth(req.user, 'User')
 
     renderTimeTable(req, res, data, 'reserve')

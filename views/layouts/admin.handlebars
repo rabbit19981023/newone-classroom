@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   {{#with data}}
     {{#unless isAuth}}
-    <script>location.href = '/admin/login'</script>
+      <script>location.href = '/admin/login'</script>
     {{/unless}}
 
     {{{ block 'title' }}}

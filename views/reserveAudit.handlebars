@@ -1,18 +1,21 @@
 {{#with data}}
-  {{#unless isAuth}}
-    <script>location.href = '/admin/login'</script>
-  {{/unless}}
-
   <div class="wrapper">
-    <center>
-      <label for="filter" class="mt-2">篩選器：</label>
-      <select id="filter" name="filter" onchange="location.href = '?status=' + this.value">
-        <option value="">請選擇狀態</option>
-        <option value="審核中">審核中</option>
-        <option value="已被借用">已被借用</option>
-        <option value="審核未通過">審核未通過</option>
-      </select>
-    </center>
+    <form action="/admin/rooms/audit" method="GET">
+      <div class="filter-wrapper">
+        <label for="status">審核狀態：</label>
+        <select id="status" name="status">
+          <option value="">請選擇狀態</option>
+          <option value="審核中">審核中</option>
+          <option value="已被借用">已被借用</option>
+          <option value="審核未通過">審核未通過</option>
+        </select>
+
+        <label for="date">日期：</label>
+        <input type="date" id="date" name="date">
+
+        <button type="submit" class="btn btn-secondary">更新審核資料</button>
+      </div>
+    </form>
 
     <div class="table-wrapper">
       <table>

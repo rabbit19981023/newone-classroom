@@ -6,7 +6,7 @@ export default {
   index: function (req, res) {
     const data = {}
     data.isAuth = isAuth(req.user, 'User')
-    data.user = parsingUser(req)
+    data.user = parsingUser(req.user)
 
     return res.render('index', { layout: 'user', data: data })
   }

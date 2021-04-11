@@ -1,0 +1,106 @@
+{{#with data}}
+  {{#unless isAuth}}
+    <script>location.href = '/login'</script>
+  {{/unless}}
+
+  <div class="wrapper">
+    <form action="/rooms/audit-status" method="GET">
+      <div class="filter-wrapper">
+        <label for="status">審核狀態：</label>
+        <select id="status" name="status">
+          <option value="">請選擇狀態</option>
+          <option value="審核中">審核中</option>
+          <option value="已被借用">已被借用</option>
+          <option value="審核未通過">審核未通過</option>
+        </select>
+
+        <label for="date">日期：</label>
+        <input type="date" id="date" name="date">
+
+        <button type="submit" class="btn btn-secondary">更新審核資料</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>教室</th>
+          <th>日期</th>
+          <th>時段</th>
+          <th>狀態</th>
+          <th>動作</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each data as | data | }}
+          <tr>
+            <td>{{ data.room_name }}</td>
+            <td>{{ data.date }}</td>
+            <td>
+              <div class="times-wrapper">
+                {{#each data.times as | time | }}
+                  <p>{{ time }}</p>
+                {{/each}}
+              </div>
+            </td>
+            <td>{{ data.status }}</td>
+            <td>
+              <span class="btn-audit" onclick="displayForm(this)">查看</span>
+            </td>
+          </tr>
+
+          <div class="form-details">
+            <span class="close-btn" onclick="closeBtn()"></span>
+            <span>教室：{{ data.room_name }}</span>
+            <span>日期：{{ data.date }}</span>
+
+            <div class="times-wrapper-form">
+              <span>借用時段：</span>
+              <div>
+                {{#each data.times as | time | }}
+                  {{ time }},
+                  <br>
+                {{/each}}
+              </div>
+            </div>
+
+            <span>狀態：{{ data.status }}</span>
+            <span>借用原因：{{ data.purpose }}</span>
+
+            {{#if data.result}}
+              <span>審核結果：{{ data.result }}</span>
+            {{else}}
+              <span>審核結果：待審核中......</span>
+            {{/if}}
+
+            <center>
+              <button type="button" class="btn btn-secondary" onclick="closeBtn()">確認</button>
+            </center>
+          </div>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+{{/with}}
+
+{{#extend 'title'}}
+<title>高雄NewOne靈糧堂 - 審核狀況</title>
+{{/extend}}
+
+{{#extend 'css'}}
+<link rel="stylesheet" href="/css/table.css">
+<link rel="stylesheet" href="/css/auditStatus.css">
+{{/extend}}
+
+{{#extend 'scripts'}}
+  <script>
+    const navLink = document.querySelectorAll('.nav-link')[2]
+
+    navLink.classList.add('active')
+  </script>
+
+  <script src="/js/auditStatus.js"></script>
+{{/extend}}

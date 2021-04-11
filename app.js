@@ -20,6 +20,7 @@ import passportAuth from './utils/passportAuth.js'
 import authUserRoutes from './routes/authUser.routes.js'
 import indexRoutes from './routes/index.routes.js'
 import roomsReserveRoutes from './routes/roomsReserve.routes.js'
+import roomsAuditStatusRoutes from './routes/roomsAuditStatus.routes.js'
 
 // Admin
 import authAdminRoutes from './routes/authAdmin.routes.js'
@@ -67,6 +68,7 @@ app.use(compression()) // compress the HttpResponse object with 'gzip' encoding
 app.use('/', authUserRoutes)
 app.use('/', indexRoutes)
 app.use('/rooms/reserve', roomsReserveRoutes)
+app.use('/rooms/audit-status', roomsAuditStatusRoutes)
 
 // Admin
 app.use('/admin', authAdminRoutes)

@@ -44,7 +44,7 @@ export default {
   timeTable: function (req, res) {
     const data = {}
     data.isAuth = isAuth(req.user, 'Admin')
-    data.user = parsingUser(req)
+    data.user = parsingUser(req.user)
 
     const path = req.path.split('/')[1]
 

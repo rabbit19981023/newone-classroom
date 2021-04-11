@@ -21,7 +21,7 @@
           <input id="room-date" name="date" type="date" required>
         </div>
 
-        <button type="submit" class="btn btn-secondary">更新時段表</button>
+        <button type="submit" class="btn btn-secondary" onclick="isValidDate(event)">更新時段表</button>
       </div>
     </form>
 
@@ -92,7 +92,7 @@
 
     {{#if roomName}}
       <center>
-        <button class="btn btn-secondary mb-2" onclick="displayForm(); isValidDate()">我要借用</button>
+        <button class="btn btn-secondary mb-2" onclick="displayForm()">我要借用</button>
       </center>
     {{/if}}
   </div>

@@ -6,23 +6,46 @@ import parsingUser from '../utils/parsingUser.js'
 
 /** Routes Controllers **/
 export default {
-  index: function (req, res) {
-    const data = {}
-    data.isAuth = isAuth(req.user, 'Admin')
-    data.user = parsingUser(req)
+  index: async function (req, res) {
+    /** 每當開啟此審核頁面時，程式會自動審核已過期的所有預約紀錄 **/
+    const today = new Date().setHours(0, 0, 0, 0) // if (00:00-07:59)? yesterday : today
 
-    let filter = { status: '審核中' }
-
-    if (req.query.status) {
-      filter = { status: req.query.status }
-    }
-
-    RoomsReserveModel.findMany(filter, (error, roomsReserve) => {
+    RoomsReserveModel.findMany({ status: '審核中' }, async (error, roomsReserves) => {
       if (error) { return res.render('500error', { layout: 'error' }) }
 
-      data.data = JSON.parse(JSON.stringify(roomsReserve))
+      await roomsReserves.forEach(async eachReserve => {
+        const reserveDate = new Date(eachReserve.date)
 
-      return res.render('reserveAudit', { layout: 'admin', data: data })
+        if (reserveDate < today) {
+          await RoomsReserveModel.updateOne({ _id: eachReserve._id }, {
+            status: '審核未通過',
+            result: '此預約紀錄已經過期囉！(此為系統自動審核機制)'
+          }, error => {  })
+        }
+      })
+
+      /** 頁面渲染 **/
+      const data = {}
+      data.isAuth = isAuth(req.user, 'Admin')
+      data.user = parsingUser(req.user)
+
+      const filter = { status: '審核中' }
+
+      if (req.query.status) {
+        filter.status = req.query.status
+      }
+
+      if (req.query.date) {
+        filter.date = req.query.date
+      }
+
+      RoomsReserveModel.findMany(filter, (error, roomsReserve) => {
+        if (error) { return res.render('500error', { layout: 'error' }) }
+
+        data.data = JSON.parse(JSON.stringify(roomsReserve))
+
+        return res.render('reserveAudit', { layout: 'admin', data: data })
+      })
     })
   },
 

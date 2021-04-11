@@ -2,13 +2,14 @@
 const urlParams = new URLSearchParams(window.location.search)
 
 /** Check if the reserved day is valid **/
-function isValidDate () {
+function isValidDate (event) {
   const today = new Date().setHours(0, 0, 0, 0)
 
-  const dateInput = document.querySelector('#date_input')
+  const dateInput = document.querySelector('#room-date')
   const reserveDay = new Date(dateInput.value)
 
   if (reserveDay < today) {
+    event.preventDefault() // prevent onsubmit before url redirect
     location.href = '?message=請選擇正確的日期！'
   }
 }

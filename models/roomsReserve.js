@@ -54,8 +54,8 @@ function add (data, callback) {
   reserveDoc.save().then(reserveDoc => { return callback(null, reserveDoc) })
 }
 
-function updateOne (filter, content, callback) {
-  RoomsReserveModel.updateOne(filter, content).exec((error, roomReserveDoc) => {
+async function updateOne (filter, content, callback) {
+  await RoomsReserveModel.updateOne(filter, content).exec((error, roomReserveDoc) => {
     if (error) { return callback(error) }
 
     return callback(null)

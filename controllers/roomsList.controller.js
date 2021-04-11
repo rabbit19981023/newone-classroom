@@ -9,7 +9,7 @@ export default {
   index: function (req, res) {
     const data = {}
     data.isAuth = isAuth(req.user, 'Admin')
-    data.user = parsingUser(req)
+    data.user = parsingUser(req.user)
 
     RoomsListModel.findAll((error, rooms) => {
       if (error) { return res.render('500error') }
