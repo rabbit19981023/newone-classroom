@@ -1,12 +1,12 @@
 .filter-wrapper {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   margin-top: 1%;
 }
 
-.filter-wrapper select,
-.filter-wrapper input {
+.filter-wrapper div {
   margin-right: 2%;
 }
 

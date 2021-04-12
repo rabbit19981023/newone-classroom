@@ -3,7 +3,7 @@ const urlParams = new URLSearchParams(window.location.search)
 
 /** Check if the reserved day is valid **/
 function isValidDate (event) {
-  const today = new Date().setHours(0, 0, 0, 0)
+  const today = new Date(new Date().setHours(0, 0, 0, 0))
 
   const dateInput = document.querySelector('#room-date')
   const reserveDay = new Date(dateInput.value)
