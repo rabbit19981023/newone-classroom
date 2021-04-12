@@ -24,7 +24,7 @@
   }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 480px) {
   .table-wrapper {
     width: 90%;
     margin-left: 5%;

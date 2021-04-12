@@ -1,14 +1,54 @@
 /** the parent element must be a flex box **/
 .table-wrapper {
-  width: 60%;
-  margin-left: 20%;
-  margin-top: 1.5%;
   font-size: 16px;
   border: 1px solid #555555;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-  overflow-x: auto;
+  margin-top: 1.5%;
   margin-bottom: 2%;
+  overflow-x: auto;
+}
+
+@media screen and (min-width: 768px) {
+  .table-wrapper {
+    width: 70%;
+    margin-left: 15%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .table-wrapper {
+    width: 70%;
+    margin-left: 15%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .table-wrapper {
+    width: 90%;
+    margin-left: 5%;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .table-wrapper {
+    width: 80%;
+    margin-left: 10%;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .table-wrapper {
+    width: 70%;
+    margin-left: 15%;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .table-wrapper {
+    width: 60%;
+    margin-left: 20%;
+  }
 }
 
 input[name="room_time"] {

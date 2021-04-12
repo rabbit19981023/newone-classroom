@@ -10,6 +10,7 @@
   margin-right: 2%;
 }
 
+
 @media screen and (min-width: 768px) {
   .table-wrapper {
     width: 65%;
@@ -24,12 +25,13 @@
   }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 480px) {
   .table-wrapper {
     width: 90%;
     margin-left: 5%;
   }
 }
+
 
 .times-wrapper {
   display: flex;
