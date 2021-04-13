@@ -11,31 +11,47 @@ const roomsListSchema = new Schema({
 const RoomsListModel = model('RoomsList', roomsListSchema)
 
 /** RoomsList Model APIs **/
-function findAll (callback) {
-  RoomsListModel.find().sort('room_name').exec((error, rooms) => {
-    if (error) { return callback(error, null) }
-
-    return callback(null, rooms)
+async function findAll () {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const rooms = await RoomsListModel.find().sort({ room_name: 1 }).exec()
+  
+      return resolve(rooms)
+    } catch (error) {
+      return reject(error)
+    }
   })
 }
 
-function add (roomName, callback) {
-  RoomsListModel.findOne({ room_name: roomName }, (error, existRoom) => {
-    if (error) { return callback(error, null) }
-
-    if (existRoom) { return callback(null, existRoom) }
-
-    const roomDoc = new RoomsListModel({ room_name: roomName })
-
-    roomDoc.save().then(roomDoc => { return callback(null, null) }) // no error occurred, no room already exits
+async function add (roomName) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const existRoom = await RoomsListModel.findOne({ room_name: roomName }).exec()
+  
+      if (existRoom) {
+        return resolve(existRoom)
+      }
+  
+      const roomDoc = new RoomsListModel({ room_name: roomName })
+  
+      roomDoc.save().then(roomDoc => {
+        return resolve(null)
+      })
+    } catch (error) {
+      return reject(error)
+    }
   })
 }
 
-function deleteOne (roomName, callback) {
-  RoomsListModel.deleteOne({ room_name: roomName }, (error, room) => {
-    if (error) { return callback(error, null) }
-
-    return callback(null, room)
+async function deleteOne (roomName) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const room = await RoomsListModel.deleteOne({ room_name: roomName })
+  
+      return resolve(room)
+    } catch (error) {
+      return reject(error)
+    }
   })
 }
 

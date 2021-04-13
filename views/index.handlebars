@@ -1,7 +1,23 @@
-<form action="/" method="GET">
-  <input type="date" name="date">
-  <button type="submit">送出</button>
-</form>
+{{#with data}}
+  <div class="wrapper">
+    <form action="/" method="GET">
+      <label for="room_name">教室：</label>
+      <select id="room_name" name="room_name">
+        <option value="">請選擇教室</option>
+        {{#each rooms as | room | }}
+          <option value="{{ room.room_name }}">{{ room.room_name }}</option>
+        {{/each}}
+      </select>
+
+      <label for="date">日期：</label>
+      <input type="date" id="date" name="date">
+      <button type="submit">送出</button>
+    </form>
+  </div>
+{{/with}}
+
+
+
 
 {{#extend 'title'}}
 <title>高雄NewOne靈糧堂 - 所有教室借用狀況</title>

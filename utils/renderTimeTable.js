@@ -7,15 +7,15 @@ import timeData from './timeData.js'
 
 // Custom Strategies
 class AddStrategy {
-  use (req, res, data) {
+  async use (req, res, data) {
     data.timeData = timeData
 
     const allRooms = []
 
-    RoomsListModel.findAll(async (error, rooms) => {
-      if (error) { return res.render('500error', { layout: 'error' }) }
+    try {
+      const rooms = await RoomsListModel.findAll()
 
-      await rooms.forEach(room => {
+      rooms.forEach(room => {
         allRooms.push(room.room_name)
       })
 
@@ -26,12 +26,12 @@ class AddStrategy {
       const roomName = req.params.room_name
       data.roomName = roomName
 
-      RoomsTimeModel.findMany({ room_name: roomName }, async (error, roomTime) => {
-        if (error) { res.render('500error', { layout: 'error' }) }
+      try {
+        const roomTime = await RoomsTimeModel.findMany({ room_name: roomName })
 
         data.times = {}
 
-        await timeData.times.forEach(time => {
+        timeData.times.forEach(time => {
           data.times[time] = {
             0: true,
             1: true,
@@ -43,28 +43,32 @@ class AddStrategy {
           }
         })
 
-        await roomTime.forEach(async eachRoomTime => {
-          await eachRoomTime.times.forEach(time => {
+        roomTime.forEach(eachRoomTime => {
+          eachRoomTime.times.forEach(time => {
             data.times[time][eachRoomTime.week] = false
           })
         })
 
         return res.render('timeManage', { layout: 'admin', data: data })
-      })
-    })
+      } catch (error) {
+        return res.render('500error', { layout: 'error' })
+      }
+    } catch (error) {
+      return res.render('500error', { layout: 'error' })
+    }
   }
 }
 
 class DeleteStrategy {
-  use (req, res, data) {
+  async use (req, res, data) {
     data.timeData = timeData
 
     const allRooms = []
 
-    RoomsTimeModel.findAll(async (error, roomsTime) => {
-      if (error) { return res.render('timeManage', { layout: 'admin', data: data }) }
+    try {
+      const roomsTime = await RoomsTimeModel.findAll()
 
-      await roomsTime.forEach(roomTime => {
+      roomsTime.forEach(roomTime => {
         const roomName = roomTime.room_name
 
         if (!allRooms.includes(roomName)) {
@@ -79,12 +83,12 @@ class DeleteStrategy {
       const roomName = req.params.room_name
       data.roomName = roomName
 
-      RoomsTimeModel.findMany({ room_name: roomName }, async (error, roomTime) => {
+      RoomsTimeModel.findMany({ room_name: roomName }, (error, roomTime) => {
         if (error) { res.render('500error', { layout: 'error' }) }
 
         data.times = {}
 
-        await timeData.times.forEach(time => {
+        timeData.times.forEach(time => {
           data.times[time] = {
             0: false,
             1: false,
@@ -96,28 +100,30 @@ class DeleteStrategy {
           }
         })
 
-        await roomTime.forEach(async eachRoomTime => {
-          await eachRoomTime.times.forEach(time => {
+        roomTime.forEach(eachRoomTime => {
+          eachRoomTime.times.forEach(time => {
             data.times[time][eachRoomTime.week] = true
           })
         })
 
         return res.render('timeManage', { layout: 'admin', data: data })
       })
-    })
+    } catch (error) {
+      return res.render('timeManage', { layout: 'admin', data: data })
+    }
   }
 }
 
 class ReserveStrategy {
-  use (req, res, data) {
+  async use (req, res, data) {
     data.timeData = timeData
 
-    RoomsTimeModel.findAll(async (error, roomsTime) => {
-      if (error) { return res.render('500error') }
+    try {
+      const roomsTime = await RoomsTimeModel.findAll()
 
       const allRooms = []
 
-      await roomsTime.forEach((roomTime) => {
+      roomsTime.forEach((roomTime) => {
         if (!allRooms.includes(roomTime.room_name)) {
           allRooms.push(roomTime.room_name)
         }
@@ -138,7 +144,7 @@ class ReserveStrategy {
 
         data.times = {}
 
-        await timeData.times.forEach((time) => {
+        timeData.times.forEach((time) => {
           data.times[time] = {
             0: false,
             1: false,
@@ -150,25 +156,31 @@ class ReserveStrategy {
           }
         })
 
-        await roomTime[0].times.forEach((time) => {
+        roomTime[0].times.forEach((time) => {
           data.times[time][roomWeek] = true
         })
 
-        RoomsReserveModel.findMany({ room_name: roomName, date: roomDate }, async (error, roomsReserve) => {
-          if (error) { res.render('500error', { layout: 'error' }) }
+        try {
+          const roomsReserve = await RoomsReserveModel.findMany({
+            room_name: roomName, date: roomDate
+          })
 
-          await roomsReserve.forEach(async eachReserve => {
+          roomsReserve.forEach(eachReserve => {
             if (eachReserve.status === '已被借用') {
-              await eachReserve.times.forEach(time => {
+              eachReserve.times.forEach(time => {
                 data.times[time][roomWeek] = false
               })
             }
           })
 
           return res.render('roomsReserve', { layout: 'user', data: data })
-        })
+        } catch (error) {
+          res.render('500error', { layout: 'error' })
+        }
       })
-    })
+    } catch (error) {
+      return res.render('500error', { layout: 'error' })
+    }
   }
 }
 

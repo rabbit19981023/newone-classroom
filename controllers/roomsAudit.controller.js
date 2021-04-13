@@ -10,10 +10,10 @@ export default {
     /** 每當開啟此審核頁面時，程式會自動審核已過期的所有預約紀錄 **/
     const today = new Date().setHours(0, 0, 0, 0) // if (00:00-07:59)? yesterday : today
 
-    RoomsReserveModel.findMany({ status: '審核中' }, async (error, roomsReserves) => {
-      if (error) { return res.render('500error', { layout: 'error' }) }
+    try {
+      const roomsReserves = await RoomsReserveModel.findMany({ status: '審核中' })
 
-      await roomsReserves.forEach(async eachReserve => {
+      roomsReserves.forEach(async eachReserve => {
         const reserveDate = new Date(eachReserve.date)
 
         if (reserveDate < today) {
@@ -23,6 +23,9 @@ export default {
           }, error => {  })
         }
       })
+    } catch (error) {
+      return res.render('500error', { layout: 'error' })
+    }
 
       /** 頁面渲染 **/
       const data = {}
@@ -39,14 +42,15 @@ export default {
         filter.date = req.query.date
       }
 
-      RoomsReserveModel.findMany(filter, (error, roomsReserve) => {
-        if (error) { return res.render('500error', { layout: 'error' }) }
+      try {
+        const roomsReserve = await RoomsReserveModel.findMany(filter)
 
         data.data = JSON.parse(JSON.stringify(roomsReserve))
 
         return res.render('reserveAudit', { layout: 'admin', data: data })
-      })
-    })
+      } catch (error) {
+        return res.render('500error', { layout: 'error' })
+      }
   },
 
   audit: function (req, res) {
@@ -70,14 +74,14 @@ export default {
         await RoomsReserveModel.findOne({ _id: reserveId }, async (error, reserveAudited) => {
           if (error) { return res.render('500error', { layout: 'error' }) }
 
-          await RoomsReserveModel.findMany({
-            room_name: reserveAudited.room_name,
-            date: reserveAudited.date,
-            status: '審核中'
-          }, async (error, roomsReserve) => {
-            if (error) { return res.render('500error', { layout: 'error' }) }
+          try {
+            const roomsReserve = await RoomsReserveModel.findMany({
+              room_name: reserveAudited.room_name,
+              date: reserveAudited.date,
+              status: '審核中'
+            })
 
-            await roomsReserve.forEach(async eachRoomReserve => {
+            roomsReserve.forEach(async eachRoomReserve => {
               const times = eachRoomReserve.times
               const originTimes = times.slice()
 
@@ -101,7 +105,9 @@ export default {
                 if (error) { return res.render('500error', { layout: 'error' }) }
               })
             })
-          })
+          } catch (error) {
+            return res.render('500error', { layout: 'error' })
+          }
         })
       }
 

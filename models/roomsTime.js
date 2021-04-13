@@ -13,19 +13,27 @@ const roomsTimeSchema = new Schema({
 const RoomsTimeModel = model('RoomsTime', roomsTimeSchema)
 
 /** RoomsTime Model APIs **/
-function findAll (callback) {
-  RoomsTimeModel.find().sort({ room_name: 1, week: 1 }).exec((error, roomsTime) => {
-    if (error) { return callback(error, null) }
+async function findAll () {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const roomsTime = await RoomsTimeModel.find().sort({ room_name: 1, week: 1 }).exec()
 
-    return callback(null, roomsTime)
+      return resolve(roomsTime)
+    } catch (error) {
+      return reject(error)
+    }
   })
 }
 
-function findMany (filter, callback) {
-  RoomsTimeModel.find(filter, (error, roomTime) => {
-    if (error) { return callback(error, null) }
-
-    return callback(null, roomTime)
+async function findMany (filter) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const roomTime = await RoomsTimeModel.find(filter)
+  
+      return resolve(roomTime)
+    } catch (error) {
+      return reject(error)
+    }
   })
 }
 

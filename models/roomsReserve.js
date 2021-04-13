@@ -25,12 +25,14 @@ function findAll (callback) {
   })
 }
 
-function findMany (filter, callback) {
-  RoomsReserveModel.find(filter).sort({ room_name: 1, date: -1 }).exec((error, roomsReserve) => {
-    if (error) { return callback(error, null) }
+async function findMany (filter) {
+  try {
+    const roomsReserve = await RoomsReserveModel.find(filter).sort({ room_name: 1, date: -1 }).exec()
 
-    return callback(null, roomsReserve)
-  })
+    return new Promise((resolve, reject) => { resolve(roomsReserve) })
+  } catch (error) {
+    throw error
+  }
 }
 
 function findOne (filter, callback) {
