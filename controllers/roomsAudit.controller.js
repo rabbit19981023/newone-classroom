@@ -71,8 +71,8 @@ export default {
       if (error) { return res.render('500error', { layout: 'error' }) }
 
       if (auditResult.status === '已被借用') {
-        await RoomsReserveModel.findOne({ _id: reserveId }, async (error, reserveAudited) => {
-          if (error) { return res.render('500error', { layout: 'error' }) }
+        try {
+          const reserveAudited = await RoomsReserveModel.findOne({ _id: reserveId })
 
           try {
             const roomsReserve = await RoomsReserveModel.findMany({
@@ -108,7 +108,9 @@ export default {
           } catch (error) {
             return res.render('500error', { layout: 'error' })
           }
-        })
+        } catch (error) {
+          return res.render('500error', { layout: 'error' })
+        }
       }
 
       return res.redirect('/admin/rooms/audit?message=審核成功！')

@@ -93,20 +93,24 @@ export default {
   },
 
   deleteTime: function (req, res) {
-    getUploadedData(req, (roomTime) => {
-      RoomsTimeModel.deleteMany({
-        room_name: roomTime.room_name,
-        weeks: roomTime.weeks,
-        times: roomTime.times
-      }, (error) => {
-        if (error === '請選擇教室時段！') {
-          return res.redirect('/admin/rooms/time/add?message=請選擇教室時段！')
+    getUploadedData(req, async (roomTime) => {
+      let message
+
+      try {
+        message = await RoomsTimeModel.deleteMany({
+          room_name: roomTime.room_name,
+          weeks: roomTime.weeks,
+          times: roomTime.times
+        })
+      } catch (error) {
+        if (error === 'error') {
+          return res.render('500error', { layout: 'error' })
         }
 
-        if (error) { return res.render('500error') }
+        message = error
+      }
 
-        return res.redirect('/admin/rooms/time/delete?message=刪除教室時段成功！')
-      })
+      return res.redirect(`/admin/rooms/time/delete?message=${message}`)
     })
   }
 }

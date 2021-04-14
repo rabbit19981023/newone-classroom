@@ -17,29 +17,39 @@ const roomsReserveSchema = new Schema({
 const RoomsReserveModel = model('RoomsReserve', roomsReserveSchema)
 
 /** RoomsReserve Model APIs **/
-function findAll (callback) {
-  RoomsReserveModel.find().sort({ room_name: 1, date: -1 }).exec((error, roomsReserve) => {
-    if (error) { return callback(error, null) }
+async function findAll () {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const roomsReserve = await RoomsReserveModel.find().sort({ room_name: 1, date: -1 }).exec()
 
-    return callback(null, roomsReserve)
+      return resolve(roomsReserve)
+    } catch (error) {
+      return reject(error)
+    }
   })
 }
 
 async function findMany (filter) {
-  try {
-    const roomsReserve = await RoomsReserveModel.find(filter).sort({ room_name: 1, date: -1 }).exec()
+  return new Promise(async (resolve, reject) => {
+    try {
+      const roomsReserve = await RoomsReserveModel.find(filter).sort({ room_name: 1, date: -1 }).exec()
 
-    return new Promise((resolve, reject) => { resolve(roomsReserve) })
-  } catch (error) {
-    throw error
-  }
+      return resolve(roomsReserve)
+    } catch (error) {
+      return reject(error)
+    }
+  })
 }
 
-function findOne (filter, callback) {
-  RoomsReserveModel.findOne(filter).exec((error, roomReserve) => {
-    if (error) { return callback(error, null) }
+async function findOne (filter) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const roomReserve = await RoomsReserveModel.findOne(filter).exec()
 
-    return callback(null, roomReserve)
+      return resolve(roomReserve)
+    } catch (error) {
+      return reject(error)
+    }
   })
 }
 

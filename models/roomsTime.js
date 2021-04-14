@@ -28,7 +28,7 @@ async function findAll () {
 async function findMany (filter) {
   return new Promise(async (resolve, reject) => {
     try {
-      const roomTime = await RoomsTimeModel.find(filter)
+      const roomTime = await RoomsTimeModel.find(filter).exec()
   
       return resolve(roomTime)
     } catch (error) {
@@ -41,8 +41,8 @@ async function addMany (data) {
   /******
 
     data = {
-      room_name: String,
-      weeks: Array, // ['0', '0', '2', '2', '2', ...]
+      room_name: String, // '2-1'
+      weeks: Array, // [   '0',         '0',         '1',         '2',         '3',    ...]
       times: Array // ['0800-0900', '0900-1000', '0900-1000', '1000-1100', '1100-1200']
     }
 
@@ -57,15 +57,15 @@ async function addMany (data) {
 
     for (let i = 0; i < data.times.length; i++) {
       try {
-        const roomTime = await RoomsTimeModel.findOne({ room_name: data.room_name, week: data.weeks[i] }).exec()
+        const filter = { room_name: data.room_name, week: data.weeks[i] }
+
+        const roomTime = await RoomsTimeModel.findOne(filter).exec()
 
         if (roomTime) {
-          if (!roomTime.times.includes(data.times[i])) {
-            try {
-              await RoomsTimeModel.updateOne({ room_name: data.room_name, week: data.weeks[i] }, { $addToSet: { times: data.times[i] } })
-            } catch (error) {
-              error = '500error'
-            }
+          try {
+            await roomTime.updateOne({ $addToSet: { times: data.times[i] } })
+          } catch (error) {
+            error = '500error'
           }
 
           continue
@@ -91,42 +91,45 @@ async function addMany (data) {
       }
     }
 
-    resolve('新增時段成功！')
+    return resolve('新增時段成功！')
   })
 }
 
-async function deleteMany (data, callback) {
-  /**
+async function deleteMany (data) {
+  /******
 
-  data = {
-    room_name: String,
-    weeks: Array,
-    times: Array
-  }
+    data = {
+      room_name: String, // '2-1'
+      weeks: Array, // [   '0',         '0',         '1',         '2',         '3',    ...]
+      times: Array // ['0800-0900', '0900-1000', '0900-1000', '1000-1100', '1100-1200']
+    }
 
-  **/
+  ******/
+  return new Promise(async (resolve, reject) => {
+    if (data.times.length === 0) {
+      return reject('請選擇教室時段！')
+    }
 
-  let error = null
+    let error
 
-  if (data.times.length === 0) {
-    error = '請選擇教室時段！'
-    return callback(error)
-  }
+    for (let i = 0; i < data.times.length; i++) {
+      try {
+        const filter = { room_name: data.room_name, week: data.weeks[i] }
 
-  for (let i = 0; i < data.times.length; i++) {
-    await RoomsTimeModel.findOne({ room_name: data.room_name, week: data.weeks[i] }, async (err, roomTime) => {
-      if (err) {
-        error = err
-        return
+        const roomTime = await RoomsTimeModel.findOne(filter).exec()
+
+        await roomTime.updateOne({ $pull: { times: data.times[i] } })
+      } catch (error) {
+        error = '500error'
       }
 
-      return await roomTime.updateOne({ $pull: { times: data.times[i] } })
-    })
+      if (error) {
+        return reject(error)
+      }
+    }
 
-    if (error) { break }
-  }
-
-  return callback(error)
+    return resolve('刪除時段成功！')
+  })
 }
 
 export default {
