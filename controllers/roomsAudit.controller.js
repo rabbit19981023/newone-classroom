@@ -18,10 +18,14 @@ export default {
         const reserveDate = new Date(eachReserve.date)
 
         if (reserveDate < today) {
-          await RoomsReserveModel.updateOne({ _id: eachReserve._id }, {
-            status: '審核未通過',
-            result: '此預約紀錄已經過期囉！(此為系統自動審核機制)'
-          }, error => {  })
+          try {
+            await RoomsReserveModel.updateOne({ _id: eachReserve._id }, {
+              status: '審核未通過',
+              result: '此預約紀錄已經過期囉！(此為系統自動審核機制)'
+            })
+          } catch (error) {
+            return res.render('500error', { layout: 'error' })
+          }
         }
       })
     } catch (error) {
@@ -55,7 +59,7 @@ export default {
   },
 
   // POST '/admin/rooms/audit/audit'
-  audit: function (req, res) {
+  audit: async function (req, res) {
     const reserveId = req.body.reserve_id
     const isAuditSuccess = parseInt(req.body.is_audit_success)
     const result = req.body.result
@@ -69,8 +73,8 @@ export default {
       auditResult.status = '已被借用'
     }
 
-    RoomsReserveModel.updateOne({ _id: reserveId }, auditResult, async (error) => {
-      if (error) { return res.render('500error', { layout: 'error' }) }
+    try {
+      await RoomsReserveModel.updateOne({ _id: reserveId }, auditResult)
 
       if (auditResult.status === '已被借用') {
         try {
@@ -116,6 +120,8 @@ export default {
       }
 
       return res.redirect('/admin/rooms/audit?message=審核成功！')
-    })
+    } catch (error) {
+      return res.render('500error', { layout: 'error' })
+    }
   }
 }

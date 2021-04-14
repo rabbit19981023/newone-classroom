@@ -73,11 +73,14 @@ function add (data) {
   })
 }
 
-async function updateOne (filter, content, callback) {
-  await RoomsReserveModel.updateOne(filter, content).exec((error, roomReserveDoc) => {
-    if (error) { return callback(error) }
-
-    return callback(null)
+function updateOne (filter, content) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      await RoomsReserveModel.updateOne(filter, content).exec()
+      return resolve(null)
+    } catch (error) {
+      return reject(error)
+    }
   })
 }
 

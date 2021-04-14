@@ -17,7 +17,7 @@ async function getUploadedData (req, callback) {
 
   try {
     // if (array inputs.length > 1):
-    await inputs.forEach(input => {
+    inputs.forEach(input => {
       input = input.split(',')
 
       data.weeks.push(input[0])
