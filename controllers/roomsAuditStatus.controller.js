@@ -5,6 +5,7 @@ import isAuth from '../utils/isAuth.js'
 import parsingUser from '../utils/parsingUser.js'
 
 export default {
+  // GET '/rooms/audit-status'
   index: async function (req, res) {
     const data = {}
     data.isAuth = isAuth(req.user, 'User')

@@ -7,6 +7,7 @@ import renderTimeTable from '../utils/renderTimeTable.js'
 
 /** Routes Controllers **/
 export default {
+  // GET '/rooms/reserve'
   index: function (req, res) {
     const data = {}
     data.user = parsingUser(req.user)
@@ -15,6 +16,7 @@ export default {
     renderTimeTable(req, res, data, 'reserve')
   },
 
+  // POST '/rooms/reserve/add'
   reserve: function (req, res) {
     const data = req.body
 

@@ -2,6 +2,7 @@ import passport from 'passport'
 
 /** Routes Controllers **/
 export default {
+  // GET '/login'
   loginForm: function (req, res) {
     const data = {
       isUser: true,
@@ -12,6 +13,7 @@ export default {
     return res.render('login', { layout: 'loginForm', data: data })
   },
 
+  // POST '/login'
   login: function (req, res) {
     const callback = passport.authenticate('login-user', {
       successRedirect: '/',
@@ -22,6 +24,7 @@ export default {
     return callback(req, res)
   },
 
+  // GET '/sign-up'
   signUpForm: function (req, res) {
     const data = {
       isUser: true,
@@ -32,6 +35,7 @@ export default {
     return res.render('signUp', { layout: 'loginForm', data: data })
   },
 
+  // POST '/sign-up'
   signUp: function (req, res) {
     const callback = passport.authenticate('sign-up-user', {
       successRedirect: '/',
@@ -42,6 +46,7 @@ export default {
     return callback(req, res)
   },
 
+  // GET '/log-out'
   logOut: function (req, res) {
     req.logOut()
 

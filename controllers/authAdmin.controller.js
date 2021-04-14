@@ -2,6 +2,7 @@ import passport from 'passport'
 
 /** Routes Controllers **/
 export default {
+  // GET '/admin/login'
   loginForm: function (req, res) {
     const data = {
       isAdmin: true,
@@ -12,6 +13,7 @@ export default {
     return res.render('login', { layout: 'loginForm', data: data })
   },
 
+  // POST '/admin/login'
   login: function (req, res) {
     const callback = passport.authenticate('login-admin', {
       successRedirect: '/admin/rooms/audit',
@@ -22,6 +24,7 @@ export default {
     return callback(req, res)
   },
 
+  // GET '/admin/sign-up'
   signUpForm: function (req, res) {
     const data = {
       isAdmin: true,
@@ -32,6 +35,7 @@ export default {
     return res.render('signUp', { layout: 'loginForm', data: data })
   },
 
+  // POST '/admin/sign-up'
   signUp: function (req, res) {
     const callback = passport.authenticate('sign-up-admin', {
       successRedirect: '/admin/rooms/audit',
@@ -42,6 +46,7 @@ export default {
     return callback(req, res)
   },
 
+  // GET '/admin/log-out'
   logOut: function (req, res) {
     req.logOut()
 

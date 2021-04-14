@@ -6,6 +6,7 @@ import parsingUser from '../utils/parsingUser.js'
 
 /** Routes Controllers **/
 export default {
+  // GET '/admin/rooms/list'
   index: async function (req, res) {
     const data = {}
     data.isAuth = isAuth(req.user, 'Admin')
@@ -23,6 +24,7 @@ export default {
     }
   },
 
+  // POST '/admin/rooms/list/add'
   addRoom: async function (req, res) {
     const roomName = req.body.room_name
     const filter = { room_name: roomName }
@@ -40,6 +42,7 @@ export default {
     }
   },
 
+  // POST '/admin/rooms/list/delete'
   deleteRoom: async function (req, res) {
     const roomName = req.body.room_name
     const filter = { room_name: roomName }

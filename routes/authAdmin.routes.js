@@ -3,7 +3,7 @@ import authAdminController from '../controllers/authAdmin.controller.js'
 
 const router = Router()
 
-/** /admin/ Routes **/
+/** '/admin/' Routes **/
 router.get('/login', authAdminController.loginForm)
 router.post('/login', authAdminController.login)
 

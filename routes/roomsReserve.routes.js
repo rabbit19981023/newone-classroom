@@ -3,7 +3,7 @@ import roomsReserveController from '../controllers/roomsReserve.controller.js'
 
 const router = Router()
 
-/** /rooms/reserve Routes **/
+/** '/rooms/reserve/' Routes **/
 router.get('/', roomsReserveController.index)
 router.post('/add', roomsReserveController.reserve)
 

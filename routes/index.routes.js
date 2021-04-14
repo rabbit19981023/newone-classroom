@@ -3,7 +3,7 @@ import indexController from '../controllers/index.controller.js'
 
 const router = Router()
 
-/** /index/ Routes **/
+/** '/' Routes **/
 router.get('/', indexController.index)
 
 // exports the express.Router instance

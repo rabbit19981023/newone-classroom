@@ -41,6 +41,7 @@ async function getUploadedData (req, callback) {
 
 /** Routes Controller **/
 export default {
+  // GET '/admin/rooms/time/<add or delete>/:room_name'
   timeTable: function (req, res) {
     const data = {}
     data.isAuth = isAuth(req.user, 'Admin')
@@ -70,6 +71,7 @@ export default {
     renderTimeTable(req, res, data, mode.string)
   },
 
+  // POST '/admin/rooms/time/add/:room_name'
   addTime: function (req, res) {
     getUploadedData(req, async (roomTime) => {
       let message
@@ -92,6 +94,7 @@ export default {
     })
   },
 
+  // POST '/admin/rooms/time/delete/:room_name'
   deleteTime: function (req, res) {
     getUploadedData(req, async (roomTime) => {
       let message

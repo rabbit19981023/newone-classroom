@@ -6,6 +6,7 @@ import parsingUser from '../utils/parsingUser.js'
 
 /** Routes Controllers **/
 export default {
+  // GET '/admin/rooms/audit'
   index: async function (req, res) {
     /** 每當開啟此審核頁面時，程式會自動審核已過期的所有預約紀錄 **/
     const today = new Date().setHours(0, 0, 0, 0) // if (00:00-07:59)? yesterday : today
@@ -53,6 +54,7 @@ export default {
       }
   },
 
+  // POST '/admin/rooms/audit/audit'
   audit: function (req, res) {
     const reserveId = req.body.reserve_id
     const isAuditSuccess = parseInt(req.body.is_audit_success)

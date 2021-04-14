@@ -6,6 +6,7 @@ import parsingUser from '../utils/parsingUser.js'
 
 /** Routes Controllers **/
 export default {
+  // GET '/'
   index: async function (req, res) {
     const data = {}
     data.user = parsingUser(req.user)
