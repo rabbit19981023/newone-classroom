@@ -17,13 +17,15 @@ export default {
   },
 
   // POST '/rooms/reserve/add'
-  reserve: function (req, res) {
+  reserve: async function (req, res) {
     const data = req.body
 
-    RoomsReserveModel.add(data, (error, rooms) => {
-      if (error) { return res.render('500error', { layout: 'user', data: data }) }
+    try {
+      await RoomsReserveModel.add(data)
 
-      res.redirect('./?message="借用成功！請等待管理員審核"')
-    })
+      return res.redirect('./?message="借用成功！請等待管理員審核"')
+    } catch (error) {
+      return res.render('500error', { layout: 'user', data: data })
+    }
   }
 }

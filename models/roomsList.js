@@ -11,7 +11,7 @@ const roomsListSchema = new Schema({
 const RoomsListModel = model('RoomsList', roomsListSchema)
 
 /** RoomsList Model APIs **/
-async function findAll () {
+function findAll () {
   return new Promise(async (resolve, reject) => {
     try {
       const rooms = await RoomsListModel.find().sort({ room_name: 1 }).exec()
@@ -23,7 +23,7 @@ async function findAll () {
   })
 }
 
-async function add (filter) {
+function add (filter) {
   return new Promise(async (resolve, reject) => {
     try {
       const existRoom = await RoomsListModel.findOne(filter).exec()
@@ -43,7 +43,7 @@ async function add (filter) {
   })
 }
 
-async function deleteOne (filter) {
+function deleteOne (filter) {
   return new Promise(async (resolve, reject) => {
     try {
       const room = await RoomsListModel.deleteOne(filter)
