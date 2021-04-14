@@ -15,7 +15,7 @@ async function findAll () {
   return new Promise(async (resolve, reject) => {
     try {
       const rooms = await RoomsListModel.find().sort({ room_name: 1 }).exec()
-  
+      
       return resolve(rooms)
     } catch (error) {
       return reject(error)
@@ -23,18 +23,18 @@ async function findAll () {
   })
 }
 
-async function add (roomName) {
+async function add (filter) {
   return new Promise(async (resolve, reject) => {
     try {
-      const existRoom = await RoomsListModel.findOne({ room_name: roomName }).exec()
+      const existRoom = await RoomsListModel.findOne(filter).exec()
   
       if (existRoom) {
         return resolve(existRoom)
       }
   
-      const roomDoc = new RoomsListModel({ room_name: roomName })
+      const roomDoc = new RoomsListModel(filter)
   
-      roomDoc.save().then(roomDoc => {
+      roomDoc.save().then(() => {
         return resolve(null)
       })
     } catch (error) {
@@ -43,10 +43,10 @@ async function add (roomName) {
   })
 }
 
-async function deleteOne (roomName) {
+async function deleteOne (filter) {
   return new Promise(async (resolve, reject) => {
     try {
-      const room = await RoomsListModel.deleteOne({ room_name: roomName })
+      const room = await RoomsListModel.deleteOne(filter)
   
       return resolve(room)
     } catch (error) {

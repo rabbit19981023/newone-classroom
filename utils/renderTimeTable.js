@@ -83,8 +83,8 @@ class DeleteStrategy {
       const roomName = req.params.room_name
       data.roomName = roomName
 
-      RoomsTimeModel.findMany({ room_name: roomName }, (error, roomTime) => {
-        if (error) { res.render('500error', { layout: 'error' }) }
+      try {
+        const roomTime = await RoomsTimeModel.findMany({ room_name: roomName })
 
         data.times = {}
 
@@ -107,7 +107,9 @@ class DeleteStrategy {
         })
 
         return res.render('timeManage', { layout: 'admin', data: data })
-      })
+      } catch (error) {
+        res.render('500error', { layout: 'error' })
+      }
     } catch (error) {
       return res.render('timeManage', { layout: 'admin', data: data })
     }
@@ -124,8 +126,10 @@ class ReserveStrategy {
       const allRooms = []
 
       roomsTime.forEach((roomTime) => {
-        if (!allRooms.includes(roomTime.room_name)) {
-          allRooms.push(roomTime.room_name)
+        const roomName = roomTime.room_name
+
+        if (!allRooms.includes(roomName)) {
+          allRooms.push(roomName)
         }
       })
 
@@ -139,8 +143,8 @@ class ReserveStrategy {
 
       data.roomName = roomName
 
-      RoomsTimeModel.findMany({ room_name: roomName, week: roomWeek }, async (error, roomTime) => {
-        if (error) { return res.render('500error') }
+      try {
+        const roomTime = await RoomsTimeModel.findMany({ room_name: roomName, week: roomWeek })
 
         data.times = {}
 
@@ -162,22 +166,24 @@ class ReserveStrategy {
 
         try {
           const roomsReserve = await RoomsReserveModel.findMany({
-            room_name: roomName, date: roomDate
+            room_name: roomName,
+            date: roomDate,
+            status: '已被借用'
           })
 
           roomsReserve.forEach(eachReserve => {
-            if (eachReserve.status === '已被借用') {
-              eachReserve.times.forEach(time => {
-                data.times[time][roomWeek] = false
-              })
-            }
+            eachReserve.times.forEach(time => {
+              data.times[time][roomWeek] = false
+            })
           })
 
           return res.render('roomsReserve', { layout: 'user', data: data })
         } catch (error) {
           res.render('500error', { layout: 'error' })
         }
-      })
+      } catch (error) {
+        return res.render('500error', { layout: 'error' })
+      }
     } catch (error) {
       return res.render('500error', { layout: 'error' })
     }

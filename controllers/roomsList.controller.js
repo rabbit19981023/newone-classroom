@@ -18,32 +18,40 @@ export default {
       data.rooms = allRooms
 
       return res.render('roomsList', { layout: 'admin', data: data })
-    } catch (error) { return res.render('500error') }
+    } catch (error) {
+      return res.render('500error', { layout: 'error' })
+    }
   },
 
   addRoom: async function (req, res) {
     const roomName = req.body.room_name
+    const filter = { room_name: roomName }
 
     try {
-      const existRoom = await RoomsListModel.add(roomName)
+      const existRoom = await RoomsListModel.add(filter)
 
       if (existRoom) {
         return res.redirect(`/admin/rooms/list?message=${existRoom.room_name}教室已經被登錄過囉！`)
       }
 
       return res.redirect(`/admin/rooms/list?message=${roomName}教室已成功登錄！`)
-    } catch (error) { return res.render('500error', { layout: 'error' }) }
+    } catch (error) {
+      return res.render('500error', { layout: 'error' })
+    }
   },
 
   deleteRoom: async function (req, res) {
     const roomName = req.body.room_name
+    const filter = { room_name: roomName }
 
     try {
-      const room = await RoomsListModel.deleteOne(roomName)
+      const room = await RoomsListModel.deleteOne(filter)
 
       if (room) {
         return res.redirect(`/admin/rooms/list?message=${roomName}教室已成功刪除！`)
       }
-    } catch (error) { return res.render('500error', { layout: 'error' }) }
+    } catch (error) {
+      return res.render('500error', { layout: 'error' })
+    }
   }
 }

@@ -5,7 +5,7 @@ import isAuth from '../utils/isAuth.js'
 import parsingUser from '../utils/parsingUser.js'
 
 export default {
-  index: function (req, res) {
+  index: async function (req, res) {
     const data = {}
     data.isAuth = isAuth(req.user, 'User')
     data.user = parsingUser(req.user)
@@ -23,12 +23,14 @@ export default {
       filter.date = req.query.date
     }
 
-    RoomsReserveModel.findMany(filter, (error, roomsReserve) => {
-      if (error) { return res.render('500error', { layout: 'error' }) }
+    try {
+      const roomsReserve = await RoomsReserveModel.findMany(filter)
 
       data.data = JSON.parse(JSON.stringify(roomsReserve))
 
       return res.render('auditStatus', { layout: 'user', data: data })
-    })
+    } catch (error) {
+      return res.render('500error', { layout: 'error' })
+    }
   }
 }

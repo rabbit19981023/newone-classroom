@@ -10,18 +10,24 @@ export default {
     const data = {}
     data.user = parsingUser(req.user)
 
-    const filter = {
-      status: '已被借用'
+    try {
+      const rooms = await RoomsListModel.findAll()
+
+      data.rooms = JSON.parse(JSON.stringify(rooms))
+    } catch (error) {
+      return res.render('500error', { layout: 'error' })
     }
+
+    const filter = { status: '已被借用' }
 
     if (req.query.room_name) {
       filter.room_name = req.query.room_name
     }
 
-    let sunday, monday, tuesday, wednesday, thursday, friday, saturday
-    const weekDays = [sunday, monday, tuesday, wednesday, thursday, friday, saturday]
-
     if (req.query.date) {
+      let sunday, monday, tuesday, wednesday, thursday, friday, saturday
+      const weekDays = [sunday, monday, tuesday, wednesday, thursday, friday, saturday]
+
       const date = new Date(req.query.date)
       const weekDay = date.getDay()
 
@@ -37,33 +43,24 @@ export default {
           weekDays[i] = str.split('T')[0]
         }
       }
-
       createDates(date)
-    }
 
-    try {
-      const rooms = await RoomsListModel.findAll()
+      data.reserves = {}
 
-      data.rooms = JSON.parse(JSON.stringify(rooms))
+      for (let i = 0; i < weekDays.length; i++) {
+        filter.date = weekDays[i]
 
-      if (req.query.date) {
-        data.reserves = {}
-
-        for (let i = 0; i < weekDays.length; i++) {
-          filter.date = weekDays[i]
-
-          try {
-            const roomsReserve = await RoomsReserveModel.findMany(filter)
-            data.reserves[i] = JSON.parse(JSON.stringify(roomsReserve))
-          } catch (error) {
-            return res.render('500error', { layout: 'error' })
-          }
+        try {
+          const roomsReserve = await RoomsReserveModel.findMany(filter)
+          data.reserves[i] = JSON.parse(JSON.stringify(roomsReserve))
+        } catch (error) {
+          return res.render('500error', { layout: 'error' })
         }
       }
 
-      return res.render('index', { layout: 'user', data: data })
-    } catch (error) {
-      return res.render('500error', { layout: 'error' })
+      console.log(data.reserves)
     }
+
+    return res.render('index', { layout: 'user', data: data })
   }
 }
