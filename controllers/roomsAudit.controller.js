@@ -9,7 +9,7 @@ export default {
   // GET '/admin/rooms/audit'
   index: async function (req, res) {
     /** 每當開啟此審核頁面時，程式會自動審核已過期的所有預約紀錄 **/
-    const today = new Date().setHours(0, 0, 0, 0) // if (00:00-07:59)? yesterday : today
+    const today = new Date().setUTCHours(0, 0, 0, 0) // if (00:00-07:59)? yesterday : today
 
     try {
       const roomsReserves = await RoomsReserveModel.findMany({ status: '審核中' })

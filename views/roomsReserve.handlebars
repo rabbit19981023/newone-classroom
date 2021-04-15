@@ -21,7 +21,7 @@
           <input id="room-date" name="date" type="date" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-secondary" onclick="isValidDate(event)">更新時段表</button>
+        <button type="submit" class="btn btn-primary" onclick="isValidDate(event)">更新時段表</button>
       </div>
     </form>
 
@@ -63,10 +63,10 @@
       <div class="form-details">
         <span class="close-btn" onclick="closeBtn()"></span>
 
-        <span id="room_name">借用教室：</span>
+        <span id="room_name"></span>
         <input type="text" id="room_name_input" name="room_name" style="display: none;">
 
-        <span id="date">借用日期：</span>
+        <span id="date"></span>
         <input type="text" id="date_input" name="date" style="display: none;">
 
         <div class="times-wrapper">
@@ -81,7 +81,7 @@
 
         <div class="purpose-wrapper">
           <label for="purpose">借用原因：</label>
-          <input type="text" id="purpose" name="purpose" minlength="2" maxlength="20" size="20" required>
+          <input type="text" id="purpose" name="purpose" minlength="2" maxlength="20" size="13" required>
         </div>
 
         <center>
@@ -92,7 +92,7 @@
 
     {{#if roomName}}
       <center>
-        <button class="btn btn-secondary mb-2" onclick="displayForm()">我要借用</button>
+        <button class="btn btn-outline-primary mb-2" onclick="displayForm()"><b>我要借用</b></button>
       </center>
     {{/if}}
   </div>

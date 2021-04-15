@@ -21,7 +21,7 @@ body {
   width: 4rem;
 }
 
-.form-select {
+.select-wrapper .form-select {
   width: 80%;
 }
 
