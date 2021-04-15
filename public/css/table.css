@@ -92,19 +92,19 @@ th, td {
 }
 
 th {
-  padding: 0px 50px;
+  padding: 10px 50px;
   border-bottom: 1px solid #000000;
 }
 
 @media screen and (max-width: 768px) {
   th {
-    padding: 0px 40px;
+    padding: 10px 40px;
   }
 }
 
 @media screen and (max-width: 576px) {
   th {
-    padding: 3px 20px;
+    padding: 7px 20px;
   }
 }
 

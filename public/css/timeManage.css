@@ -12,7 +12,17 @@ body {
 }
 
 .select-wrapper {
+  display: flex;
+  align-items: center;
   margin-bottom: 1%;
+}
+
+.select-wrapper label {
+  width: 4rem;
+}
+
+.form-select {
+  width: 80%;
 }
 
 button {

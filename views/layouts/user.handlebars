@@ -15,7 +15,7 @@
 <body>
   {{#with data}}
     <nav class="navbar navbar-expand-md navbar-light bg-light">
-      <div class="container-fluid">
+      <div class="container-fluid ms-md-5">
         <a class="navbar-brand" href="https://nzgcc.com/">高雄NewOne靈糧堂</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,18 +37,18 @@
             <div class="button-wrapper">
               {{#unless isAuth}}
                 <li class="nav-item">
-                  <button type="button" class="btn btn-secondary" onclick="location.href = '/login'">登入</button>
+                  <button type="button" class="btn btn-outline-primary" onclick="location.href = '/login'">登入</button>
                 </li>
 
                 <li class="nav-item">
-                  <button type="button" class="btn btn-secondary" onclick="location.href = '/sign-up'">註冊</button>
+                  <button type="button" class="btn btn-outline-success" onclick="location.href = '/sign-up'">註冊</button>
                 </li>
               {{/unless}}
 
               {{#if isAuth}}
                 <span>歡迎回來，{{ user }}！</span>
                 <li class="nav-item">
-                  <button type="button" class="btn btn-secondary" onclick="location.href = '/log-out'">登出</button>
+                  <button type="button" class="btn btn-outline-dark" onclick="location.href = '/log-out'">登出</button>
                 </li>
               {{/if}}
             </div>

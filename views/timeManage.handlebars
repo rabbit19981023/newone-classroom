@@ -1,8 +1,8 @@
 {{#with data}}
   <div class="wrapper">
     <div class="select-wrapper">
-      <label>教室：</label>
-      <select onchange="location.href = '/admin/rooms/time/{{ mode.string }}/' + this.value">
+      <label for="room-select">教室：</label>
+      <select id="room-select" class="form-select" onchange="location.href = '/admin/rooms/time/{{ mode.string }}/' + this.value">
         <option value="">請選擇教室</option>
 
         {{#each rooms as | room | }}
@@ -53,7 +53,7 @@
       {{#if roomName}}
         {{#if mode.add}}
           <center>
-            <button type="submit" class="btn btn-secondary">新增時段</button>
+            <button type="submit" class="btn btn-primary">新增時段</button>
           </center>
         {{/if}}
       {{/if}}
@@ -61,7 +61,7 @@
       {{#if roomName}}
         {{#if mode.delete}}
           <center>
-            <button type="submit" class="btn btn-secondary">刪除時段</button>
+            <button type="submit" class="btn btn-primary">刪除時段</button>
           </center>
         {{/if}}
       {{/if}}

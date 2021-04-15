@@ -29,6 +29,27 @@
   }
 }
 
+.option {
+  display: flex;
+  align-items: center;
+}
+
+.option label[for="room-name"] {
+  width: 3.5rem;
+}
+
+.option .form-select[name="room_name"] {
+  width: 75%;
+}
+
+.option label[for="room-date"] {
+  width: 4rem;
+}
+
+.option .form-control {
+  width: 60%;
+}
+
 .form-details {
   pointer-events: none;
   opacity: 0;
