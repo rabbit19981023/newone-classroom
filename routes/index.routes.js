@@ -6,5 +6,7 @@ const router = Router()
 /** '/' Routes **/
 router.get('/', indexController.index)
 
+router.post('/', indexController.fetchReserve)
+
 // exports the express.Router instance
 export default router

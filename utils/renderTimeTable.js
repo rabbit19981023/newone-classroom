@@ -7,7 +7,7 @@ import timeData from './timeData.js'
 
 // Custom Strategies
 class AddStrategy {
-  async use (req, res, data) {
+  async use(req, res, data) {
     data.timeData = timeData
 
     const allRooms = []
@@ -60,7 +60,7 @@ class AddStrategy {
 }
 
 class DeleteStrategy {
-  async use (req, res, data) {
+  async use(req, res, data) {
     data.timeData = timeData
 
     const allRooms = []
@@ -117,7 +117,7 @@ class DeleteStrategy {
 }
 
 class ReserveStrategy {
-  async use (req, res, data) {
+  async use(req, res, data) {
     data.timeData = timeData
 
     try {
@@ -190,15 +190,86 @@ class ReserveStrategy {
   }
 }
 
+class indexStrategy {
+  async use(req, res, data) {
+    const filter = {
+      status: '已被借用'
+    }
+
+    if (req.query.room_name) {
+      filter.room_name = req.query.room_name
+
+      data.roomName = req.query.room_name
+    }
+
+    if (req.query.date) {
+      let sunday, monday, tuesday, wednesday, thursday, friday, saturday
+      const dates = [sunday, monday, tuesday, wednesday, thursday, friday, saturday]
+
+      const date = new Date(req.query.date)
+      const weekDay = date.getUTCDay()
+
+      function createDates(date) {
+        for (let i = 0; i < dates.length; i++) {
+          dates[i] = new Date(Date.UTC(
+            date.getUTCFullYear(),
+            date.getUTCMonth(),
+            date.getUTCDate() - (weekDay - i)
+          ))
+
+          const str = dates[i].toJSON()
+          dates[i] = str.split('T')[0]
+        }
+      }
+      createDates(date)
+      data.dates = dates
+
+      data.timeData = timeData
+      
+      data.times = {}
+      timeData.times.forEach(time => {
+        data.times[time] = {
+          0: false,
+          1: false,
+          2: false,
+          3: false,
+          4: false,
+          5: false,
+          6: false
+        }
+      })
+
+      for (let i = 0; i < dates.length; i++) {
+        filter.date = dates[i]
+
+        try {
+          const roomsReserve = await RoomsReserveModel.findMany(filter)
+
+          roomsReserve.forEach(eachReserve => {
+            eachReserve.times.forEach(time => {
+              data.times[time][i] = true
+            })
+          })
+        } catch (error) {
+          return res.render('500error', { layout: 'error' })
+        }
+      }
+    }
+
+    return res.render('index', { layout: 'user', data: data })
+  }
+}
+
 // Strategies Context
 const timeTableStrategies = {
   add: AddStrategy,
   delete: DeleteStrategy,
-  reserve: ReserveStrategy
+  reserve: ReserveStrategy,
+  index: indexStrategy
 }
 
 // Strategy Controller
-export default function renderTimeTable (req, res, data, strategyUsed) {
+export default function renderTimeTable(req, res, data, strategyUsed) {
   const strategy = new timeTableStrategies[strategyUsed]()
 
   strategy.use(req, res, data)

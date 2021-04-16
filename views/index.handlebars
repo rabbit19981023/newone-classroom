@@ -2,7 +2,7 @@
   <div class="wrapper">
     <form action="/" method="GET">
       <label for="room_name">教室：</label>
-      <select id="room_name" name="room_name">
+      <select id="room_name" name="room_name" required>
         <option value="">請選擇教室</option>
         {{#each rooms as | room | }}
           <option value="{{ room.room_name }}">{{ room.room_name }}</option>
@@ -10,21 +10,62 @@
       </select>
 
       <label for="date">日期：</label>
-      <input type="date" id="date" name="date">
+      <input type="date" id="date" name="date" required>
       <button type="submit">送出</button>
     </form>
+
+    {{#if roomName}}
+      <div class="table-wrapper">
+        <table class="caption-top">
+          <caption>{{ roomName }}教室 借用狀況</caption>
+
+          <thead>
+            <tr>
+              <th>時段</th>
+
+              {{#each timeData.weeks as | week | }}
+                <th>{{ week }}</th>
+              {{/each}}
+            </tr>
+          </thead>
+
+          <tbody>
+            {{#each times as | weeks time | }}
+              <tr>
+                <td>{{ time }}</td>
+
+                {{#each weeks as | status week | }}
+                  {{#if status}}
+                    <td>
+                      <span class="bi bi-check-square-fill checked" onclick="displayForm(this)"></span>
+                    </td>
+
+                  {{else}}
+                    <td>
+                      <span></span>
+                    </td>
+                  {{/if}}
+                {{/each}}
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="form-details">
+    <span></span>
   </div>
 {{/with}}
-
-
-
 
 {{#extend 'title'}}
 <title>高雄NewOne靈糧堂 - 所有教室借用狀況</title>
 {{/extend}}
 
 {{#extend 'css'}}
-
+<link rel="stylesheet" href="/css/table.css">
+<link rel="stylesheet" href="/css/index.css">
 {{/extend}}
 
 {{#extend 'scripts'}}
@@ -32,4 +73,6 @@
     const navLink = document.querySelectorAll('.nav-link')[0]
     navLink.classList.add('active')
   </script>
+
+  <script src="/js/index.js"></script>
 {{/extend}}
