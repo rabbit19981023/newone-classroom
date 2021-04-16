@@ -21,7 +21,7 @@ export default {
           try {
             await RoomsReserveModel.updateOne({ _id: eachReserve._id }, {
               status: '審核未通過',
-              result: '此預約紀錄已經過期囉！(此為系統自動審核機制)'
+              result: '此預約紀錄已經過期囉！（此為系統自動審核機制）'
             })
           } catch (error) {
             return res.render('500error', { layout: 'error' })
@@ -104,12 +104,14 @@ export default {
               if (times.length === 0) {
                 content.times = originTimes
                 content.status = '審核未通過'
-                content.result = '已被其他使用者借用'
+                content.result = '已被其他使用者借用！（此為系統自動審核機制）'
               }
 
-              await RoomsReserveModel.updateOne({ _id: eachRoomReserve._id }, content, (error) => {
-                if (error) { return res.render('500error', { layout: 'error' }) }
-              })
+              try {
+                await RoomsReserveModel.updateOne({ _id: eachRoomReserve._id }, content)
+              } catch (error) {
+                return res.render('500error', { layout: 'error' })
+              }
             })
           } catch (error) {
             return res.render('500error', { layout: 'error' })

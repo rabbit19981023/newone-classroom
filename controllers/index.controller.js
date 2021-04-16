@@ -2,6 +2,7 @@
 import RoomsReserveModel from '../models/roomsReserve.js'
 import RoomsListModel from '../models/roomsList.js'
 
+import isAuth from '../utils/isAuth.js'
 import parsingUser from '../utils/parsingUser.js'
 
 /** Routes Controllers **/
@@ -9,6 +10,7 @@ export default {
   // GET '/'
   index: async function (req, res) {
     const data = {}
+    data.isAuth = isAuth(req.user, 'User')
     data.user = parsingUser(req.user)
 
     try {
