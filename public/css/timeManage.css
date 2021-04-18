@@ -1,13 +1,10 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
   margin-top: 1%;
 }
 
 .filter-wrapper {
   display: flex;
+  justify-content: center;
   align-items: center;
   margin-bottom: 1%;
 }

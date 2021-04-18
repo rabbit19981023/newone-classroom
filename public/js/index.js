@@ -35,13 +35,13 @@ async function displayForm (thisSpan) {
     const result = await response.json()
 
     const roomName = document.querySelector('.room-name')
-    roomName.textContent = `借用教室：${result.room_name}`
+    roomName.textContent = `教室：${result.room_name}`
 
     const date = document.querySelector('.date')
-    date.textContent = `借用日期：${result.date}`
+    date.textContent = `日期：${result.date}`
 
     const times = document.querySelector('.times')
-    times.innerHTML = '借用時段：<div class="times-DOM"></div>'
+    times.innerHTML = '時段：<div class="times-DOM"></div>'
     const timesDOM = document.querySelector('.times-DOM')
     for (let i = 0; i < result.times.length; i++) {
       timesDOM.innerHTML = timesDOM.innerHTML + result.times[i] + ',<br>'

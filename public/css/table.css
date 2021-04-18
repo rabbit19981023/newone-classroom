@@ -1,6 +1,7 @@
-/** the parent element must be a flex box **/
+/** The Parent Node must be display: block || inline-block !!!!! **/
 .table-wrapper {
-  font-size: 16px;
+  max-width: 95%;
+  margin-left: 2.5%;
   border: 1px solid #555555;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
@@ -47,11 +48,11 @@ caption {
 th, td {
   text-align: center;
   vertical-align: middle;
-  font-size: 16px;
 }
 
 .th-span {
   margin: 0 10px;
+  white-space: nowrap; /** prevent text line-break in span element **/
 }
 
 @media screen and (min-width: 576px) {

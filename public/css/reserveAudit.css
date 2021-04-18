@@ -18,3 +18,12 @@
   display: flex;
   align-items: center;
 }
+
+.times-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.times-wrapper span {
+  margin: 5px 0;
+}

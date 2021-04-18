@@ -41,76 +41,38 @@
               <td>
                 <div class="times-wrapper">
                   {{#each data.times as | time | }}
-                    <p>{{ time }}</p>
+                    <span>{{ time }}</span>
                   {{/each}}
                 </div>
               </td>
               <td>{{ data.status }}</td>
               <td>
                 {{#unless data.result}}
-                  <span class="btn btn-outline-primary" onclick="displayForm(this)">審核</span>
+                  <span class="btn btn-outline-primary" onclick="displayForm('{{ data._id }}')">審核</span>
                 {{/unless}}
 
                 {{#if data.result}}
-                  <span class="btn btn-outline-primary" onclick="displayForm(this)">查看</span>
+                  <span class="btn btn-outline-primary" onclick="displayForm('{{ data._id }}')">查看</span>
                 {{/if}}
               </td>
             </tr>
-
-            <div class="form-details">
-              <form action="/admin/rooms/audit/audit" method="POST">
-                <input name="reserve_id" value="{{ data._id }}" style="display: none"></input>
-
-                <span class="close-btn" onclick="closeBtn()"></span>
-
-                <span>教室：{{ data.room_name }}</span>
-                <span>日期：{{ data.date }}</span>
-
-                <div class="times-wrapper-form">
-                  <span>借用時段：</span>
-                  <div>
-                    {{#each data.times as | time | }}
-                      {{ time }} ,
-                      <br>
-                    {{/each}}
-                  </div>
-                </div>
-
-                <span>狀態：{{ data.status }}</span>
-                <span>借用人：{{ data.user }}</span>
-                <span>借用原因：{{ data.purpose }}</span>
-                
-                <div class="input-wrapper">
-                  <center>
-                    {{#unless data.result}}
-                      <input type="radio" name="is_audit_success" value="1">
-                      <label for="auditSuccess" class="me-2 me-md-3">審核通過</label>
-                      
-                      <input type="radio" name="is_audit_success" value="0">
-                      <label for="auditFailed">審核不通過</label>
-                      <br>
-
-                      <label for="result">審核結果：</label>
-                      <input type="text" name="result" class="form-control" minlength="2" maxlength="20" size="20" required>
-                      <br>
-
-                      <button type="submit" class="btn btn-outline-success">審核</button>
-                    {{/unless}}
-
-                    {{#if data.result}}
-                      <div class="result-wrapper">
-                        <span>審核結果：{{ data.result }}</span>
-                        <button type="button" class="btn btn-primary" onclick="closeBtn()">確認</button>
-                      </div>
-                    {{/if}}
-                  </center>
-                </div>
-              </form>
-            </div>
           {{/each}}
         </tbody>
       </table>
     </div>
+  </div>
+
+  <div class="form-details">
+    <span class="room-name"></span>
+    <br>
+    <span class="date"></span>
+    <br>
+    <span class="times"></span>
+    <span class="status"></span>
+    <br>
+    <span class="user"></span>
+    <br>
+    <span class="purpose"></span>
   </div>
 {{/with}}
 
