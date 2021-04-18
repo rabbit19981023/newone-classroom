@@ -11,7 +11,7 @@ async function displayForm (thisSpan) {
   const selectedDate = new Date(Date.UTC(
     date.getUTCFullYear(),
     date.getUTCMonth(),
-    date.getUTCDate() - (dateWeekDay - selectedWeekDay)
+    (date.getUTCDate() - dateWeekDay) + selectedWeekDay
   ))
   const selectedDateStr = selectedDate.toJSON().split('T')[0]
 
@@ -21,7 +21,7 @@ async function displayForm (thisSpan) {
     time: thisTime
   }
 
-  const url = '/'
+  const url = '/api/reserves'
   const config = {
     method: 'POST',
     headers: {
@@ -32,10 +32,27 @@ async function displayForm (thisSpan) {
 
   try {
     const response = await fetch(url, config)
+    const result = await response.json()
 
-    console.log(await response.json())
+    const roomName = document.querySelector('.room-name')
+    roomName.textContent = `借用教室：${result.room_name}`
+
+    const date = document.querySelector('.date')
+    date.textContent = `借用日期：${result.date}`
+
+    const times = document.querySelector('.times')
+    times.innerHTML = '借用時段：<div class="times-DOM"></div>'
+    const timesDOM = document.querySelector('.times-DOM')
+    for (let i = 0; i < result.times.length; i++) {
+      timesDOM.innerHTML = timesDOM.innerHTML + result.times[i] + ',<br>'
+    }
+
+    const user = document.querySelector('.user')
+    user.textContent = `借用人：${result.user}`
+
+    const purpose = document.querySelector('.purpose')
+    purpose.textContent = `借用原因：${result.purpose}`
   } catch (error) {
     window.alert('資料庫連線有誤，請檢查你的網路是否正常，或請稍後再試！')
   }
-  
 }

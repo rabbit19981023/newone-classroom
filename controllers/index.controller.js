@@ -24,23 +24,5 @@ export default {
     }
 
     return renderTimeTable(req, res, data, 'index')
-  },
-
-  // POST '/'
-  fetchReserve: async function (req, res) {
-    const filter = {
-      room_name: req.body.room_name,
-      date: req.body.date,
-      status: '已被借用',
-      times: req.body.time
-    }
-
-    try {
-      const roomReserve = await RoomsReserveModel.findOne(filter)
-      
-      return res.send(roomReserve)
-    } catch (error) {
-      return res.send({ status: 'Failed: Something Failed with Server !' })
-    }
   }
 }

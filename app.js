@@ -28,6 +28,9 @@ import roomsAuditRoutes from './routes/roomsAudit.routes.js'
 import roomsListRoutes from './routes/roomsList.routes.js'
 import roomsTimeRoutes from './routes/roomsTime.routes.js'
 
+// APIs
+import apiRoutes from './routes/api.routes.js'
+
 /** Configurations **/
 dotenv.config()
 db.connect()
@@ -75,6 +78,9 @@ app.use('/admin', authAdminRoutes)
 app.use('/admin/rooms/audit', roomsAuditRoutes)
 app.use('/admin/rooms/list', roomsListRoutes)
 app.use('/admin/rooms/time', roomsTimeRoutes)
+
+// APIs
+app.use('/api', apiRoutes)
 
 // 404 Error Route Handler
 app.use('/', (req, res) => { return res.render('404error', { layout: 'error' }) })

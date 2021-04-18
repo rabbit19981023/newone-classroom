@@ -6,7 +6,7 @@
   padding: 15px 10px;
 }
 
-.options-wrapper {
+.filter-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -14,129 +14,17 @@
   margin: -5px;
 }
 
-.options-wrapper > * {
+.filter-wrapper > * {
   margin: 5px;
 }
 
-.option {
+.filter-wrapper > div {
   display: flex;
   align-items: center;
-}
-
-.option label[for="room-name"] {
-  width: 3.5rem;
-}
-
-.option .form-select[name="room_name"] {
-  width: 75%;
-}
-
-.option label[for="room-date"] {
-  width: 4rem;
-}
-
-.option .form-control {
-  width: 65%;
-}
-
-.form-details {
-  pointer-events: none;
-  opacity: 0;
-  display: flex;
-  flex-direction: column;
-  background-color: #FFFFFF;
-  font-size: 18px;
-  position: fixed;
-  padding: 30px;
-  border: 1px solid #000000;
-  border-radius: 5px;
-  box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.6);
-  transform: scale(0.5);
-  transition: 0.4s;
-  overflow-y: auto;
-}
-
-@media screen and (min-width: 1200px) {
-  .form-details {
-    width: 40%;
-    height: 60%;
-    top: 20%;
-    left: 30%;
-    padding: 55px;
-  }
-}
-
-@media screen and (max-width: 1200px) {
-  .form-details {
-    width: 45%;
-    height: 60%;
-    top: 20%;
-    left: 27.5%;
-    padding: 50px;
-  }
-}
-
-@media screen and (max-width: 992px) {
-  .form-details {
-    width: 55%;
-    height: 65%;
-    top: 15%;
-    left: 20%;
-    padding: 45px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .form-details {
-    width: 65%;
-    height: 70%;
-    top: 15%;
-    left: 17.5%;
-    padding: 40px;
-  }
-}
-
-@media screen and (max-width: 576px) {
-  .form-details {
-    width: 90%;
-    height: 60%;
-    top: 15%;
-    left: 5%;
-  }
 }
 
 .is-active {
   pointer-events: auto;
   opacity: 1;
   transform: scale(1);
-}
-
-.form-details span,
-.form-details .times-wrapper {
-  margin-bottom: 15px;
-}
-
-.close-btn::after {
-  position: fixed;
-  top: -5px;
-  right: 10px;
-  content: 'x';
-  padding: 5px;
-  font-size: 22px;
-  font-weight: 650;
-  cursor: pointer;
-}
-
-.times-wrapper {
-  display: flex;
-}
-
-.times-wrapper #times {
-  width: 30%;
-}
-
-.purpose-wrapper {
-  display: flex;
-  align-items: center;
-  margin-bottom: 45px;
 }

@@ -1,6 +1,6 @@
 {{#with data}}
   <div class="wrapper">
-    <div class="select-wrapper">
+    <div class="filter-wrapper">
       <label for="room-select">教室：</label>
       <select id="room-select" class="form-select" onchange="location.href = '/admin/rooms/time/{{ mode.string }}/' + this.value">
         <option value="">請選擇教室</option>
@@ -8,21 +8,20 @@
         {{#each rooms as | room | }}
           <option value="{{ room }}">{{ room }}</option>
         {{/each}}
-
       </select>
     </div>
 
     <form action="/admin/rooms/time/{{ mode.string }}/{{ roomName }}" method="POST">
       <div class="table-wrapper">
-        <table class="caption-top">
-          <caption> {{ roomName }}教室 時段表 </caption>
+        <table class="table caption-top">
+          <caption> {{ roomName }}教室時段表 </caption>
 
           <thead>
             <tr>
-              <th>時段</th>
+              <th><span class="th-span">時段</span></th>
 
               {{#each timeData.weeks as | week | }}
-                <th>{{ week }}</th>
+                <th><span class="th-span">{{ week }}</span></th>
               {{/each}}
 
             </tr>
@@ -83,6 +82,7 @@
   {{#extend 'css'}}
     <link rel="stylesheet" href="/css/timeManage.css">
     <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/form-control.css">
   {{/extend}}
 
   {{#extend 'scripts'}}
@@ -102,5 +102,4 @@
       navLink.classList.add('active')
     </script>
   {{/if}}
-
 {{/with}}

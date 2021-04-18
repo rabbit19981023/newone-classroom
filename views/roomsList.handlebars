@@ -2,7 +2,7 @@
 	<div class="form-wrapper bg-light bg-gradient">
 		<div class="wrapper-inner">
 			<form action="/admin/rooms/list/add" method="POST">
-				<div class="form-input">
+				<div class="form-input-wrapper">
 					<label for="room-name-text">教室：</label>
 					<input id="room-name-text" type="text" name="room_name" class="form-control">
 
@@ -11,7 +11,7 @@
 			</form>
 
 			<form action="/admin/rooms/list/delete" method="POST">
-				<div class="form-input">
+				<div class="form-input-wrapper">
 					<label for="room-name-select">教室：</label>
 					<select id="room-name-select" name="room_name" class="form-select">
 						<option value="null">請選擇教室</option>
@@ -38,6 +38,7 @@
 
 {{#extend 'css'}}
 	<link rel="stylesheet" href="/css/rooms-list.css">
+	<link rel="stylesheet" href="/css/form-control.css">
 {{/extend}}
 
 {{#extend 'scripts'}}

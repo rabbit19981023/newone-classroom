@@ -27,14 +27,14 @@
   </div>
 
   <div class="table-wrapper">
-    <table>
+    <table class="table">
       <thead>
         <tr>
-          <th>教室</th>
-          <th>日期</th>
-          <th>時段</th>
-          <th>狀態</th>
-          <th>動作</th>
+          <th><span class="th-span">教室</span></th>
+          <th><span class="th-span">日期</span></th>
+          <th><span class="th-span">時段</span></th>
+          <th><span class="th-span">狀態</span></th>
+          <th><span class="th-span">動作</span></th>
         </tr>
       </thead>
 
@@ -46,47 +46,34 @@
             <td>
               <div class="times-wrapper">
                 {{#each data.times as | time | }}
-                  <p>{{ time }}</p>
+                  <span>{{ time }}</span>
                 {{/each}}
               </div>
             </td>
             <td>{{ data.status }}</td>
             <td>
-              <span class="btn btn-outline-primary" onclick="displayForm(this)">查看</span>
+              <span class="btn btn-outline-primary" onclick="displayForm('{{ data._id }}')">查看</span>
             </td>
           </tr>
-
-          <div class="form-details">
-            <span class="close-btn" onclick="closeBtn()"></span>
-            <span>教室：{{ data.room_name }}</span>
-            <span>日期：{{ data.date }}</span>
-
-            <div class="times-wrapper-form">
-              <span>借用時段：</span>
-              <div>
-                {{#each data.times as | time | }}
-                  {{ time }},
-                  <br>
-                {{/each}}
-              </div>
-            </div>
-
-            <span>狀態：{{ data.status }}</span>
-            <span>借用原因：{{ data.purpose }}</span>
-
-            {{#if data.result}}
-              <span>審核結果：{{ data.result }}</span>
-            {{else}}
-              <span>審核結果：等待管理員審核中......</span>
-            {{/if}}
-
-            <center>
-              <button type="button" class="btn btn-primary" onclick="closeBtn()">確認</button>
-            </center>
-          </div>
         {{/each}}
       </tbody>
     </table>
+  </div>
+
+  <div class="form-details">
+    <span class="room-name"></span>
+    <br>
+    <span class="date"></span>
+    <br>
+    <span class="times"></span>
+    <span class="status"></span>
+    <br>
+    <span class="user"></span>
+    <br>
+    <span class="purpose"></span>
+    <br>
+
+    <button type="button">確認</button>
   </div>
 {{/with}}
 
@@ -97,6 +84,7 @@
 {{#extend 'css'}}
 <link rel="stylesheet" href="/css/table.css">
 <link rel="stylesheet" href="/css/auditStatus.css">
+<link rel="stylesheet" href="/css/form-control.css">
 {{/extend}}
 
 {{#extend 'scripts'}}

@@ -5,8 +5,8 @@
 
   <div class="wrapper">
     <form action="/rooms/reserve" method="GET">
-      <div class="options-wrapper">
-        <div class="option">
+      <div class="filter-wrapper">
+        <div>
           <label for="room-name">教室：</label>
           <select id="room-name" name="room_name" class="form-select" required>
             <option value="">請選擇教室</option>
@@ -16,7 +16,7 @@
           </select>
         </div>
 
-        <div class="option">
+        <div>
           <label for="room-date">日期：</label>
           <input id="room-date" name="date" type="date" class="form-control" required>
         </div>
@@ -27,15 +27,15 @@
 
     <form id="reserveForm" action="/rooms/reserve/add" method="POST">
       <div class="table-wrapper">
-        <table class="caption-top">
+        <table class="table caption-top">
           <caption>{{ roomName }}教室 時段表</caption>
 
           <thead>
             <tr>
-              <th>時段</th>
+              <th><span class="th-span">時段</span></th>
 
               {{#each timeData.weeks as | week | }}
-              <th>{{ week }}</th>
+              <th><span class="th-span">{{ week }}</span></th>
               {{/each}}
             </tr>
           </thead>
@@ -105,6 +105,7 @@
 {{#extend 'css'}}
 <link rel="stylesheet" href="/css/table.css">
 <link rel="stylesheet" href="/css/roomsReserve.css">
+<link rel="stylesheet" href="/css/form-control.css">
 {{/extend}}
 
 {{#extend 'scripts'}}

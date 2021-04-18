@@ -1,32 +1,17 @@
-body {
-  overflow-x: hidden;
-}
-
 .wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 95%;
-  margin-left: 2.5%;
+  width: 100%;
   margin-top: 1%;
 }
 
-.select-wrapper {
+.filter-wrapper {
   display: flex;
   align-items: center;
   margin-bottom: 1%;
 }
 
-.select-wrapper label {
-  width: 4rem;
-}
-
-.select-wrapper .form-select {
-  width: 80%;
-}
-
 button {
-  padding: 10px;
-  border-radius: 5px;
   margin: 3% 0%;
 }
