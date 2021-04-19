@@ -1,4 +1,18 @@
+const formDetails = document.querySelector('.form-details')
+
+function closeForm () {
+  formDetails.classList.remove('is-active')
+}
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    formDetails.classList.remove('is-active')
+  }
+})
+
 async function displayForm (thisSpan) {
+  formDetails.classList.toggle('is-active')
+
   const urlParams = new URLSearchParams(window.location.search)
 
   const roomName = urlParams.get('room_name')
@@ -41,10 +55,9 @@ async function displayForm (thisSpan) {
     date.textContent = `日期：${reserve.date}`
 
     const times = document.querySelector('.times')
-    times.innerHTML = '時段：<div class="times-DOM"></div>'
-    const timesDOM = document.querySelector('.times-DOM')
+    times.innerHTML = ''
     for (let i = 0; i < reserve.times.length; i++) {
-      timesDOM.innerHTML = timesDOM.innerHTML + reserve.times[i] + ',<br>'
+      times.innerHTML = times.innerHTML + reserve.times[i] + '<br>'
     }
 
     const user = document.querySelector('.user')
