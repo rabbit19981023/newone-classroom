@@ -11,6 +11,8 @@ document.addEventListener('keydown', (event) => {
 })
 
 async function displayForm (reserveId) {
+  formDetails.classList.toggle('is-active')
+
   const postData = {
     id: reserveId
   }
@@ -35,10 +37,9 @@ async function displayForm (reserveId) {
     date.textContent = `日期：${reserve.date}`
 
     const times = document.querySelector('.times')
-    times.innerHTML = '時段：<div class="times-DOM"><div>'
-    const timesDOM = document.querySelector('.times-DOM')
+    times.innerHTML = ''
     for (let i = 0; i < reserve.times.length; i++) {
-      timesDOM.innerHTML = timesDOM.innerHTML + reserve.times[i] + ',<br>'
+      times.innerHTML = times.innerHTML + reserve.times[i] + '<br>'
     }
 
     const status = document.querySelector('.status')
@@ -53,6 +54,9 @@ async function displayForm (reserveId) {
     if (reserve.result) {
       const resultText = document.querySelector('.result label')
       resultText.textContent = `審核結果：${reserve.result}`
+
+      const button = document.querySelector('.form-details button')
+      button.onclick = closeForm
     } else {
       const reserveIdInput = document.querySelector('#reserve-id')
       reserveIdInput.value = reserve._id
@@ -63,7 +67,7 @@ async function displayForm (reserveId) {
       const resultInput = document.querySelector('#result')
       resultInput.style.display = 'block'
 
-      const button = document.querySelector('.result-wrapper button')
+      const button = document.querySelector('.form-details button')
       button.textContent = '審核'
       button.type = 'submit'
     }

@@ -61,17 +61,15 @@
       </div>
 
       <div class="form-details">
-        <span class="close-btn" onclick="closeBtn()"></span>
-
         <span id="room_name"></span>
         <input type="text" id="room_name_input" name="room_name" style="display: none;">
 
         <span id="date"></span>
         <input type="text" id="date_input" name="date" style="display: none;">
 
-        <div class="times-wrapper">
+        <div class="times-wrapper-form">
           <span>借用時段：</span>
-          <div id="times"></div>
+          <div class="times"></div>
         </div>
 
         <input type="text" name="status" value="審核中" style="display: none;">
@@ -105,6 +103,7 @@
 {{#extend 'css'}}
 <link rel="stylesheet" href="/css/table.css">
 <link rel="stylesheet" href="/css/roomsReserve.css">
+<link rel="stylesheet" href="/css/form-details.css">
 <link rel="stylesheet" href="/css/form-control.css">
 {{/extend}}
 

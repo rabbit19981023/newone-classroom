@@ -64,14 +64,13 @@
 
   <div class="form-details">
     <span class="room-name"></span>
-    <br>
     <span class="date"></span>
-    <br>
-    <span class="times"></span>
+    <div class="times-wrapper-form">
+      <span>時段：</span>
+      <div class="times"></div>
+    </div>
     <span class="status"></span>
-    <br>
     <span class="user"></span>
-    <br>
     <span class="purpose"></span>
 
     <div class="result-wrapper">
@@ -79,18 +78,22 @@
         <input type="text" id="reserve-id" name="reserve_id" style="display: none;">
 
         <div class="radios" style="display: none;">
-          <input type="radio" id="success" name="is_audit_success" value="1">
+          <input type="radio" id="success" name="is_audit_success" value="1" required>
           <label for="success">審核通過</label>
-          <input type="radio" id="failed" name="is_audit_success" value="0">
+          <input type="radio" id="failed" name="is_audit_success" value="0" required>
           <label for="failed">審核不通過</label>
         </div>
 
         <div class="result">
-          <label for="result">審核結果：</label>
-          <input type="text" id="result" name="result" minlength="2" maxlength="20" style="display: none;">
+          <center>
+            <label for="result">審核結果：</label>
+          </center>
+          <input type="text" id="result" name="result" minlength="2" maxlength="20" style="display: none;" required>
         </div>
 
-        <button type="button">確認</button>
+        <center>
+          <button type="button" class="btn btn-primary">確認</button>
+        </center>
       </form>
     </div>
   </div>
@@ -103,6 +106,7 @@
 {{#extend 'css'}}
 <link rel="stylesheet" href="/css/table.css">
 <link rel="stylesheet" href="/css/reserveAudit.css">
+<link rel="stylesheet" href="/css/form-details.css">
 <link rel="stylesheet" href="/css/form-control.css">
 {{/extend}}
 

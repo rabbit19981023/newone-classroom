@@ -1,14 +1,18 @@
-function closeBtn () {
-  currentDivForm.classList.remove('is-active')
+const formDetails = document.querySelector('.form-details')
+
+function closeForm () {
+  formDetails.classList.remove('is-active')
 }
 
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
-    currentDivForm.classList.remove('is-active')
+    formDetails.classList.remove('is-active')
   }
 })
 
 async function displayForm (reserveId) {
+  formDetails.classList.toggle('is-active')
+
   const postData = {
     id: reserveId
   }
@@ -33,10 +37,9 @@ async function displayForm (reserveId) {
     date.textContent = `日期：${reserve.date}`
 
     const times = document.querySelector('.times')
-    times.innerHTML = '時段：<div class="times-DOM"></div>'
-    const timesDOM = document.querySelector('.times-DOM')
+    times.innerHTML = ''
     for (let i = 0; i < reserve.times.length; i++) {
-      timesDOM.innerHTML = timesDOM.innerHTML + reserve.times[i] + ',<br>'
+      times.innerHTML = times.innerHTML + reserve.times[i] + '<br>'
     }
 
     const status = document.querySelector('.status')
@@ -47,6 +50,9 @@ async function displayForm (reserveId) {
 
     const purpose = document.querySelector('.purpose')
     purpose.textContent = `借用原因：${reserve.purpose}`
+
+    const button = document.querySelector('.form-details button')
+    button.onclick = closeForm
 
   } catch (error) {
     window.alert('資料庫連線有誤，請檢查你的網路是否正常，或請稍後再試！')

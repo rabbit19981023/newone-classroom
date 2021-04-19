@@ -18,9 +18,3 @@
   display: flex;
   align-items: center;
 }
-
-.is-active {
-  pointer-events: auto;
-  opacity: 1;
-  transform: scale(1);
-}

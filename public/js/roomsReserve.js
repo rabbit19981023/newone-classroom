@@ -15,10 +15,20 @@ function isValidDate (event) {
 }
 
 /** Display the Transparent Div Element for Posting Data **/
-const divForm = document.querySelector('.form-details')
+const formDetails = document.querySelector('.form-details')
+
+function closeForm () {
+  formDetails.classList.remove('is-active')
+}
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    formDetails.classList.remove('is-active')
+  }
+})
 
 function displayForm () {
-  divForm.classList.toggle('is-active') // check if '.is-active' is already in classlist, add if true, else remove it
+  formDetails.classList.toggle('is-active') // check if '.is-active' is already in classlist, add if true, else remove it
 
   const checkboxes = document.getElementsByName('room_time')
   const timesChecked = []
@@ -28,27 +38,17 @@ function displayForm () {
     }
   }
 
-  const times = document.querySelector('#times')
-  times.textContent = '' // everytime we display the divForm, init the value, and do the array loop below
+  const times = document.querySelector('.times')
+  times.innerHTML = '' // everytime we display the formDetails, init the value, and do the array loop below
   for (let i = 0; i < timesChecked.length; i++) {
-    times.textContent = times.textContent + timesChecked[i] + ' ,\n'
+    times.innerHTML = times.innerHTML + timesChecked[i] + '<br>'
   }
 
   displayInfo()
   appendValuesToInputs()
 }
 
-function closeBtn () {
-  divForm.classList.remove('is-active')
-}
-
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    divForm.classList.remove('is-active')
-  }
-})
-
-/** Display Fields Values in divForm **/
+/** Display Fields Values in formDetails **/
 function displayInfo () {
   const roomName = document.querySelector('#room_name')
   const date = document.querySelector('#date')

@@ -62,18 +62,18 @@
 
   <div class="form-details">
     <span class="room-name"></span>
-    <br>
     <span class="date"></span>
-    <br>
-    <span class="times"></span>
+    <div class="times-wrapper-form">
+      <span>時段：</span>
+      <div class="times"></div>
+    </div>
     <span class="status"></span>
-    <br>
     <span class="user"></span>
-    <br>
     <span class="purpose"></span>
-    <br>
 
-    <button type="button">確認</button>
+    <center>
+      <button type="button" class="btn btn-primary">確認</button>
+    </center>
   </div>
 {{/with}}
 
@@ -84,6 +84,7 @@
 {{#extend 'css'}}
 <link rel="stylesheet" href="/css/table.css">
 <link rel="stylesheet" href="/css/auditStatus.css">
+<link rel="stylesheet" href="/css/form-details.css">
 <link rel="stylesheet" href="/css/form-control.css">
 {{/extend}}
 

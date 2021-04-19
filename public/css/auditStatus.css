@@ -28,10 +28,3 @@
 .times-wrapper span {
   margin: 5px 0;
 }
-
-.is-active {
-  pointer-events: auto;
-  opacity: 1;
-  transform: scale(1);
-}
-
