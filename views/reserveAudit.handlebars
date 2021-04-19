@@ -73,6 +73,26 @@
     <span class="user"></span>
     <br>
     <span class="purpose"></span>
+
+    <div class="result-wrapper">
+      <form action="/admin/rooms/audit/audit" method="POST">
+        <input type="text" value="idididididididididididididididididididididididid" style="display: none;">
+
+        <div class="radios" style="display: none;">
+          <input type="radio" id="success" name="is_audit_success">
+          <label for="success">審核通過</label>
+          <input type="radio" id="failed" name="is_audit_success">
+          <label for="failed">審核不通過</label>
+        </div>
+
+        <div class="result">
+          <label for="result">審核結果：</label>
+          <input type="text" id="result" minlength="2" maxlength="20" readonly>
+        </div>
+
+        <button type="button">確認</button>
+      </form>
+    </div>
   </div>
 {{/with}}
 
