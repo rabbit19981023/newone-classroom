@@ -1,4 +1,4 @@
-/** The Parent Node must be display: block || inline-block !!!!! **/
+/** The Parent Node must be 'display: block' || 'display: inline-block' !!!!! **/
 .table-wrapper {
   max-width: 95%;
   margin-left: 2.5%;

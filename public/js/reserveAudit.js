@@ -1,10 +1,12 @@
-function closeBtn () {
-  currentDivForm.classList.remove('is-active')
+const formDetails = document.querySelector('.form-details')
+
+function closeForm () {
+  formDetails.classList.remove('is-active')
 }
 
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
-    currentDivForm.classList.remove('is-active')
+    formDetails.classList.remove('is-active')
   }
 })
 
@@ -48,27 +50,23 @@ async function displayForm (reserveId) {
     const purpose = document.querySelector('.purpose')
     purpose.textContent = `借用原因：${reserve.purpose}`
 
-    const radios = document.querySelector('.radios')
-    const resultInput = document.querySelector('#result')
-    const button = document.querySelector('.result-wrapper button')
     if (reserve.result) {
-      radios.style.display = 'none'
-
-      resultInput.readOnly = true
-      resultInput.placeholder = reserve.result
-
-      button.type = 'button'
-      button.textContent = '確認'
+      const resultText = document.querySelector('.result label')
+      resultText.textContent = `審核結果：${reserve.result}`
     } else {
+      const reserveIdInput = document.querySelector('#reserve-id')
+      reserveIdInput.value = reserve._id
+
+      const radios = document.querySelector('.radios')
       radios.style.display = 'block'
 
-      resultInput.readOnly = false
-      resultInput.textContent = ''
+      const resultInput = document.querySelector('#result')
+      resultInput.style.display = 'block'
 
-      button.type = 'submit'
+      const button = document.querySelector('.result-wrapper button')
       button.textContent = '審核'
+      button.type = 'submit'
     }
-
   } catch (error) {
     window.alert(error)
     window.alert('資料庫連線有誤，請檢查你的網路是否正常，或請稍後再試！')

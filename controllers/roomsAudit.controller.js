@@ -58,7 +58,7 @@ export default {
       }
   },
 
-  // POST '/admin/rooms/audit/audit'
+  // POST '/admin/rooms/audit'
   audit: async function (req, res) {
     const reserveId = req.body.reserve_id
     const isAuditSuccess = parseInt(req.body.is_audit_success)

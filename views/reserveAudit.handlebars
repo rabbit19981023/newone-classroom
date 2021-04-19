@@ -75,19 +75,19 @@
     <span class="purpose"></span>
 
     <div class="result-wrapper">
-      <form action="/admin/rooms/audit/audit" method="POST">
-        <input type="text" value="idididididididididididididididididididididididid" style="display: none;">
+      <form action="/admin/rooms/audit" method="POST">
+        <input type="text" id="reserve-id" name="reserve_id" style="display: none;">
 
         <div class="radios" style="display: none;">
-          <input type="radio" id="success" name="is_audit_success">
+          <input type="radio" id="success" name="is_audit_success" value="1">
           <label for="success">審核通過</label>
-          <input type="radio" id="failed" name="is_audit_success">
+          <input type="radio" id="failed" name="is_audit_success" value="0">
           <label for="failed">審核不通過</label>
         </div>
 
         <div class="result">
           <label for="result">審核結果：</label>
-          <input type="text" id="result" minlength="2" maxlength="20" readonly>
+          <input type="text" id="result" name="result" minlength="2" maxlength="20" style="display: none;">
         </div>
 
         <button type="button">確認</button>
