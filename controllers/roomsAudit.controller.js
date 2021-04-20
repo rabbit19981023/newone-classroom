@@ -32,30 +32,30 @@ export default {
       return res.render('500error', { layout: 'error' })
     }
 
-      /** 頁面渲染 **/
-      const data = {}
-      data.isAuth = isAuth(req.user, 'Admin')
-      data.user = parsingUser(req.user)
+    /** 頁面渲染 **/
+    const data = {}
+    data.isAuth = isAuth(req.user, 'Admin')
+    data.user = parsingUser(req.user)
 
-      const filter = { status: '審核中' }
+    const filter = { status: '審核中' }
 
-      if (req.query.status) {
-        filter.status = req.query.status
-      }
+    if (req.query.status) {
+      filter.status = req.query.status
+    }
 
-      if (req.query.date) {
-        filter.date = req.query.date
-      }
+    if (req.query.date) {
+      filter.date = req.query.date
+    }
 
-      try {
-        const roomsReserve = await RoomsReserveModel.findMany(filter)
+    try {
+      const roomsReserve = await RoomsReserveModel.findMany(filter)
 
-        data.data = JSON.parse(JSON.stringify(roomsReserve))
+      data.data = JSON.parse(JSON.stringify(roomsReserve))
 
-        return res.render('reserveAudit', { layout: 'admin', data: data })
-      } catch (error) {
-        return res.render('500error', { layout: 'error' })
-      }
+      return res.render('reserveAudit', { layout: 'admin', data: data })
+    } catch (error) {
+      return res.render('500error', { layout: 'error' })
+    }
   },
 
   // POST '/admin/rooms/audit'

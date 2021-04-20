@@ -29,7 +29,7 @@ function findMany (filter) {
   return new Promise(async (resolve, reject) => {
     try {
       const roomTime = await RoomsTimeModel.find(filter).exec()
-  
+
       return resolve(roomTime)
     } catch (error) {
       return reject(error)
@@ -50,10 +50,10 @@ function addMany (data) {
 
   return new Promise(async (resolve, reject) => {
     if (data.times.length === 0) {
-      return reject('請選擇時段！')
+      return reject(new Error('請選擇時段！'))
     }
 
-    let error
+    let errorMessage
 
     for (let i = 0; i < data.times.length; i++) {
       try {
@@ -65,7 +65,7 @@ function addMany (data) {
           try {
             await roomTime.updateOne({ $addToSet: { times: data.times[i] } })
           } catch (error) {
-            error = '500error'
+            errorMessage = '500error'
           }
 
           continue
@@ -80,14 +80,14 @@ function addMany (data) {
         try {
           await roomTimeDoc.save()
         } catch (error) {
-          error = '500error'
+          errorMessage = '500error'
         }
       } catch (error) {
-        error = '500error'
+        errorMessage = '500error'
       }
 
-      if (error) {
-        return reject(error)
+      if (errorMessage) {
+        return reject(new Error(errorMessage))
       }
     }
 
@@ -107,10 +107,10 @@ function deleteMany (data) {
   ******/
   return new Promise(async (resolve, reject) => {
     if (data.times.length === 0) {
-      return reject('請選擇時段！')
+      return reject(new Error('請選擇時段！'))
     }
 
-    let error
+    let errorMessage
 
     for (let i = 0; i < data.times.length; i++) {
       try {
@@ -120,11 +120,11 @@ function deleteMany (data) {
 
         await roomTime.updateOne({ $pull: { times: data.times[i] } })
       } catch (error) {
-        error = '500error'
+        errorMessage = '500error'
       }
 
-      if (error) {
-        return reject(error)
+      if (errorMessage) {
+        return reject(errorMessage)
       }
     }
 

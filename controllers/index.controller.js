@@ -1,5 +1,4 @@
 /** Importing Date Models **/
-import RoomsReserveModel from '../models/roomsReserve.js'
 import RoomsListModel from '../models/roomsList.js'
 
 import isAuth from '../utils/isAuth.js'

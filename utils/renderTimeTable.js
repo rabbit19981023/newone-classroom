@@ -7,7 +7,7 @@ import timeData from './timeData.js'
 
 // Custom Strategies
 class AddStrategy {
-  async use(req, res, data) {
+  async use (req, res, data) {
     data.timeData = timeData
 
     const allRooms = []
@@ -60,7 +60,7 @@ class AddStrategy {
 }
 
 class DeleteStrategy {
-  async use(req, res, data) {
+  async use (req, res, data) {
     data.timeData = timeData
 
     const allRooms = []
@@ -117,7 +117,7 @@ class DeleteStrategy {
 }
 
 class ReserveStrategy {
-  async use(req, res, data) {
+  async use (req, res, data) {
     data.timeData = timeData
 
     try {
@@ -191,7 +191,7 @@ class ReserveStrategy {
 }
 
 class indexStrategy {
-  async use(req, res, data) {
+  async use (req, res, data) {
     const filter = {
       status: '已被借用'
     }
@@ -209,7 +209,7 @@ class indexStrategy {
       const date = new Date(req.query.date)
       const weekDay = date.getUTCDay()
 
-      function createDates(date) {
+      function createDates (date) {
         for (let i = 0; i < dates.length; i++) {
           dates[i] = new Date(Date.UTC(
             date.getUTCFullYear(),
@@ -225,7 +225,7 @@ class indexStrategy {
       data.dates = dates
 
       data.timeData = timeData
-      
+
       data.times = {}
       timeData.times.forEach(time => {
         data.times[time] = {
@@ -269,7 +269,7 @@ const timeTableStrategies = {
 }
 
 // Strategy Controller
-export default function renderTimeTable(req, res, data, strategyUsed) {
+export default function renderTimeTable (req, res, data, strategyUsed) {
   const strategy = new timeTableStrategies[strategyUsed]()
 
   strategy.use(req, res, data)
