@@ -48,7 +48,7 @@
                 {{#each weeks as | status week | }}
                   {{#if status}}
                     <td>
-                      <span class="bi bi-check-square-fill checked" onclick="displayForm(this)"></span>
+                      <span class="bi bi-check-square-fill checked"></span>
                     </td>
 
                   {{else}}
@@ -64,7 +64,7 @@
       </div>
 
       <div class="form-details">
-        <i class="bi bi-x-square-fill" onclick="closeForm()"></i>
+        <i class="bi bi-x-square-fill"></i>
         <span class="room-name"></span>
         <span class="date"></span>
         <div class="times-wrapper-form">
@@ -75,7 +75,7 @@
         <span class="purpose"></span>
 
         <center>
-          <button type="button" class="btn btn-primary" onclick="closeForm()">確認</button>
+          <button type="button" class="btn btn-primary">確認</button>
         </center>
       </div>
     {{/if}}
@@ -94,10 +94,6 @@
 {{/extend}}
 
 {{#extend 'scripts'}}
-  <script>
-    const navLink = document.querySelectorAll('.nav-link')[0]
-    navLink.classList.add('active')
-  </script>
-
   <script src="/js/index.js"></script>
+  <script src="/js/closeForm.js"></script>
 {{/extend}}

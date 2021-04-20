@@ -1,8 +1,10 @@
 {{#with data}}
+  <span id="mode" style="display: none;">{{ mode.string }}</span>
+
   <div class="wrapper">
     <div class="filter-wrapper">
       <label for="room-select">教室：</label>
-      <select id="room-select" class="form-select" onchange="location.href = '/admin/rooms/time/{{ mode.string }}/' + this.value">
+      <select id="room-select" class="form-select">
         <option value="">請選擇教室</option>
 
         {{#each rooms as | room | }}
@@ -10,7 +12,7 @@
         {{/each}}
       </select>
 
-      <button type="button" class="btn btn-success" onclick="selectAllCheckboxes()">全選</button>
+      <button type="button" class="btn btn-success select-all">全選</button>
     </div>
 
     <form action="/admin/rooms/time/{{ mode.string }}/{{ roomName }}" method="POST">
@@ -94,19 +96,6 @@
   {{#extend 'scripts'}}
     <script src="/js/getErrorMessage.js"></script>
     <script src="/js/selectAllCheckboxes.js"></script>
+    <script src="/js/timeManage.js"></script>
   {{/extend}}
-
-  {{#if mode.add}}
-    <script>
-      const navLink = document.querySelectorAll('.nav-link')[2]
-      navLink.classList.add('active')
-    </script>
-  {{/if}}
-
-  {{#if mode.delete}}
-    <script>
-      const navLink = document.querySelectorAll('.nav-link')[3]
-      navLink.classList.add('active')
-    </script>
-  {{/if}}
 {{/with}}

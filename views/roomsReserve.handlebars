@@ -21,7 +21,7 @@
           <input id="room-date" name="date" type="date" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-primary" onclick="isValidDate(event)">更新時段表</button>
+        <button type="submit" class="btn btn-primary update-btn">更新時段表</button>
       </div>
     </form>
 
@@ -65,7 +65,7 @@
       </div>
 
       <div class="form-details">
-        <i class="bi bi-x-square-fill" onclick="closeForm()"></i>
+        <i class="bi bi-x-square-fill"></i>
         <span id="room_name"></span>
         <input type="text" id="room_name_input" name="room_name" style="display: none;">
 
@@ -97,7 +97,7 @@
 
     {{#if roomName}}
       <center>
-        <button class="btn btn-outline-primary mb-2" onclick="displayForm()"><b>我要預約</b></button>
+        <button type="button" class="btn btn-outline-primary mb-2 reserve-btn"><b>我要預約</b></button>
       </center>
     {{/if}}
   </div>
@@ -115,11 +115,7 @@
 {{/extend}}
 
 {{#extend 'scripts'}}
-  <script>
-    const navLink = document.querySelectorAll('.nav-link')[1]
-    navLink.classList.add('active')
-  </script>
-
   <script src="/js/getErrorMessage.js"></script>
   <script src="/js/roomsReserve.js"></script>
+  <script src="/js/closeForm.js"></script>
 {{/extend}}

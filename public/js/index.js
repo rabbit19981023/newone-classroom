@@ -1,16 +1,10 @@
-const formDetails = document.querySelector('.form-details')
+/** Indicate where the user is in web-roadmap **/
+const navLink = document.querySelectorAll('.nav-link')[0]
+navLink.classList.add('active')
 
-function closeForm () {
-  formDetails.classList.remove('is-active')
-}
-
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    formDetails.classList.remove('is-active')
-  }
-})
-
+/** Functions **/
 async function displayForm (thisSpan) {
+  const formDetails = document.querySelector('.form-details')
   formDetails.classList.toggle('is-active')
 
   const urlParams = new URLSearchParams(window.location.search)
@@ -69,3 +63,14 @@ async function displayForm (thisSpan) {
     window.alert('資料庫連線異常，請檢查你的網路是否正常，或請稍後再試！')
   }
 }
+
+try {
+  const spans = document.querySelectorAll('.bi-check-square-fill')
+  for (let i = 0; i < spans.length; i++) {
+    const span = spans[i]
+
+    span.addEventListener('click', () => {
+      displayForm(span)
+    })
+  }
+} catch (error) {  }

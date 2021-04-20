@@ -20,7 +20,7 @@
 						{{/each}}
 					</select>
 
-					<button type="button" class="btn btn-outline-danger" onclick="doubleCheck()">刪除教室</button>
+					<button type="button" class="btn btn-outline-danger delete-btn">刪除教室</button>
 				</div>
 
 				<div class="double-check">
@@ -43,17 +43,5 @@
 
 {{#extend 'scripts'}}
 	<script src="/js/getErrorMessage.js"></script>
-
-	<script>
-		const navLink = document.querySelectorAll('.nav-link')[1]
-		navLink.classList.add('active')
-	</script>
-	
-	<script>
-		function doubleCheck () {
-			const div = document.querySelector('.double-check')
-			
-			div.classList.toggle('is-active')
-		}
-	</script>
+	<script src="/js/roomsList.js"></script>
 {{/extend}}

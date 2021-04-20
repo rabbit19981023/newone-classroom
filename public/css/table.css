@@ -47,8 +47,8 @@
 .checkbox input:checked::after {
   content: '';
   position: absolute;
-  top: 1px;
-  left: 6px;
+  top: 1.5px;
+  left: 5.5px;
   width: 7px;
   height: 12px;
   border: solid #FFFFFF;

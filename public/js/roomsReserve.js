@@ -1,5 +1,10 @@
-/** Global Namespace **/
+/** Indicate where the user is in web-roadmap **/
+const navLink = document.querySelectorAll('.nav-link')[1]
+navLink.classList.add('active')
+
+/** Global Variables **/
 const urlParams = new URLSearchParams(window.location.search)
+const formDetails = document.querySelector('.form-details')
 
 /** Check if the reserved day is valid **/
 function isValidDate (event) {
@@ -14,18 +19,8 @@ function isValidDate (event) {
   }
 }
 
-/** Display the Transparent Div Element for Posting Data **/
-const formDetails = document.querySelector('.form-details')
-
-function closeForm () {
-  formDetails.classList.remove('is-active')
-}
-
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    formDetails.classList.remove('is-active')
-  }
-})
+const updateBtn = document.querySelector('.update-btn')
+updateBtn.addEventListener('click', (event) => { isValidDate(event) })
 
 function displayForm () {
   formDetails.classList.toggle('is-active') // check if '.is-active' is already in classlist, add if true, else remove it
@@ -68,3 +63,6 @@ function appendValuesToInputs () {
   roomNameInput.value = urlParams.get('room_name')
   dateInput.value = urlParams.get('date')
 }
+
+const reserveBtn = document.querySelector('.reserve-btn')
+reserveBtn.addEventListener('click', displayForm)

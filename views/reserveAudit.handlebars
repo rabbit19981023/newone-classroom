@@ -48,11 +48,11 @@
               <td>{{ data.status }}</td>
               <td>
                 {{#unless data.result}}
-                  <span class="btn btn-outline-primary" onclick="displayForm('{{ data._id }}')">審核</span>
+                  <span id="{{ data._id }}" class="btn btn-outline-primary query">審核</span>
                 {{/unless}}
 
                 {{#if data.result}}
-                  <span class="btn btn-outline-primary" onclick="displayForm('{{ data._id }}')">查看</span>
+                  <span id="{{ data._id }}" class="btn btn-outline-primary query">查看</span>
                 {{/if}}
               </td>
             </tr>
@@ -63,7 +63,7 @@
   </div>
 
   <div class="form-details">
-    <i class="bi bi-x-square-fill" onclick="closeForm()"></i>
+    <i class="bi bi-x-square-fill"></i>
     <span class="room-name"></span>
     <span class="date"></span>
     <div class="times-wrapper-form">
@@ -112,11 +112,7 @@
 {{/extend}}
 
 {{#extend 'scripts'}}
-  <script>
-    const navLink = document.querySelectorAll('.nav-link')[0]
-    navLink.classList.add('active')
-  </script>
-
   <script src="/js/getErrorMessage.js"></script>
+  <script src="/js/closeForm.js"></script>
   <script src="/js/reserveAudit.js"></script>
 {{/extend}}

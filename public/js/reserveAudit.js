@@ -1,16 +1,9 @@
-const formDetails = document.querySelector('.form-details')
-
-function closeForm () {
-  formDetails.classList.remove('is-active')
-}
-
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    formDetails.classList.remove('is-active')
-  }
-})
+/** Indicate where the user is in web-roadmap **/
+const navLink = document.querySelectorAll('.nav-link')[0]
+navLink.classList.add('active')
 
 async function displayForm (reserveId) {
+  const formDetails = document.querySelector('.form-details')
   formDetails.classList.toggle('is-active')
 
   const postData = {
@@ -69,10 +62,17 @@ async function displayForm (reserveId) {
 
       const button = document.querySelector('.form-details button')
       button.textContent = '審核'
+      button.removeEventListener('click', closeForm)
       button.type = 'submit'
     }
   } catch (error) {
     window.alert(error)
     window.alert('資料庫連線異常，請檢查你的網路是否正常，或請稍後再試！')
   }
+}
+
+const queries = document.querySelectorAll('.query')
+for (let i = 0; i < queries.length; i++) {
+  const query = queries[i]
+  query.addEventListener('click', () => { displayForm(query.id) })
 }

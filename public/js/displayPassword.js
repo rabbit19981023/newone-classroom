@@ -7,3 +7,6 @@ function displayPassword () {
     password.type = 'password'
   }
 }
+
+const password = document.querySelector('#display-password')
+password.addEventListener('click', () => { displayPassword() })

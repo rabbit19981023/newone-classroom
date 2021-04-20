@@ -52,7 +52,7 @@
             </td>
             <td>{{ data.status }}</td>
             <td>
-              <span class="btn btn-outline-primary" onclick="displayForm('{{ data._id }}')">查看</span>
+              <span id="{{ data._id }}" class="btn btn-outline-primary query">查看</span>
             </td>
           </tr>
         {{/each}}
@@ -61,7 +61,7 @@
   </div>
 
   <div class="form-details">
-    <i class="bi bi-x-square-fill" onclick="closeForm()"></i>
+    <i class="bi bi-x-square-fill"></i>
     <span class="room-name"></span>
     <span class="date"></span>
     <div class="times-wrapper-form">
@@ -90,11 +90,6 @@
 {{/extend}}
 
 {{#extend 'scripts'}}
-  <script>
-    const navLink = document.querySelectorAll('.nav-link')[2]
-
-    navLink.classList.add('active')
-  </script>
-
   <script src="/js/auditStatus.js"></script>
+  <script src="/js/closeForm.js"></script>
 {{/extend}}
