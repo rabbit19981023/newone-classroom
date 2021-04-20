@@ -4,7 +4,6 @@ navLink.classList.add('active')
 
 /** Global Variables **/
 const urlParams = new URLSearchParams(window.location.search)
-const formDetails = document.querySelector('.form-details')
 
 /** Check if the reserved day is valid **/
 function isValidDate (event) {
@@ -23,6 +22,7 @@ const updateBtn = document.querySelector('.update-btn')
 updateBtn.addEventListener('click', (event) => { isValidDate(event) })
 
 function displayForm () {
+  const formDetails = document.querySelector('.form-details')
   formDetails.classList.toggle('is-active') // check if '.is-active' is already in classlist, add if true, else remove it
 
   const checkboxes = document.getElementsByName('room_time')
@@ -64,5 +64,18 @@ function appendValuesToInputs () {
   dateInput.value = urlParams.get('date')
 }
 
+const displayBtn = document.querySelector('.display-btn')
+displayBtn.addEventListener('click', displayForm)
+
+function doubleCheck () {
+  const times = document.querySelector('.times')
+  if (times.innerHTML === '') {
+    reserveBtn.type = 'button'
+    return window.alert('請選擇時段！')
+  }
+
+  reserveBtn.type = 'submit'
+}
+
 const reserveBtn = document.querySelector('.reserve-btn')
-reserveBtn.addEventListener('click', displayForm)
+reserveBtn.addEventListener('click', doubleCheck)
