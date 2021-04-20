@@ -9,6 +9,8 @@
           <option value="{{ room }}">{{ room }}</option>
         {{/each}}
       </select>
+
+      <button type="button" class="btn btn-success" onclick="selectAllCheckboxes()">全選</button>
     </div>
 
     <form action="/admin/rooms/time/{{ mode.string }}/{{ roomName }}" method="POST">
@@ -87,6 +89,7 @@
 
   {{#extend 'scripts'}}
     <script src="/js/getErrorMessage.js"></script>
+    <script src="/js/selectAllCheckboxes.js"></script>
   {{/extend}}
 
   {{#if mode.add}}

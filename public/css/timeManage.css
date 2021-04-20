@@ -9,6 +9,10 @@
   margin-bottom: 1%;
 }
 
-button {
-  margin: 3% 0%;
+.filter-wrapper button {
+  margin-left: 1.5%;
+}
+
+form button {
+  margin-bottom: 1%;
 }

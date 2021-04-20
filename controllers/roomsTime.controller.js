@@ -106,7 +106,7 @@ export default {
           times: roomTime.times
         })
       } catch (error) {
-        if (error === 'error') {
+        if (error === '500error') {
           return res.render('500error', { layout: 'error' })
         }
 
