@@ -4,7 +4,7 @@
 			<form action="/admin/rooms/list/add" method="POST">
 				<div class="form-input-wrapper">
 					<label for="room-name-text">教室：</label>
-					<input id="room-name-text" type="text" name="room_name" class="form-control">
+					<input id="room-name-text" type="text" name="room_name" class="form-control" required>
 
 					<button type="submit" class="btn btn-outline-primary">新增教室</button>
 				</div>
@@ -13,8 +13,8 @@
 			<form action="/admin/rooms/list/delete" method="POST">
 				<div class="form-input-wrapper">
 					<label for="room-name-select">教室：</label>
-					<select id="room-name-select" name="room_name" class="form-select">
-						<option value="null">請選擇教室</option>
+					<select id="room-name-select" name="room_name" class="form-select" required>
+						<option value="">請選擇教室</option>
 						{{#each rooms as | room | }}
 							<option value="{{ room.room_name }}">{{ room.room_name }}</option>
 						{{/each}}
