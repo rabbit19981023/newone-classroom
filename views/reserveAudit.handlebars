@@ -3,7 +3,7 @@
     <form action="/admin/rooms/audit" method="GET">
       <div class="filter-wrapper">
         <div>
-          <label for="status">審核狀態：</label>
+          <label for="status">狀態：</label>
           <select id="status" name="status" class="form-select">
             <option value="">請選擇狀態</option>
             <option value="審核中">審核中</option>
@@ -17,7 +17,7 @@
           <input type="date" id="date" name="date" class="form-control">
         </div>
 
-        <button type="submit" class="btn btn-primary">更新審核資料</button>
+        <button type="submit" class="btn btn-primary">更新資料</button>
       </div>
     </form>
 
@@ -88,7 +88,7 @@
           <center>
             <label for="result">審核結果：</label>
           </center>
-          <input type="text" id="result" name="result" minlength="2" maxlength="20" style="display: none;" required>
+          <input type="text" class="form-control" id="result" name="result" minlength="2" maxlength="20" style="display: none;" required>
         </div>
 
         <center>
@@ -105,8 +105,8 @@
 
 {{#extend 'css'}}
 <link rel="stylesheet" href="/css/table.css">
-<link rel="stylesheet" href="/css/reserveAudit.css">
 <link rel="stylesheet" href="/css/form-details.css">
+<link rel="stylesheet" href="/css/reserveAudit.css">
 <link rel="stylesheet" href="/css/form-control.css">
 {{/extend}}
 

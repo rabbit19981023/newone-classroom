@@ -55,6 +55,6 @@ async function displayForm (reserveId) {
     button.onclick = closeForm
 
   } catch (error) {
-    window.alert('資料庫連線有誤，請檢查你的網路是否正常，或請稍後再試！')
+    window.alert('資料庫連線異常，請檢查你的網路是否正常，或請稍後再試！')
   }
 }

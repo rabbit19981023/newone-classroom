@@ -48,9 +48,13 @@
               {{#each weeks as | status week | }}
               <td>
                 {{#if status}}
-                  <input type="checkbox" name="room_time" value="{{ time }}">
+                  <div class="checkbox">
+                    <input type="checkbox" name="room_time" value="{{ time }}">
+                  </div>
                 {{else}}
-                <input type="checkbox" disabled>
+                  <div class="checkbox">
+                    <input type="checkbox" disabled>
+                  </div>
                 {{/if}}
               </td>
               {{/each}}
@@ -68,36 +72,36 @@
         <input type="text" id="date_input" name="date" style="display: none;">
 
         <div class="times-wrapper-form">
-          <span>借用時段：</span>
+          <span>時段：</span>
           <div class="times"></div>
         </div>
 
         <input type="text" name="status" value="審核中" style="display: none;">
 
-        <span id="user">借用人：{{ user }}</span>
+        <span id="user">預約人：{{ user }}</span>
         <input type="text" name="user" value="{{ user }}" style="display: none;">
 
         <div class="purpose-wrapper">
-          <label for="purpose">借用原因：</label>
+          <label for="purpose">預約原因：</label>
           <input type="text" id="purpose" name="purpose" minlength="2" maxlength="20" size="13" required>
         </div>
 
         <center>
-          <button type="submit" class="btn btn-primary">確定借用</button>
+          <button type="submit" class="btn btn-primary">確定預約</button>
         </center>
       </div>
     </form>
 
     {{#if roomName}}
       <center>
-        <button class="btn btn-outline-primary mb-2" onclick="displayForm()"><b>我要借用</b></button>
+        <button class="btn btn-outline-primary mb-2" onclick="displayForm()"><b>我要預約</b></button>
       </center>
     {{/if}}
   </div>
 {{/with}}
 
 {{#extend 'title'}}
-<title>高雄NewOne靈糧堂 - 借用教室</title>
+<title>高雄NewOne靈糧堂 - 預約教室</title>
 {{/extend}}
 
 {{#extend 'css'}}

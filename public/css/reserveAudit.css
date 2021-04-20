@@ -27,3 +27,12 @@
 .times-wrapper span {
   margin: 5px 0;
 }
+
+.radios {
+  margin-top: 20px;
+  margin-bottom: -5px;
+}
+
+.result label {
+  margin-bottom: 5px;
+}

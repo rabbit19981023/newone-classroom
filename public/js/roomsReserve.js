@@ -53,10 +53,10 @@ function displayInfo () {
   const roomName = document.querySelector('#room_name')
   const date = document.querySelector('#date')
 
-  roomName.textContent = '借用教室：'
+  roomName.textContent = '教室：'
   roomName.textContent = roomName.textContent + urlParams.get('room_name')
 
-  date.textContent = '借用日期：'
+  date.textContent = '日期：'
   date.textContent = date.textContent + urlParams.get('date')
 }
 

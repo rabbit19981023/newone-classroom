@@ -50,7 +50,7 @@ function addMany (data) {
 
   return new Promise(async (resolve, reject) => {
     if (data.times.length === 0) {
-      return reject('請選擇教室時段！')
+      return reject('請選擇時段！')
     }
 
     let error
@@ -107,7 +107,7 @@ function deleteMany (data) {
   ******/
   return new Promise(async (resolve, reject) => {
     if (data.times.length === 0) {
-      return reject('請選擇教室時段！')
+      return reject('請選擇時段！')
     }
 
     let error
