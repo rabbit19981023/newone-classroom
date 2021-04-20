@@ -44,6 +44,11 @@ async function displayForm (reserveId) {
     const purpose = document.querySelector('.purpose')
     purpose.textContent = `借用原因：${reserve.purpose}`
 
+    if (reserve.result) {
+      const result = document.querySelector('.result')
+      result.textContent = `審核結果：${reserve.result}`
+    }
+
     const button = document.querySelector('.form-details button')
     button.onclick = closeForm
   } catch (error) {

@@ -1,7 +1,7 @@
 {{#with data}}
-  {{#unless isAuth}}
-    <script>location.href = "/login"</script>
-  {{/unless}}
+  <span id="is-auth" style="display: none;">{{ isAuth }}</span>
+  <script src="/js/toBoolean.js"></script>
+  <script src="/js/user.js"></script>
 
   <div class="wrapper">
     <form action="/rooms/reserve" method="GET">
