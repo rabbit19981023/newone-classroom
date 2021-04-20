@@ -26,6 +26,13 @@
   transform: translate(-50%, -50%) scale(1);
 }
 
+.form-details i {
+  position: absolute;
+  top: 3px;
+  right: 10px;
+  cursor: pointer;
+}
+
 .form-details > * {
   margin-bottom: 15px;
 }

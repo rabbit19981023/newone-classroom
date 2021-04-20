@@ -65,6 +65,7 @@
       </div>
 
       <div class="form-details">
+        <i class="bi bi-x-square-fill" onclick="closeForm()"></i>
         <span id="room_name"></span>
         <input type="text" id="room_name_input" name="room_name" style="display: none;">
 
@@ -82,8 +83,10 @@
         <input type="text" name="user" value="{{ user }}" style="display: none;">
 
         <div class="purpose-wrapper">
-          <label for="purpose">預約原因：</label>
-          <input type="text" id="purpose" name="purpose" minlength="2" maxlength="20" size="13" required>
+          <center>
+            <label for="purpose">預約原因：</label>
+          </center>
+          <input type="text" class="form-control" id="purpose" name="purpose" minlength="2" maxlength="20" required>
         </div>
 
         <center>

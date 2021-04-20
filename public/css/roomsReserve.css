@@ -18,3 +18,8 @@
   display: flex;
   align-items: center;
 }
+
+.purpose-wrapper label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
