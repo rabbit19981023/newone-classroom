@@ -5,7 +5,8 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "stress-test": "artillery quick --count 20 -n 20 http://localhost:3000/"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -25,6 +26,7 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
+    "artillery": "^1.7.2",
     "nodemon": "^2.0.7"
   }
 }

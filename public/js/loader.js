@@ -24,7 +24,7 @@ async function formSubmit (event) {
 
   const result = await response.text()
 
-  window.location.href = `?message=${result}`
+  window.location.href = '?message=' + result
 }
 
 document.addEventListener('submit', formSubmit)
