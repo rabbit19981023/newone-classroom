@@ -17,12 +17,14 @@ async function formSubmit (event) {
 
   loadingWrapper.classList.remove('loaded')
 
-  await fetch(form.action, {
+  const response = await fetch(form.action, {
     method: 'POST',
     body: new FormData(form)
   })
 
-  window.location.href = ''
+  const result = await response.text()
+
+  window.location.href = `?message=${result}`
 }
 
 document.addEventListener('submit', formSubmit)

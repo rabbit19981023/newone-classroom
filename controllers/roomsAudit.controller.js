@@ -121,7 +121,7 @@ export default {
         }
       }
 
-      return res.redirect('/admin/rooms/audit?message=審核成功！')
+      return res.send('審核成功！')
     } catch (error) {
       return res.render('500error', { layout: 'error' })
     }

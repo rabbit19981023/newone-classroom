@@ -23,7 +23,7 @@ export default {
     try {
       await RoomsReserveModel.add(data)
 
-      return res.redirect('./?message="借用成功！請等待管理員審核"')
+      return res.send('借用成功！請等待管理員審核！')
     } catch (error) {
       return res.render('500error', { layout: 'user', data: data })
     }

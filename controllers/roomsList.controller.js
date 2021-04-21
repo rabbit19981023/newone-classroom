@@ -33,10 +33,10 @@ export default {
       const existRoom = await RoomsListModel.add(filter)
 
       if (existRoom) {
-        return res.redirect(`/admin/rooms/list?message=${existRoom.room_name}教室已經被登錄過囉！`)
+        return res.send(`${existRoom.room_name}教室已經被登錄過囉！`)
       }
 
-      return res.redirect(`/admin/rooms/list?message=${roomName}教室已成功登錄！`)
+      return res.send(`${roomName}教室已成功登錄！`)
     } catch (error) {
       return res.render('500error', { layout: 'error' })
     }
@@ -51,7 +51,7 @@ export default {
       const room = await RoomsListModel.deleteOne(filter)
 
       if (room) {
-        return res.redirect(`/admin/rooms/list?message=${roomName}教室已成功刪除！`)
+        return res.send(`${roomName}教室已成功刪除！`)
       }
     } catch (error) {
       return res.render('500error', { layout: 'error' })

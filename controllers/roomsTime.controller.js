@@ -90,7 +90,7 @@ export default {
         message = error
       }
 
-      return res.redirect(`/admin/rooms/time/add?message=${message}`)
+      return res.send(message)
     })
   },
 
@@ -113,7 +113,7 @@ export default {
         message = error
       }
 
-      return res.redirect(`/admin/rooms/time/delete?message=${message}`)
+      return res.send(message)
     })
   }
 }
