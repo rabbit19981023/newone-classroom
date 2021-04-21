@@ -7,8 +7,13 @@ function loaded () {
 document.addEventListener('DOMContentLoaded', loaded)
 
 async function formSubmit (event) {
-  event.preventDefault()
   const form = event.target
+
+  if (form.method.toLowerCase() === 'get') {
+    return
+  }
+
+  event.preventDefault()
 
   loadingWrapper.classList.remove('loaded')
 
