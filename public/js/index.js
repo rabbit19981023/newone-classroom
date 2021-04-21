@@ -65,7 +65,7 @@ async function displayForm (thisSpan) {
     const purpose = document.querySelector('.purpose')
     purpose.textContent = `借用原因：${reserve.purpose}`
   } catch (error) {
-    window.alert('資料庫連線異常，請檢查你的網路是否正常，或請稍後再試！')
+    window.location.href = '?message=資料庫連線異常，請檢查你的網路是否正常，或請稍後再試！'
   }
 }
 

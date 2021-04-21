@@ -57,7 +57,7 @@ async function displayForm (reserveId) {
     const button = document.querySelector('.form-details button')
     button.onclick = closeForm
   } catch (error) {
-    window.alert('資料庫連線異常，請檢查你的網路是否正常，或請稍後再試！')
+    window.location.href = '?message=資料庫連線異常，請檢查你的網路是否正常，或請稍後再試！'
   }
 }
 
