@@ -22,7 +22,7 @@ async function formSubmit (event) {
     body: new FormData(form)
   })
 
-  loadingWrapper.classList.add('loaded')
+  window.location.href = ''
 }
 
 document.addEventListener('submit', formSubmit)
