@@ -4,13 +4,14 @@
 
 .filter-wrapper {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1%;
+  margin: -5px;
 }
 
-.filter-wrapper button {
-  margin-left: 1.5%;
+.filter-wrapper > * {
+  margin: 10px 5px;
 }
 
 form button {

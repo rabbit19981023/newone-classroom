@@ -1,5 +1,5 @@
 function closeForm () {
-  const formDetails = document.querySelector('.form-details')  
+  const formDetails = document.querySelector('.form-details')
   formDetails.classList.remove('is-active')
 }
 

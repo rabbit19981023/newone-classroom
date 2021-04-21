@@ -4,6 +4,7 @@ import expressHandlebars from 'express-handlebars'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import flash from 'connect-flash'
+import multer from 'multer'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import morgan from 'morgan'
@@ -38,6 +39,7 @@ db.connect()
 handlebarsHelpers.activate()
 
 const app = express() // create a express application instance
+const upload = multer()
 
 // Setting the views dir of MVC
 const __filename = fileURLToPath(import.meta.url)
@@ -52,6 +54,7 @@ app.use(morgan('dev')) // tracking all the user requests in terminal
 app.use(express.static('public'))
 app.use(express.json()) // fetch JSON Data from received POST Requests
 app.use(express.urlencoded({ extended: true })) // fetch Form Data from received POST Requests
+app.use(upload.none())
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,

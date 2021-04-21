@@ -73,4 +73,4 @@ try {
       displayForm(span)
     })
   }
-} catch (error) {  }
+} catch (error) { }
