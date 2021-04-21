@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node app.js",
-    "stress-test": "artillery quick --count 20 -n 20 http://localhost:3000/"
+    "stress-test": "artillery quick --count 20 -n 10 http://localhost:3000/"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
