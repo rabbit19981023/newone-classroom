@@ -114,6 +114,18 @@
   animation-delay: 0.7s;
 }
 
+.loader-text:nth-child(9) {
+  animation-delay: 0.8s;
+}
+
+.loader-text:nth-child(10) {
+  animation-delay: 0.9s;
+}
+
+.loader-text:nth-child(11) {
+  animation-delay: 1.0s;
+}
+
 @keyframes loaderText {
   0% {
     transform: translateY(0px);
