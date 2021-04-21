@@ -23,6 +23,8 @@ async function formSubmit (event) {
   })
 
   const result = await response.text()
+  
+  console.log(result)
 
   window.location.href = '?message=' + result
 }
