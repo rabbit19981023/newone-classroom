@@ -39,8 +39,13 @@ async function displayForm (thisSpan) {
   }
 
   try {
+    const loadingWrapper = document.querySelector('.loading-wrapper')
+    loadingWrapper.classList.remove('loaded')
+
     const response = await fetch(url, config)
     const reserve = await response.json()
+
+    loadingWrapper.classList.add('loaded')
 
     const roomName = document.querySelector('.room-name')
     roomName.textContent = `教室：${reserve.room_name}`
