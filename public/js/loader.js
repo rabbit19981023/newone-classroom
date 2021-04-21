@@ -22,7 +22,7 @@ async function formSubmit (event) {
     body: new FormData(form)
   })
 
-  const result = await response.text()
+  let result = await response.text()
 
   if (result[0] === '<') {
     result = '等待伺服器回應過長(30秒限制)，但資料已成功更新！'
