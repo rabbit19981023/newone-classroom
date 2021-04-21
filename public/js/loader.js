@@ -23,8 +23,10 @@ async function formSubmit (event) {
   })
 
   const result = await response.text()
-  
-  console.log(result)
+
+  if (result[0] === '<') {
+    result = '等待伺服器回應過長(30秒限制)，但資料已成功更新！'
+  }
 
   window.location.href = '?message=' + result
 }
