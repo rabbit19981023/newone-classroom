@@ -42,16 +42,14 @@ const app = express() // create a express application instance
 const upload = multer()
 
 // Setting the views dir of MVC
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-app.set('views', path.resolve(__dirname, 'views'))
+app.set('views', path.resolve('views'))
 
 app.engine('handlebars', expressHandlebars.create().engine)
 app.set('view engine', 'handlebars')
 
 /** Middlewares **/
 app.use(morgan('dev')) // tracking all the user requests in terminal
-app.use(express.static('public'))
+app.use(express.static(path.resolve('public')))
 app.use(express.json()) // fetch JSON Data from received POST Requests
 app.use(express.urlencoded({ extended: true })) // fetch Form Data from received POST Requests
 app.use(upload.none())

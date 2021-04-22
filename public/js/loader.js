@@ -3,7 +3,7 @@ function loaded () {
   loadingWrapper.classList.add('loaded')
 }
 
-document.addEventListener('DOMContentLoaded', loaded)
+window.addEventListener('DOMContentLoaded', loaded)
 
 async function formSubmit (event) {
   const form = event.target
