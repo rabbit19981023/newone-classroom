@@ -48,6 +48,8 @@ function addMany (data) {
 
   ******/
 
+  // 以下的演算法會一次最多更新112個資料，可以改善為一次最多更新7個資料
+
   return new Promise(async (resolve, reject) => {
     if (data.times.length === 0) {
       return reject(new Error('請選擇時段！'))
@@ -105,6 +107,9 @@ function deleteMany (data) {
     }
 
   ******/
+
+  // 以下的演算法會一次最多更新112個資料，可以改善為一次最多更新7個資料
+
   return new Promise(async (resolve, reject) => {
     if (data.times.length === 0) {
       return reject(new Error('請選擇時段！'))

@@ -1,6 +1,8 @@
 /** Indicate where the user is in web-roadmap **/
-const navLink = document.querySelectorAll('.nav-link')[1]
-navLink.classList.add('active')
+try {
+  const navLink = document.querySelectorAll('.nav-link')[1]
+  navLink.classList.add('active')
+} catch (error) {  }
 
 /** Global Variables **/
 const urlParams = new URLSearchParams(window.location.search)
@@ -18,8 +20,10 @@ function isValidDate (event) {
   }
 }
 
-const updateBtn = document.querySelector('.update-btn')
-updateBtn.addEventListener('click', (event) => { isValidDate(event) })
+try {
+  const updateBtn = document.querySelector('.update-btn')
+  updateBtn.addEventListener('click', (event) => { isValidDate(event) })
+} catch (error) {  }
 
 function displayForm () {
   const formDetails = document.querySelector('.form-details')
@@ -64,8 +68,10 @@ function appendValuesToInputs () {
   dateInput.value = urlParams.get('date')
 }
 
-const displayBtn = document.querySelector('.display-btn')
-displayBtn.addEventListener('click', displayForm)
+try {
+  const displayBtn = document.querySelector('.display-btn')
+  displayBtn.addEventListener('click', displayForm)
+} catch (error) {  }
 
 function doubleCheck () {
   const times = document.querySelector('.times')
@@ -77,5 +83,7 @@ function doubleCheck () {
   reserveBtn.type = 'submit'
 }
 
-const reserveBtn = document.querySelector('.reserve-btn')
-reserveBtn.addEventListener('click', doubleCheck)
+try {
+  const reserveBtn = document.querySelector('.reserve-btn')
+  reserveBtn.addEventListener('click', doubleCheck)
+} catch (error) {  }

@@ -1,4 +1,6 @@
-const isAuth = toBoolean(document.querySelector('#is-auth').textContent)
-if (!isAuth) {
-  window.location.href = '/login'
-}
+try {
+  const isAuth = toBoolean(document.querySelector('#is-auth').textContent)
+  if (!isAuth) {
+    window.location.href = '/login'
+  }
+} catch (error) {  }

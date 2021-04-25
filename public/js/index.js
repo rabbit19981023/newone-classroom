@@ -1,6 +1,8 @@
 /** Indicate where the user is in web-roadmap **/
-const navLink = document.querySelectorAll('.nav-link')[0]
-navLink.classList.add('active')
+try {
+  const navLink = document.querySelectorAll('.nav-link')[0]
+  navLink.classList.add('active')
+} catch (error) {  }
 
 /** Functions **/
 async function displayForm (thisSpan) {

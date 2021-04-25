@@ -8,5 +8,7 @@ function displayPassword () {
   }
 }
 
-const password = document.querySelector('#display-password')
-password.addEventListener('click', () => { displayPassword() })
+try {
+  const password = document.querySelector('#display-password')
+  password.addEventListener('click', () => { displayPassword() })
+} catch (error) {  }

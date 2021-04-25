@@ -1,6 +1,8 @@
 /** Indicate where the user is in web-roadmap **/
-const navLink = document.querySelectorAll('.nav-link')[0]
-navLink.classList.add('active')
+try {
+  const navLink = document.querySelectorAll('.nav-link')[0]
+  navLink.classList.add('active')
+} catch (error) {  }
 
 async function displayForm (reserveId) {
   const formDetails = document.querySelector('.form-details')
@@ -75,8 +77,10 @@ async function displayForm (reserveId) {
   }
 }
 
-const queries = document.querySelectorAll('.query')
-for (let i = 0; i < queries.length; i++) {
-  const query = queries[i]
-  query.addEventListener('click', () => { displayForm(query.id) })
-}
+try {
+  const queries = document.querySelectorAll('.query')
+  for (let i = 0; i < queries.length; i++) {
+    const query = queries[i]
+    query.addEventListener('click', () => { displayForm(query.id) })
+  }
+} catch (error) {  }
