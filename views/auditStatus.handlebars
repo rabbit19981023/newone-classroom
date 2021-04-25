@@ -1,8 +1,6 @@
 {{#with data}}
   <span id="is-auth" style="display: none;">{{ isAuth }}</span>
-  <script src="/js/toBoolean.js"></script>
-  <script src="/js/user.js"></script>
-
+  
   <div class="wrapper">
     <form action="/rooms/audit-status" method="GET">
       <div class="filter-wrapper">
@@ -83,14 +81,6 @@
 <title>高雄NewOne靈糧堂 - 審核狀況</title>
 {{/extend}}
 
-{{#extend 'css'}}
-<link rel="stylesheet" href="/css/table.css">
-<link rel="stylesheet" href="/css/auditStatus.css">
-<link rel="stylesheet" href="/css/form-details.css">
-<link rel="stylesheet" href="/css/form-control.css">
-{{/extend}}
-
 {{#extend 'scripts'}}
-  <script src="/js/auditStatus.js"></script>
-  <script src="/js/closeForm.js"></script>
+<script src="/dist/auditStatus.bundle.js"></script>
 {{/extend}}

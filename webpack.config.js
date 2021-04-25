@@ -1,11 +1,18 @@
 const path = require('path')
 
 module.exports = {
+  mode: 'production', // default
   // 設定多個Chunck
   // <chunck name>: 'single entry file' | [multiple entry files]
   entry: {
     main: './public/webpack.main.js',
-    index: './public/webpack.index.js'
+    index: './public/webpack.index.js',
+    roomsReserve: './public/webpack.roomsReserve.js',
+    auditStatus: './public/webpack.auditStatus.js',
+    reserveAudit: './public/webpack.reserveAudit.js',
+    roomsList: './public/webpack.roomsList.js',
+    timeManage: './public/webpack.timeManage.js',
+    loginForm: './public/webpack.loginForm.js'
   },
   output: {
     filename: '[name].bundle.js', // output files name depends on chuncks name

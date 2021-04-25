@@ -1,3 +1,5 @@
+import selectAllCheckboxes from './selectAllCheckboxes.js'
+
 try {
   const mode = document.querySelector('#mode')
   const modeStr = mode.textContent

@@ -1,4 +1,4 @@
-function selectAllCheckboxes () {
+export default function () {
   const allCheckboxes = document.querySelectorAll('input[type="checkbox"]')
   const checkboxes = []
 

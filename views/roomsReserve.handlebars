@@ -1,7 +1,5 @@
 {{#with data}}
   <span id="is-auth" style="display: none;">{{ isAuth }}</span>
-  <script src="/js/toBoolean.js"></script>
-  <script src="/js/user.js"></script>
 
   <div class="wrapper">
     <form action="/rooms/reserve" method="GET">
@@ -107,14 +105,6 @@
 <title>高雄NewOne靈糧堂 - 預約教室</title>
 {{/extend}}
 
-{{#extend 'css'}}
-<link rel="stylesheet" href="/css/table.css">
-<link rel="stylesheet" href="/css/roomsReserve.css">
-<link rel="stylesheet" href="/css/form-details.css">
-<link rel="stylesheet" href="/css/form-control.css">
-{{/extend}}
-
 {{#extend 'scripts'}}
-  <script src="/js/roomsReserve.js"></script>
-  <script src="/js/closeForm.js"></script>
+<script src="/dist/roomsReserve.bundle.js"></script>
 {{/extend}}

@@ -1,3 +1,5 @@
+import { closeForm } from './closeForm.js'
+
 /** Indicate where the user is in web-roadmap **/
 try {
   const navLink = document.querySelectorAll('.nav-link')[2]

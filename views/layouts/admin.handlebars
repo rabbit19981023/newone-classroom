@@ -7,21 +7,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="/bootstrap5.0/css/bootstrap.min.css">
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="/bootstrap-icons/font/bootstrap-icons.css">
 
+    <!-- Font Family: PT Serif -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="/css/loader.css">
-    <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/filter.css">
-    {{{ block 'css' }}}
   </head>
 
   <body>
-    <script src="/js/loader.js"></script>
+    <script src="/dist/main.bundle.js"></script>
     
     <div class="loading-wrapper">
       <div class="loader-wrapper">
@@ -44,8 +39,6 @@
     </div>
 
     <span id="is-auth" style="display: none;">{{ isAuth }}</span>
-    <script src="/js/toBoolean.js"></script>
-    <script src="/js/admin.js"></script>
 
     <nav class="navbar navbar-expand-md navbar-light bg-light">
       <div class="container-fluid">
@@ -85,11 +78,6 @@
   {{/with}}
 
   {{{ body }}}
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="/bootstrap5.0/js/bootstrap.min.js"></script>
-
-  <script src="/js/getErrorMessage.js"></script>
 
   {{{ block 'scripts' }}}
 

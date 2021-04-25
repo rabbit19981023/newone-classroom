@@ -1,4 +1,4 @@
-function closeForm () {
+export const closeForm = function () {
   const formDetails = document.querySelector('.form-details')
   formDetails.classList.remove('is-active')
 }

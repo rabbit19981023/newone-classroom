@@ -3,8 +3,10 @@
 import 'regenerator-runtime/runtime.js' // import this module to ensure ES6+ features supported like async/await
 
 import './bootstrap5.0/css/bootstrap.min.css'
+
 import './css/form-details.css'
 import './css/form-control.css'
+
 import './css/loader.css'
 import './css/navbar.css'
 import './css/filter.css'

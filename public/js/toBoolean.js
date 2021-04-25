@@ -1,4 +1,4 @@
-function toBoolean (str) {
+export default function (str) {
   switch (str.toLowerCase().trim()) {
     case 'true':
       return true

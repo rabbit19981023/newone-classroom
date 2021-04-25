@@ -1,3 +1,5 @@
+import toBoolean from './toBoolean.js'
+
 try {
   const isAuth = toBoolean(document.querySelector('#is-auth').textContent)
   if (!isAuth) {
