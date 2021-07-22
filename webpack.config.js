@@ -5,14 +5,14 @@ module.exports = {
   // 設定多個Chunck
   // <chunck name>: 'single entry file' | [multiple entry files]
   entry: {
-    main: './public/webpack.main.js',
-    index: './public/webpack.index.js',
-    roomsReserve: './public/webpack.roomsReserve.js',
-    auditStatus: './public/webpack.auditStatus.js',
-    reserveAudit: './public/webpack.reserveAudit.js',
-    roomsList: './public/webpack.roomsList.js',
-    timeManage: './public/webpack.timeManage.js',
-    loginForm: './public/webpack.loginForm.js'
+    main: './public/webpack-entrypoints/main.js',
+    index: './public/webpack-entrypoints/index.js',
+    roomsReserve: './public/webpack-entrypoints/roomsReserve.js',
+    auditStatus: './public/webpack-entrypoints/auditStatus.js',
+    reserveAudit: './public/webpack-entrypoints/reserveAudit.js',
+    roomsList: './public/webpack-entrypoints/roomsList.js',
+    timeManage: './public/webpack-entrypoints/timeManage.js',
+    loginForm: './public/webpack-entrypoints/loginForm.js'
   },
   output: {
     filename: '[name].bundle.js', // output files name depends on chuncks name

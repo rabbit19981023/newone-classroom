@@ -7,7 +7,7 @@
     "start": "node ./build/app.js",
     "start-dev": "nodemon ./build/app.js",
     "build": "./node_modules/.bin/babel src --out-dir build",
-    "webpack": "./node_modules/.bin/webpack --watch",
+    "webpack": "./node_modules/.bin/webpack",
     "stress-test": "artillery quick --count 20 -n 10 http://localhost:3000/"
   },
   "dependencies": {
