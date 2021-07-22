@@ -2,7 +2,7 @@
 ## Usage
 1. edit your ENV configs in `/.env_example`, and rename it to `/.env`.
   ```.env
-  // .env
+  // `/.env_example`
   MONGODB_URI=<your-mongodb-uri>
   SESSION_SECRET=<your-session-secret>
   ```
