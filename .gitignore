@@ -1,10 +1,17 @@
+# custom configs
+.vscode
+
+
+# dependencies
 node_modules
 
+# build-stage files
 public/dist
 build
 
+# error logs
 yarn-error.log
 
+# sensitive data
 .env
 
-.vscode
