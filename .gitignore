@@ -1,7 +1,6 @@
 # custom configs
 .vscode
 
-
 # dependencies
 node_modules
 
@@ -14,4 +13,3 @@ yarn-error.log
 
 # sensitive data
 .env
-
