@@ -1,5 +1,9 @@
 # 教室借用系統
 
+# Demo
+
+- [Demo](https://newone-classroom.herokuapp.com/)
+
 ## Technologies
 - Frontend
   - Language : Vanilla HTML/CSS/JavaScript
@@ -57,6 +61,3 @@ $ npm run build
 ```bash
 $ npm run start
 ```
-
-# Demo
-- [Demo](https://newone-classroom.herokuapp.com/)
