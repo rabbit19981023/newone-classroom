@@ -2,7 +2,35 @@
 
 # Demo
 
-- [Demo](https://newone-classroom.herokuapp.com/)
+[實際網站](https://newone-classroom.herokuapp.com/)
+
+- 登入/註冊:
+
+    <img src="./github/demo_images/login.jpg" width="800px">
+
+- 查看指定教室的借用狀況:
+
+    <img src="./github/demo_images/room_status.jpg" width="800px">
+
+- 預約教室:
+
+    <img src="./github/demo_images/reserve_room.jpg" width="800px">
+
+- 查看審核狀況:
+
+    <img src="./github/demo_images/reserved_status.jpg" width="800px">
+
+- 後台審核系統:
+
+    <img src="./github/demo_images/audit.jpg" width="800px">
+
+- 新增/刪除教室:
+
+    <img src="./github/demo_images/room_list.jpg" width="800px">
+
+- 開放/關閉可借用時段:
+
+    <img src="./github/demo_images/room_time.jpg" width="800px">
 
 ## Technologies
 
@@ -12,7 +40,7 @@
 
   - Plugins：Bootstrap
 
-  - compiler：Webpack, Babel
+  - compiler：Webpack
 
 - Backend
 
@@ -23,6 +51,8 @@
   - View Engine：Handlebars
 
   - Database：MongoDB Atlas(host on cloud)
+
+  - compiler : Babel
 
   - Auth Library：Passport.js
 
@@ -38,11 +68,11 @@
 
 5. 開放/關閉教室可借用時段 (管理員)
 
-6. 使用者預約教室 (使用者)
+6. 預約教室 (使用者)
 
-7. 使用者查看審核狀況 (使用者)
+7. 查看審核狀況 (使用者)
 
-8. 自動幫管理員審核已過期的教室預約 (系統自動處理)
+8. 自動審核已過期的教室預約 (系統自動處理)
 
 9. 資料過濾器 (功能：資料欄位的值可以指定或留空)
 
@@ -51,10 +81,10 @@
 1. setting your ENV configs in `.env_example`, and rename it to `.env`:
 
     ```.env
-    PORT = <port>
-    NODE_ENV = <development | production>
-    MONGODB_URI = <your-mongodb-uri>
-    SESSION_SECRET = <your-session-secret>
+    PORT=<port>
+    NODE_ENV=<development | production>
+    MONGODB_URI=<your-mongodb-uri>
+    SESSION_SECRET=<your-session-secret>
     ```
 
 2. install all version-locked dependencies to avoid version issues:
@@ -75,7 +105,13 @@
     $ npm run build
     ```
 
-5. start web server:
+5. install dependencies which are only needed in runtime:
+
+    ```bash
+    $ npm ci --production
+    ```
+
+6. start web server:
 
     ```bash
     $ npm run start
