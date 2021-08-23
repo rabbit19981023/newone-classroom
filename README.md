@@ -78,7 +78,7 @@
 
 ## Usage
 
-1. setting your ENV configs in `.env_example`, and rename it to `.env`:
+1. setting your environment variables in `.env` file:
 
     ```.env
     PORT=<port>
@@ -87,19 +87,19 @@
     SESSION_SECRET=<your-session-secret>
     ```
 
-2. install all version-locked dependencies to avoid version issues:
+2. install all dependenvies version-locked:
 
     ```bash
     $ npm ci
     ```
 
-3. bundle all js&css files target to browser via `webpack`:
+3. bundle all js&css files via `webpack`(target: browser):
 
     ```bash
     $ npm run webpack
     ```
 
-4. compile `es6` to `es5` target to server via `babel`:
+4. compile `es6` to `es5` via `babel`(target: server):
 
     ```bash
     $ npm run build
@@ -116,3 +116,5 @@
     ```bash
     $ npm run start
     ```
+
+7. just check the website in your browser: `http://localhost:<port>`
