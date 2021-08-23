@@ -78,7 +78,7 @@
 
 ## Usage
 
-1. setting your environment variables in `.env` file:
+1. setting environment variables in `.env` file:
 
     ```.env
     PORT=<port>
@@ -105,7 +105,7 @@
     $ npm run build
     ```
 
-5. install dependencies which are only needed in runtime:
+5. install all dependencies version-locked which are only needed in runtime:
 
     ```bash
     $ npm ci --production
