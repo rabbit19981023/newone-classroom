@@ -2,8 +2,6 @@
 
 # Demo
 
-[實際網站](https://newone-classroom.herokuapp.com/)
-
 - 登入/註冊:
 
     <img src="./github/demo_images/login.jpg" width="800px">
